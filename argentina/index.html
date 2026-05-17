@@ -591,11 +591,10 @@
     gap: 10px;
   }
 
-  /* Reset button (fixed, visible from every screen) */
-  .reset-fab {
+  /* Floating buttons (reset right, back left) */
+  .fab {
     position: fixed;
     top: max(14px, env(safe-area-inset-top));
-    right: 14px;
     z-index: 50;
     background: rgba(0,0,0,.45);
     color: white;
@@ -611,15 +610,39 @@
     cursor: pointer;
     transition: background .15s, transform .08s;
   }
-  .reset-fab:hover { background: rgba(0,0,0,.7); }
-  .reset-fab:active { transform: scale(.95); }
+  .reset-fab { right: 14px; }
+  .back-fab  { left: 14px; display: none; }
+  .back-fab.show { display: inline-block; }
+  .fab:hover { background: rgba(0,0,0,.7); }
+  .fab:active { transform: scale(.95); }
   /* Hide reset on welcome since there's nothing to reset */
   body.on-welcome .reset-fab { display: none; }
   /* On screens with a light background, give the fab darker contrast */
-  body.on-light .reset-fab {
+  body.on-light .fab {
     background: rgba(31,41,55,.85);
     color: white;
     border-color: rgba(255,255,255,.15);
+  }
+
+  /* "Learn more" link in card body */
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    color: var(--sky);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: .01em;
+    margin: -4px 0 12px;
+    padding: 4px 0;
+    width: fit-content;
+  }
+  .card-link:hover { text-decoration: underline; }
+  .card-link::after {
+    content: "↗";
+    font-size: 14px;
+    font-weight: 600;
   }
 
   /* Toast */
@@ -700,6 +723,7 @@
     </div>
     <div class="card-body">
       <p class="card-why" id="card-why">—</p>
+      <a class="card-link" id="card-link" target="_blank" rel="noopener noreferrer">Learn more</a>
       <div class="rate">
         <button data-v="no" onclick="rate('no')"><span class="swatch"></span>No thanks</button>
         <button data-v="maybe" onclick="rate('maybe')"><span class="swatch"></span>Maybe</button>
@@ -779,7 +803,8 @@
     </div>
   </section>
 
-  <button class="reset-fab" id="reset-fab" onclick="reset()">Reset</button>
+  <button class="fab back-fab" id="back-fab" onclick="back()">← Back</button>
+  <button class="fab reset-fab" id="reset-fab" onclick="reset()">Reset</button>
   <div class="toast" id="toast">Copied to clipboard</div>
 </div>
 
@@ -794,140 +819,160 @@ const PICKS = [
     title: 'Iguazú Falls',
     subtitle: 'Argentine side · 1h45 flight from BA',
     why: "One of the world's great natural spectacles. Winter (Jul/Aug) is great timing: cool air, good water flow, fewer crowds, lower lodging prices. Bring a light layer for the spray.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg/960px-Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg/960px-Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg',
+    url: 'https://iguazuargentina.com'
   },
   {
     id: 'p02', lean: 'kit',
     title: 'Teatro Colón',
     subtitle: "One of the world's top opera houses · Microcentro",
     why: "A 50-minute guided tour of the main hall, Foyer, Gallery of Busts, and Golden Hall — architecture and history without sitting through a 3-hour opera. English tours hourly.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Colon-interior-escenario-TM.jpg/960px-Colon-interior-escenario-TM.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Colon-interior-escenario-TM.jpg/960px-Colon-interior-escenario-TM.jpg',
+    url: 'https://teatrocolon.org.ar/'
   },
   {
     id: 'p03', lean: 'mom',
     title: 'Jardín Botánico Carlos Thays',
     subtitle: '17-acre 1890s botanical garden · Palermo',
     why: "Designed in the 1890s by French-Argentine architect Carlos Thays. 5,000+ plant species, French/English/Asian sections, a Crystal Palace–style greenhouse, butterfly house. Free.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg/960px-2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg/960px-2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg',
+    url: 'https://en.wikipedia.org/wiki/Buenos_Aires_Botanical_Garden'
   },
   {
     id: 'p04', lean: 'kit',
     title: 'El Ateneo Grand Splendid',
     subtitle: "The world's most beautiful bookstore · Recoleta",
     why: "A 1919 theater turned bookstore — frescoed dome, theater boxes filled with books, café where the stage used to be. The new Grand Splendid Experience tour walks you through its history.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg/960px-El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg/960px-El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg',
+    url: 'https://turismo.buenosaires.gob.ar/en/otros-establecimientos/el-ateneo-grand-splendid-bookstore'
   },
   {
     id: 'p05', lean: 'mom',
     title: 'Recoleta Cemetery',
     subtitle: 'City of the dead · Recoleta',
     why: "Elaborate mausoleums — Art Nouveau, neo-Gothic, Art Deco. Eva Perón's grave. Quiet alleys feel almost private. Pairs naturally with the National Fine Arts Museum across the street.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/La_Recoleta_Cemetery_%288081434317%29.jpg/960px-La_Recoleta_Cemetery_%288081434317%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/La_Recoleta_Cemetery_%288081434317%29.jpg/960px-La_Recoleta_Cemetery_%288081434317%29.jpg',
+    url: 'https://turismo.buenosaires.gob.ar/en/atractivo/recoleta-cemetery'
   },
   {
     id: 'p06', lean: 'kit',
     title: 'MALBA',
     subtitle: 'Latin American art museum · Palermo',
     why: "The single best museum in Argentina if you only do one. Frida Kahlo's Diego y yo, Leonora Carrington, and a major LATINOAMERICANO show with Qatar Museums in 2026. In-house cinema.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Buenos_Aires_-_Palermo_-_Malba.jpg/960px-Buenos_Aires_-_Palermo_-_Malba.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Buenos_Aires_-_Palermo_-_Malba.jpg/960px-Buenos_Aires_-_Palermo_-_Malba.jpg',
+    url: 'https://malba.org.ar/en/'
   },
   {
     id: 'p07', lean: 'kit',
     title: 'Casa Brandon',
     subtitle: 'Queer cultural center · Villa Crespo',
     why: "A queer cultural center named for Brandon Teena — books, art, drag, film screenings, small bar. Cultural programming, not nightlife. Pick a night that matches your energy.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg/960px-XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg/960px-XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg',
+    url: 'https://brandon.org.ar/home-us/'
   },
   {
     id: 'p08', lean: 'mom',
     title: 'Palacio Barolo',
     subtitle: "Dante's Divine Comedy as a building · Av. de Mayo",
     why: "1923 building structured around Dante's Divine Comedy: Hell (ground floor), Purgatory (1–14), Heaven (15–22). Vintage 1920s elevator, working lighthouse at the top, panoramic city views.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Palacio_Barolo_%287565441484%29.jpg/960px-Palacio_Barolo_%287565441484%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a1/Palacio_Barolo_%287565441484%29.jpg/960px-Palacio_Barolo_%287565441484%29.jpg',
+    url: 'https://turismo.buenosaires.gob.ar/en/otros-establecimientos/palacio-barolo'
   },
   {
     id: 'p09', lean: 'kit',
     title: 'Escape Buenos Aires',
     subtitle: 'Bilingual escape room · Caballito',
     why: "A private escape room with clues in both English and Spanish — Necronomicon, La Embajada de Krokovia. Just your party, no random strangers in the group.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg/960px-Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg/960px-Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg',
+    url: 'https://escapebsas.com/english/'
   },
   {
     id: 'p10', lean: 'mom',
     title: 'Jardín Japonés',
     subtitle: 'One of the largest outside Japan · Palermo',
     why: "Koi ponds, the famous arched red Divine Bridge, bonsai exhibitions, a cultural center, and a tea house. Photogenic and contemplative — designed for slow walking.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jardin_Japones_%2816349122222%29.jpg/960px-Jardin_Japones_%2816349122222%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Jardin_Japones_%2816349122222%29.jpg/960px-Jardin_Japones_%2816349122222%29.jpg',
+    url: 'https://jardinjapones.org.ar/en/home/'
   },
   {
     id: 'p11', lean: 'kit',
     title: 'Fundación PROA · Penumbra',
     subtitle: 'Dia Art Foundation show · La Boca',
     why: "Closes August 2, 2026 — late-July dates catch it; first-week-of-August may miss it. First-ever Argentina show of Turrell, Gonzalez-Torres, Agnes Martin, Warhol, Robert Irwin. Worth weighting dates earlier if these names mean anything to you.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Fachada_del_edificio_de_Fundaci%C3%B3n_Proa%2C_La_Boca.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Fachada_del_edificio_de_Fundaci%C3%B3n_Proa%2C_La_Boca.jpg',
+    url: 'http://proa.org/eng/current-exhibitions.php'
   },
   {
     id: 'p12', lean: 'mom',
     title: 'Tigre Delta',
     subtitle: 'River-island day trip · 50min from BA',
     why: "A maze of river islands and stilted wooden houses where the Paraná meets the Río de la Plata. Take the scenic Tren de la Costa up, do a slow 1-2hr boat through the delta. The opposite of a city day.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Tigre_at_sunset_%2813435842223%29.jpg/960px-Tigre_at_sunset_%2813435842223%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Tigre_at_sunset_%2813435842223%29.jpg/960px-Tigre_at_sunset_%2813435842223%29.jpg',
+    url: 'https://en.wikipedia.org/wiki/Paran%C3%A1_Delta'
   },
   {
     id: 'p13', lean: 'kit',
     title: 'Timbre 4',
     subtitle: 'Independent fringe theater · Boedo',
     why: "Acclaimed director Claudio Tolcachir's company — intimate experimental productions in a converted house. Some shows have English subtitles. Café-bar attached. Real Buenos Aires fringe, not a tourist tango show.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/The_Tank_-_56_Seat_Theater.jpg/960px-The_Tank_-_56_Seat_Theater.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/The_Tank_-_56_Seat_Theater.jpg/960px-The_Tank_-_56_Seat_Theater.jpg',
+    url: 'https://www.timbre4.com'
   },
   {
     id: 'p14', lean: 'mom',
     title: 'San Antonio de Areco',
     subtitle: 'Gaucho estancia day · 2h from BA',
     why: "Argentina's most preserved gaucho town. Silversmith, Güiraldes Gaucho Museum, then asado at an estancia with horseback option and folkloric show. The longest day on the trip — pick yes only if you're up for it.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg/960px-San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg/960px-San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg',
+    url: 'https://caminopampa.com/'
   },
   {
     id: 'p15', lean: 'kit',
     title: 'La Viruta Tango',
     subtitle: 'Beginner lesson + milonga · Palermo',
     why: "A Buenos Aires institution under the Armenian Cultural Center. Beginner tango lessons Wed/Fri/Sun at 8:30pm, real dancing after. Watch if dancing feels like too much. Bilingual teachers, all ages welcome.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Buenos_Aires_-_Classic_tango_dance_ballroom_-_6334.jpg/960px-Buenos_Aires_-_Classic_tango_dance_ballroom_-_6334.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Buenos_Aires_-_Classic_tango_dance_ballroom_-_6334.jpg/960px-Buenos_Aires_-_Classic_tango_dance_ballroom_-_6334.jpg',
+    url: 'https://lavirutatangoar.com/en/'
   },
   {
     id: 'p16', lean: 'mom',
     title: 'Reserva Ecológica Costanera Sur',
     subtitle: 'Urban wildlife reserve · Puerto Madero',
     why: "865 acres along the Río de la Plata just east of downtown. 300+ bird species, three lagoons, flat dirt trails. Free, weekday mornings nearly empty. Choripán carts right outside.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Edificios_de_Puerto_Madero_desde_la_reserva_ecol%C3%B3gica.jpg/960px-Edificios_de_Puerto_Madero_desde_la_reserva_ecol%C3%B3gica.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Edificios_de_Puerto_Madero_desde_la_reserva_ecol%C3%B3gica.jpg/960px-Edificios_de_Puerto_Madero_desde_la_reserva_ecol%C3%B3gica.jpg',
+    url: 'https://www.reservacostanera.com.ar/en'
   },
   {
     id: 'p17', lean: 'kit',
     title: 'Act Attack improv',
     subtitle: 'Drop-in classes in English · Palermo',
     why: "A theater school running drop-in improv and acting classes in English. No experience or audition needed. Made for international travelers — instant peer group, no Spanish required.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Stand-up_comedy_-_Stage.jpg/960px-Stand-up_comedy_-_Stage.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/c/ce/Stand-up_comedy_-_Stage.jpg/960px-Stand-up_comedy_-_Stage.jpg',
+    url: 'https://buenosaires.actattacktheater.com/'
   },
   {
     id: 'p18', lean: 'mom',
     title: 'Museo Nacional de Bellas Artes',
     subtitle: "Argentina's national fine arts museum · Recoleta",
     why: "Free entry. Encyclopedic collection: El Greco, Goya, Rodin, Monet, Renoir, Van Gogh, Cézanne, plus the Argentine masters. Sweeping, free, walkable to Recoleta Cemetery and El Ateneo.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Museo_Nacional_de_Bellas_Artes_%2812407%29.jpg/960px-Museo_Nacional_de_Bellas_Artes_%2812407%29.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Museo_Nacional_de_Bellas_Artes_%2812407%29.jpg/960px-Museo_Nacional_de_Bellas_Artes_%2812407%29.jpg',
+    url: 'https://www.bellasartes.gob.ar/en/'
   },
   {
     id: 'p19', lean: 'kit',
     title: 'Mundo Lingo language exchange',
     subtitle: 'Free weekly meetups · Palermo / Chacarita',
     why: "Free language-exchange meetups several nights a week. Wear country flags indicating your fluency levels, mingle with locals and travelers. Low-stakes Spanish practice, instant peer group.",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Buenos_Aires_-_Classic_bar_-_6197.jpg/960px-Buenos_Aires_-_Classic_bar_-_6197.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8d/Buenos_Aires_-_Classic_bar_-_6197.jpg/960px-Buenos_Aires_-_Classic_bar_-_6197.jpg',
+    url: 'https://www.meetup.com/mundo-lingo-buenos-aires/'
   },
   {
     id: 'p20', lean: 'mom',
     title: 'Colonia del Sacramento, Uruguay',
     subtitle: 'UNESCO colonial town · 1h fast ferry from BA',
     why: "Founded 1680. Cobblestone streets, colonial Portuguese architecture, lighthouse, the famous Street of Sighs. Walkable in a day. Passport required (6+ months validity).",
-    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Faro_de_Colonia_del_Sacramento_Desde_Lejos.jpg/960px-Faro_de_Colonia_del_Sacramento_Desde_Lejos.jpg'
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Faro_de_Colonia_del_Sacramento_Desde_Lejos.jpg/960px-Faro_de_Colonia_del_Sacramento_Desde_Lejos.jpg',
+    url: 'https://en.wikipedia.org/wiki/Colonia_del_Sacramento'
   },
 ];
 
@@ -1040,6 +1085,8 @@ function show(id) {
   document.body.classList.toggle('on-welcome', id === 'screen-welcome');
   // Card screens have a dark photo; everything else has a light background
   document.body.classList.toggle('on-light', id !== 'screen-card' && id !== 'screen-welcome');
+  // Back button is only meaningful while rating — hide everywhere else
+  if (id !== 'screen-card') document.getElementById('back-fab').classList.remove('show');
 
   if (id === 'screen-card') renderCard();
   if (id === 'screen-itinerary') renderItinerary();
@@ -1093,10 +1140,44 @@ function renderCard() {
   document.getElementById('card-subtitle').textContent = p.subtitle;
   document.getElementById('card-why').textContent = p.why;
 
-  document.querySelectorAll('.rate button').forEach(b => b.classList.remove('flash'));
+  const link = document.getElementById('card-link');
+  if (p.url) {
+    link.href = p.url;
+    link.style.display = 'inline-flex';
+  } else {
+    link.style.display = 'none';
+  }
+
+  // Back button visible only after the first card
+  document.getElementById('back-fab').classList.toggle('show', state.idx > 0);
+
+  // Restore previous rating highlight if user went back
+  document.querySelectorAll('.rate button').forEach(b => {
+    b.style.background = '';
+    b.style.color = '';
+    b.style.borderColor = '';
+  });
+  const existing = state.ratings[p.id];
+  if (existing) {
+    const btn = document.querySelector(`.rate button[data-v="${existing}"]`);
+    if (btn) {
+      const colorVar = { no:'--c-no', maybe:'--c-maybe', yes:'--c-yes', love:'--c-love' }[existing];
+      const c = getComputedStyle(document.documentElement).getPropertyValue(colorVar).trim();
+      btn.style.background = c;
+      btn.style.color = 'white';
+      btn.style.borderColor = c;
+    }
+  }
 
   // Preload the next 3 images so taps feel instant
   preloadImages(state.idx + 1, 3);
+}
+
+function back() {
+  if (state.idx === 0) return;
+  state.idx -= 1;
+  saveState();
+  renderCard();
 }
 
 function rate(v) {
