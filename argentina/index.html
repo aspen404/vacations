@@ -1,0 +1,1197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1F2937">
+<title>Argentina · May 2026</title>
+<style>
+  :root {
+    --bg: #FAF7F2;
+    --ink: #1F2937;
+    --ink-soft: #4B5563;
+    --ink-faint: #9CA3AF;
+    --line: #E5E0D6;
+    --card-bg: #FFFFFF;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(31,41,55,.08);
+    --shadow-lg: 0 1px 2px rgba(0,0,0,.04), 0 24px 48px rgba(31,41,55,.12);
+    --r-card: 22px;
+    --r-button: 14px;
+
+    --c-no: #9CA3AF;
+    --c-maybe: #E6B84A;
+    --c-yes: #6EAE5A;
+    --c-love: #2E8B57;
+
+    --sky: #6CACE4;
+    --sun: #F4D35E;
+    --rose: #D86E5C;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0F1115;
+      --ink: #F3F4F6;
+      --ink-soft: #C9CDD3;
+      --ink-faint: #8A8F98;
+      --line: #2A2D33;
+      --card-bg: #1A1D23;
+      --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.4);
+      --shadow-lg: 0 1px 2px rgba(0,0,0,.4), 0 24px 48px rgba(0,0,0,.5);
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    min-height: 100dvh;
+    line-height: 1.45;
+  }
+  img { display: block; max-width: 100%; }
+  button { font-family: inherit; }
+
+  /* Generic screen container */
+  .app { width: 100%; min-height: 100dvh; }
+  .screen { display: none; min-height: 100dvh; }
+  .screen.active { display: flex; flex-direction: column; }
+
+  /* ─────────────────────────────────────────  WELCOME  ──────────────────────── */
+  .welcome {
+    text-align: center;
+    padding: 32px 24px 24px;
+    justify-content: center;
+    align-items: center;
+  }
+  .welcome .hero-strip {
+    width: 100%;
+    max-width: 520px;
+    aspect-ratio: 16 / 10;
+    border-radius: var(--r-card);
+    background:
+      radial-gradient(120% 80% at 30% 20%, rgba(255,255,255,.25) 0%, rgba(255,255,255,0) 60%),
+      radial-gradient(80% 60% at 80% 90%, rgba(0,0,0,.18) 0%, rgba(0,0,0,0) 60%),
+      linear-gradient(135deg, var(--sky) 0%, #A7D0F0 50%, var(--sun) 100%);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: clamp(48px, 11vw, 88px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    box-shadow: var(--shadow-lg);
+  }
+  .welcome h1 {
+    margin: 0 0 12px;
+    font-size: clamp(26px, 6vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .welcome p {
+    margin: 0 auto 24px;
+    max-width: 520px;
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+  .name-choice {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    width: 100%;
+    max-width: 420px;
+  }
+  .name-choice button {
+    background: var(--card-bg);
+    border: 2px solid var(--line);
+    border-radius: var(--r-button);
+    padding: 22px 12px;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: border-color .2s, background .2s, transform .08s;
+    box-shadow: var(--shadow);
+  }
+  .name-choice button:hover { border-color: var(--sky); background: rgba(108,172,228,.08); }
+  .name-choice button:active { transform: scale(.97); }
+  .name-choice button .label {
+    display: block;
+    font-size: 11px;
+    color: var(--ink-faint);
+    font-weight: 600;
+    margin-top: 6px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  /* ─────────────────────────────────────────  CARD (turbotax-style full screen)  ─────────────── */
+  .card-screen { position: relative; }
+
+  .progress {
+    position: absolute;
+    top: env(safe-area-inset-top, 0);
+    left: 0; right: 0;
+    height: 32px;
+    display: flex;
+    gap: 4px;
+    padding: 14px 14px 0;
+    z-index: 10;
+  }
+  .progress .dot {
+    flex: 1;
+    height: 4px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.35);
+    backdrop-filter: blur(4px);
+    transition: background .25s ease;
+  }
+  .progress .dot.done { background: rgba(255,255,255,.95); }
+  .progress .dot.current { background: white; }
+
+  .photo-wrap {
+    position: relative;
+    width: 100%;
+    height: 55dvh;
+    background: #2A2D33;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .photo-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-wrap::after {
+    content: "";
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 28%, rgba(0,0,0,0) 55%, rgba(0,0,0,.75) 100%);
+  }
+  .photo-overlay {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    padding: 20px 22px 18px;
+    color: white;
+    z-index: 2;
+  }
+  .photo-overlay .tag {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    background: rgba(255,255,255,.22);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,.32);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .photo-overlay .ptitle {
+    font-size: clamp(24px, 6vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.015em;
+    margin: 0 0 4px;
+    line-height: 1.1;
+    text-shadow: 0 2px 12px rgba(0,0,0,.45);
+  }
+  .photo-overlay .psub {
+    font-size: 14px;
+    font-weight: 500;
+    opacity: .92;
+    text-shadow: 0 1px 8px rgba(0,0,0,.5);
+  }
+
+  .card-body {
+    padding: 20px 22px 12px;
+    background: var(--bg);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .card-why {
+    font-size: 16px;
+    color: var(--ink-soft);
+    line-height: 1.5;
+    margin: 0 0 18px;
+  }
+
+  .rate {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    padding-bottom: max(12px, env(safe-area-inset-bottom));
+  }
+  .rate button {
+    appearance: none;
+    border: 1.5px solid var(--line);
+    background: var(--card-bg);
+    color: var(--ink);
+    padding: 14px 10px;
+    border-radius: var(--r-button);
+    font-size: 14.5px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .08s ease, border-color .15s, background .15s, color .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 56px;
+    line-height: 1.2;
+    text-align: center;
+    letter-spacing: -.005em;
+  }
+  .rate button:hover { border-color: var(--ink-faint); }
+  .rate button:active { transform: scale(.97); }
+  .rate button[data-v="no"]:hover    { background: var(--c-no);    color: white; border-color: var(--c-no); }
+  .rate button[data-v="maybe"]:hover { background: var(--c-maybe); color: white; border-color: var(--c-maybe); }
+  .rate button[data-v="yes"]:hover   { background: var(--c-yes);   color: white; border-color: var(--c-yes); }
+  .rate button[data-v="love"]:hover  { background: var(--c-love);  color: white; border-color: var(--c-love); }
+  .rate button .swatch {
+    width: 10px; height: 10px; border-radius: 50%;
+  }
+  .rate button[data-v="no"] .swatch    { background: var(--c-no); }
+  .rate button[data-v="maybe"] .swatch { background: var(--c-maybe); }
+  .rate button[data-v="yes"] .swatch   { background: var(--c-yes); }
+  .rate button[data-v="love"] .swatch  { background: var(--c-love); }
+
+  /* Tap-flash animation */
+  .rate button.flash {
+    background: var(--c-yes); color: white; border-color: var(--c-yes);
+  }
+
+  /* ─────────────────────────────────────────  TRANSITION  ──────────────────── */
+  .transition {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(180deg, var(--bg) 0%, rgba(108,172,228,.08) 100%);
+  }
+  .transition .big {
+    font-size: clamp(28px, 7vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin: 0 0 12px;
+  }
+  .transition p {
+    color: var(--ink-soft);
+    max-width: 480px;
+    margin: 0 auto 24px;
+    font-size: 16px;
+  }
+
+  /* ─────────────────────────────────────────  ITINERARY  ────────────────────── */
+  .itinerary {
+    padding: 28px 18px max(40px, env(safe-area-inset-bottom));
+  }
+  .scrn-head {
+    max-width: 640px;
+    margin: 0 auto 18px;
+    padding: 0 4px;
+  }
+  .scrn-head h2 {
+    margin: 0 0 6px;
+    font-size: clamp(24px, 6vw, 30px);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  .scrn-head p {
+    margin: 0;
+    color: var(--ink-soft);
+    font-size: 15px;
+  }
+
+  .days {
+    max-width: 640px;
+    margin: 0 auto 22px;
+    display: grid;
+    gap: 10px;
+  }
+  .day {
+    background: var(--card-bg);
+    border-radius: 16px;
+    padding: 16px 18px;
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow);
+  }
+  .day .dh {
+    display: flex; align-items: baseline; justify-content: space-between;
+    margin-bottom: 6px;
+    gap: 12px;
+  }
+  .day .dn {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+  }
+  .day .dn .city {
+    color: var(--sky);
+    margin-left: 6px;
+  }
+  .day .dt {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: -.01em;
+  }
+  .day .da {
+    font-size: 14.5px;
+    color: var(--ink-soft);
+    margin: 4px 0 0;
+    line-height: 1.5;
+  }
+  .day.flight {
+    background: linear-gradient(180deg, rgba(108,172,228,.08) 0%, var(--card-bg) 100%);
+    border-color: rgba(108,172,228,.35);
+  }
+  .day.dinner-note {
+    background: rgba(228,161,76,.07);
+    border-color: rgba(228,161,76,.3);
+  }
+
+  /* Length picker */
+  .length-card {
+    max-width: 640px;
+    margin: 0 auto 22px;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+  .length-card .lbl {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    color: var(--ink-faint);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .stepper {
+    display: inline-flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .stepper button {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    border: 1.5px solid var(--line);
+    background: var(--card-bg);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    cursor: pointer;
+    transition: transform .08s, border-color .15s;
+  }
+  .stepper button:hover { border-color: var(--ink); }
+  .stepper button:active { transform: scale(.92); }
+  .stepper .val {
+    font-size: 32px;
+    font-weight: 800;
+    letter-spacing: -.02em;
+    min-width: 64px;
+  }
+  .stepper .val span {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-faint);
+    margin-left: 4px;
+  }
+
+  /* Footer action */
+  .step-actions {
+    max-width: 640px;
+    margin: 14px auto 0;
+    padding: 0 4px;
+  }
+  .btn-primary {
+    appearance: none;
+    width: 100%;
+    background: var(--ink);
+    color: var(--bg);
+    border: 0;
+    padding: 18px 20px;
+    border-radius: var(--r-button);
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: transform .08s, opacity .15s;
+    box-shadow: var(--shadow);
+  }
+  .btn-primary:hover { opacity: .92; }
+  .btn-primary:active { transform: scale(.985); }
+  .btn-primary:disabled { opacity: .35; cursor: not-allowed; }
+
+  .btn-ghost {
+    appearance: none;
+    width: 100%;
+    background: transparent;
+    color: var(--ink-soft);
+    border: 1.5px solid var(--line);
+    padding: 14px 16px;
+    border-radius: var(--r-button);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 8px;
+    transition: border-color .15s;
+  }
+  .btn-ghost:hover { border-color: var(--ink-faint); }
+
+  /* ─────────────────────────────────────────  LODGING  ─────────────────────── */
+  .lodging {
+    padding: 28px 18px max(40px, env(safe-area-inset-bottom));
+  }
+  .lodging-grid {
+    max-width: 640px;
+    margin: 0 auto 22px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+  .h-card {
+    background: var(--card-bg);
+    border: 2px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: border-color .2s, transform .08s, box-shadow .2s;
+    box-shadow: var(--shadow);
+  }
+  .h-card:hover { border-color: var(--ink-faint); }
+  .h-card.selected {
+    border-color: var(--sky);
+    box-shadow: 0 0 0 4px rgba(108,172,228,.18), var(--shadow-lg);
+  }
+  .h-card .h-photo {
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--sky) 0%, var(--sun) 100%);
+    position: relative;
+    overflow: hidden;
+  }
+  .h-card .h-photo img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+  }
+  .h-card .h-photo .badge {
+    position: absolute;
+    top: 12px; left: 12px;
+    background: rgba(255,255,255,.95);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+  .h-card .h-body {
+    padding: 16px 18px 18px;
+  }
+  .h-card .h-name {
+    font-size: 18px;
+    font-weight: 800;
+    margin: 0 0 2px;
+    letter-spacing: -.01em;
+  }
+  .h-card .h-sub {
+    font-size: 13px;
+    color: var(--ink-faint);
+    margin: 0 0 12px;
+  }
+  .h-card .h-bullets {
+    list-style: none;
+    padding: 0; margin: 0;
+    display: grid;
+    gap: 6px;
+  }
+  .h-card .h-bullets li {
+    font-size: 13.5px;
+    color: var(--ink-soft);
+    padding-left: 16px;
+    position: relative;
+  }
+  .h-card .h-bullets li::before {
+    content: "•";
+    color: var(--sky);
+    position: absolute;
+    left: 4px;
+  }
+  .h-card .h-price {
+    margin-top: 12px;
+    font-size: 13px;
+    color: var(--ink-faint);
+    font-weight: 600;
+  }
+  .h-card .h-price b {
+    color: var(--ink);
+    font-weight: 800;
+    font-size: 15px;
+  }
+
+  /* ─────────────────────────────────────────  FINAL SHARE  ─────────────────── */
+  .share { padding: 32px 22px max(40px, env(safe-area-inset-bottom)); justify-content: center; }
+  .share .wrap { max-width: 520px; margin: 0 auto; text-align: center; }
+  .share h2 { font-size: clamp(28px, 7vw, 36px); margin: 0 0 8px; letter-spacing: -.02em; font-weight: 800; }
+  .share .lead { color: var(--ink-soft); margin: 0 0 26px; font-size: 16px; }
+
+  .pill-row {
+    display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;
+    margin-bottom: 22px;
+  }
+  .pill {
+    font-size: 12.5px;
+    font-weight: 700;
+    padding: 7px 12px;
+    border-radius: 999px;
+    color: white;
+    letter-spacing: .02em;
+  }
+  .pill.love  { background: var(--c-love); }
+  .pill.yes   { background: var(--c-yes); }
+  .pill.maybe { background: var(--c-maybe); }
+  .pill.no    { background: var(--c-no); }
+
+  .choice-row {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .choice-row .key {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    flex: 0 0 80px;
+  }
+  .choice-row .val {
+    font-size: 14.5px;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  .share-actions {
+    margin-top: 22px;
+    display: grid;
+    gap: 10px;
+  }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--ink);
+    color: var(--bg);
+    padding: 12px 20px;
+    border-radius: 999px;
+    font-size: 13.5px;
+    font-weight: 700;
+    box-shadow: var(--shadow-lg);
+    transition: transform .3s ease;
+    z-index: 100;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Small phones */
+  @media (max-height: 700px) {
+    .photo-wrap { height: 48dvh; }
+    .photo-overlay .ptitle { font-size: 22px; }
+    .card-why { font-size: 14.5px; margin-bottom: 14px; }
+    .rate button { min-height: 50px; padding: 12px 8px; font-size: 13.5px; }
+  }
+  /* Tablet+ */
+  @media (min-width: 720px) {
+    .card-screen { max-width: 640px; margin: 0 auto; min-height: 100dvh; }
+    .photo-wrap { height: 56dvh; max-height: 480px; }
+    .lodging-grid { grid-template-columns: 1fr 1fr; }
+    .h-card .h-photo { aspect-ratio: 4 / 3; }
+  }
+</style>
+</head>
+<body>
+<div class="app" id="app">
+
+  <!-- WELCOME -->
+  <section class="screen welcome active" id="screen-welcome">
+    <div class="hero-strip">Argentina</div>
+    <h1>What sounds good?</h1>
+    <p>Tap through 10 ideas for the May 2026 trip — anchor experiences, the must-do's. There are no wrong answers. We'll build the trip around what you actually like.</p>
+    <div class="name-choice">
+      <button onclick="startAs('Kit')">
+        Kit
+        <span class="label">I'm Kit</span>
+      </button>
+      <button onclick="startAs('Mom')">
+        Mom
+        <span class="label">I'm Mom</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- CARD -->
+  <section class="screen card-screen" id="screen-card">
+    <div class="progress" id="progress"></div>
+    <div class="photo-wrap">
+      <img id="card-img" alt="" />
+      <div class="photo-overlay">
+        <div class="tag" id="card-tag">FOR YOU</div>
+        <h2 class="ptitle" id="card-title">—</h2>
+        <div class="psub" id="card-subtitle">—</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <p class="card-why" id="card-why">—</p>
+      <div class="rate">
+        <button data-v="no" onclick="rate('no')"><span class="swatch"></span>No thanks</button>
+        <button data-v="maybe" onclick="rate('maybe')"><span class="swatch"></span>Maybe</button>
+        <button data-v="yes" onclick="rate('yes')"><span class="swatch"></span>Yes</button>
+        <button data-v="love" onclick="rate('love')"><span class="swatch"></span>Absolutely yes</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSITION -->
+  <section class="screen transition" id="screen-transition">
+    <h2 class="big">Nice. Onto the itinerary.</h2>
+    <p>Here's a draft 8-day plan. We've sketched the days — you can ask Dad to make it longer or shorter at the bottom.</p>
+    <button class="btn-primary" style="max-width:300px;" onclick="show('screen-itinerary')">See the plan</button>
+  </section>
+
+  <!-- ITINERARY -->
+  <section class="screen itinerary" id="screen-itinerary">
+    <div class="scrn-head">
+      <h2>The draft itinerary</h2>
+      <p>8 days · Buenos Aires + Iguazú. Light pace, room to breathe, one wow-anchor per day.</p>
+    </div>
+    <div class="days" id="days-list"></div>
+
+    <div class="length-card">
+      <div class="lbl">How many days feels right?</div>
+      <div class="stepper">
+        <button onclick="changeLength(-1)">−</button>
+        <div class="val"><span id="length-val">8</span><span>days</span></div>
+        <button onclick="changeLength(1)">+</button>
+      </div>
+    </div>
+
+    <div class="step-actions">
+      <button class="btn-primary" onclick="show('screen-lodging-ba')">Where should we stay? →</button>
+    </div>
+  </section>
+
+  <!-- LODGING — BUENOS AIRES -->
+  <section class="screen lodging" id="screen-lodging-ba">
+    <div class="scrn-head">
+      <h2>Where to stay in Buenos Aires</h2>
+      <p>5 nights · Palermo Hollywood/Soho — leafy, walkable, the most LGBTQ-friendly neighborhood in BA. Pick your favorite.</p>
+    </div>
+    <div class="lodging-grid" id="ba-hotels"></div>
+    <div class="step-actions">
+      <button class="btn-primary" id="ba-next" disabled onclick="show('screen-lodging-iguazu')">Next: Iguazú →</button>
+    </div>
+  </section>
+
+  <!-- LODGING — IGUAZÚ -->
+  <section class="screen lodging" id="screen-lodging-iguazu">
+    <div class="scrn-head">
+      <h2>Where to stay in Iguazú</h2>
+      <p>3 nights · Argentine side of the falls. Pick your favorite.</p>
+    </div>
+    <div class="lodging-grid" id="ig-hotels"></div>
+    <div class="step-actions">
+      <button class="btn-primary" id="ig-next" disabled onclick="finish()">All done →</button>
+    </div>
+  </section>
+
+  <!-- FINAL SHARE -->
+  <section class="screen share" id="screen-share">
+    <div class="wrap">
+      <h2>All set, <span id="share-name">friend</span>!</h2>
+      <p class="lead">Send the summary to Dad and he'll put the trip together.</p>
+
+      <div class="pill-row" id="pill-row"></div>
+      <div id="choice-rows"></div>
+
+      <div class="share-actions">
+        <button class="btn-primary" onclick="copyPicks()">Copy to send to Dad</button>
+        <button class="btn-ghost" onclick="emailPicks()">Open in email instead</button>
+        <button class="btn-ghost" onclick="reset()">Start over</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="toast" id="toast">Copied to clipboard</div>
+</div>
+
+<script>
+// ─────────────────────────────────────────  DATA  ──────────────────────────────
+
+const PICKS = [
+  {
+    id: 'b1', cat: 'both', tag: 'FOR BOTH',
+    title: 'Iguazú Falls',
+    subtitle: 'The trip anchor · Argentine side',
+    why: "One of the world's great natural spectacles — 1h45 flight from BA. May is the universally recommended month: 60–75% peak water flow, fewer crowds, manageable walking at your own pace.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/d/db/Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg/1280px-Iguazu_D%C3%A9cembre_2007_-_Panorama_5.jpg'
+  },
+  {
+    id: 'b2', cat: 'both', tag: 'FOR BOTH',
+    title: 'MALBA',
+    subtitle: 'Latin American art museum · Palermo',
+    why: "The single best museum in Argentina if you only do one. Frida Kahlo's Diego y yo, Leonora Carrington, and a major LATINOAMERICANO show with Qatar Museums in 2026. In-house cinema.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/1/17/Buenos_Aires_-_Palermo_-_Malba.jpg'
+  },
+  {
+    id: 'b3', cat: 'both', tag: 'FOR BOTH',
+    title: 'Teatro Colón',
+    subtitle: "One of the world's top opera houses · Microcentro",
+    why: "A 50-minute guided tour of the main hall, Foyer, Gallery of Busts, and Golden Hall — architecture and history without sitting through a 3-hour opera. English tours hourly.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a3/Colon-interior-escenario-TM.jpg/1280px-Colon-interior-escenario-TM.jpg'
+  },
+  {
+    id: 'b4', cat: 'both', tag: 'FOR BOTH',
+    title: 'Fundación PROA · Penumbra',
+    subtitle: 'Dia Art Foundation show · La Boca',
+    why: "March–August 2026 only. First-ever Argentina show of James Turrell, Felix Gonzalez-Torres, Agnes Martin, Andy Warhol, Robert Irwin. Once-this-trip immersive art.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/8/8f/Fachada_del_edificio_de_Fundaci%C3%B3n_Proa%2C_La_Boca.jpg'
+  },
+  {
+    id: 'k1', cat: 'kit', tag: 'FOR KIT',
+    title: 'Escape Buenos Aires',
+    subtitle: 'Bilingual escape room · Caballito',
+    why: "A private escape room with clues in both English and Spanish — Necronomicon, La Embajada de Krokovia. Just you and Mom (or just you), no random strangers in the group.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg/1280px-Four_Skeleton_Keys_on_a_blue_background_%2851865175725%29.jpg'
+  },
+  {
+    id: 'k2', cat: 'kit', tag: 'FOR KIT',
+    title: 'Casa Brandon',
+    subtitle: 'Queer cultural center · Villa Crespo',
+    why: "A queer cultural center named for Brandon Teena — books, art, drag, film screenings, small bar. Cultural programming, not nightlife. Pick a night that matches your energy.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg/1280px-XXX_Marcha_del_Orgullo_LGBTIQ%2B_Buenos_Aires_%E2%80%93_Argentina_11.jpg'
+  },
+  {
+    id: 'k3', cat: 'kit', tag: 'FOR KIT',
+    title: 'El Ateneo Grand Splendid',
+    subtitle: "The world's most beautiful bookstore · Recoleta",
+    why: "A 1919 theater turned bookstore — frescoed dome, theater boxes filled with books, café where the stage used to be. The new Grand Splendid Experience tour walks you through its history.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg/1280px-El_Ateneo_Grand_Splendid%2C_Buenos_Aires_%2838796014605%29.jpg'
+  },
+  {
+    id: 'm1', cat: 'mom', tag: 'FOR MOM',
+    title: 'Jardín Botánico Carlos Thays',
+    subtitle: '17-acre 1890s botanical garden · Palermo',
+    why: "Designed in the 1890s by French-Argentine architect Carlos Thays. 5,000+ plant species, French/English/Asian sections, a Crystal Palace–style greenhouse, butterfly house. Free.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg/1280px-2019_Buenos_Aires_-_Invernadero_del_Jard%C3%ADn_Bot%C3%A1nico.jpg'
+  },
+  {
+    id: 'm2', cat: 'mom', tag: 'FOR MOM',
+    title: 'Recoleta Cemetery',
+    subtitle: 'City of the dead · Recoleta',
+    why: "Elaborate mausoleums — Art Nouveau, neo-Gothic, Art Deco. Eva Perón's grave. Quiet alleys feel almost private. Pairs naturally with the National Fine Arts Museum across the street.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/75/La_Recoleta_Cemetery_%288081434317%29.jpg/1280px-La_Recoleta_Cemetery_%288081434317%29.jpg'
+  },
+  {
+    id: 'm3', cat: 'mom', tag: 'FOR MOM',
+    title: 'San Antonio de Areco',
+    subtitle: 'Gaucho estancia day trip · 2h from BA',
+    why: "Argentina's most preserved gaucho town. Visit a silversmith, the Güiraldes Gaucho Museum, then asado at an estancia with horseback option and folkloric show. The longest day on the trip — pick yes only if you're up for it.",
+    img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg/1280px-San_Antonio_de_Areco-Fiesta_de_la_Tradici%C3%B3n_11.jpg'
+  },
+];
+
+// 10-day master itinerary. Length picker clips around the meaty middle.
+// Default = 8 days. The picker shows different start/end slices.
+const ITINERARY_BASE = [
+  { city: 'BA',     title: 'Arrival in Buenos Aires',        activities: "Settle into Palermo. Sunset stroll in Bosques de Palermo. Casual neighborhood dinner — easy first night.", kind: 'normal' },
+  { city: 'BA',     title: 'Art & gardens',                  activities: "Morning: MALBA. Lunch in Palermo. Afternoon: Jardín Botánico + Jardín Japonés. Evening: Don Julio — the graduation dinner.", kind: 'dinner-note' },
+  { city: 'BA',     title: 'Architecture & books',           activities: "Morning: Teatro Colón guided tour (English, 11am). Afternoon: El Ateneo Grand Splendid. Late afternoon golden-hour walk through Recoleta Cemetery + MNBA next door if energy.", kind: 'normal' },
+  { city: 'BA',     title: "Kit's day",                      activities: "Slow morning. Afternoon: Escape Buenos Aires (private room). Evening: Casa Brandon or a Timbre 4 production — whichever lines up with the calendar.", kind: 'normal' },
+  { city: 'BA',     title: 'Pampas day',                     activities: "San Antonio de Areco gaucho estancia — Camino Pampa small-group tour. Long day, mostly seated/walking. (Swap for a low-key Tigre Delta trip if Kit rated the gaucho day low.)", kind: 'normal' },
+  { city: 'BA→IGR', title: 'Fly to Iguazú',                  activities: "Morning: Fundación PROA · Penumbra (Dia Art Foundation show). Lunch on the rooftop. Afternoon flight AEP→IGR (~1h45). Settle into the jungle. Sunset walk on hotel grounds.", kind: 'flight' },
+  { city: 'IGR',    title: 'The falls (Argentine side)',     activities: "Full day at Iguazú. Lower & upper trail circuits, Devil's Throat platform, optional boat ride into the spray. Arrive 8am to beat crowds. Tue/Wed/Thu are quietest.", kind: 'normal' },
+  { city: 'IGR',    title: 'Brazilian side or rest',         activities: "Optional day-trip to the Brazilian side for the wide panoramic view (~half day). Or a slow morning on hotel grounds + jungle walks. Fly home in the evening.", kind: 'normal' },
+];
+
+const ITINERARY_EXTRA = {
+  6: { drop: ['idx-4', 'idx-7'] }, // drop Areco + Brazilian side
+  7: { drop: ['idx-4'] },          // drop Areco day
+  8: {},                           // default
+  9: { add: [{ city: 'BA', title: 'Free day in BA', activities: "Buffer day — sleep in, repeat a favorite, browse San Telmo on a weekday, or do a Spanish drop-in class.", kind: 'normal', insertAt: 5 }] },
+  10:{ add: [
+        { city: 'BA', title: 'Free day in BA', activities: "Buffer day in BA — sleep in, repeat a favorite, San Telmo on a weekday, Spanish class drop-in.", kind: 'normal', insertAt: 5 },
+        { city: 'IGR', title: 'Extra jungle morning', activities: "Slow morning at the hotel, second visit to a less-crowded part of the falls, or a riverside lunch.", kind: 'normal', insertAt: 100 },
+      ]},
+};
+
+// Hotel data (image URLs to be added once hotel-image agent finishes)
+const HOTELS = {
+  ba: [
+    {
+      id: 'palo-santo',
+      name: 'Palo Santo Hotel',
+      sub: 'Palermo Hollywood · 4★ boutique · Booking 9.3',
+      bullets: [
+        'Vertical-garden sound insulation, 26 rooms — the quietest of the options',
+        '24h reception, A/C, blackout curtains, hot breakfast included',
+        '~15 min Uber to Aeroparque (AEP) for the Iguazú flight',
+      ],
+      price: '$134–180 / night',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/A_cobblestoned_street_in_Palermo_Soho.jpg/1280px-A_cobblestoned_street_in_Palermo_Soho.jpg',
+    },
+    {
+      id: 'fierro',
+      name: 'Fierro Hotel',
+      sub: 'Palermo Hollywood · 4★ boutique · award-winning service',
+      bullets: [
+        'Larger rooms (40m²+), Nespresso, wine fridge, rooftop pool + sauna',
+        'Breakfast served until 3pm — friendly to slow mornings',
+        '5–7 min walk to Ministro Carranza subte (Line D)',
+      ],
+      price: '$150–220 / night',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/55/Calle_Jorge_Luis_Borges%2C_Buenos_Aires_05.jpg/1280px-Calle_Jorge_Luis_Borges%2C_Buenos_Aires_05.jpg',
+    },
+  ],
+  ig: [
+    {
+      id: 'meliá',
+      name: 'Gran Meliá Iguazú',
+      sub: 'Inside the national park · the only one with falls access from the room',
+      bullets: [
+        'The only hotel inside Iguazú National Park — walk to the falls in the morning before the gates open',
+        'AmEx FHR: complimentary 4th night, May 4–Aug 31, 2026',
+        'Heads-up: capuchin monkeys on balconies — keep doors locked',
+      ],
+      price: '$304–500 / night',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Argentina-01436_-_So_Peaceful...._%2848994821801%29.jpg/1280px-Argentina-01436_-_So_Peaceful...._%2848994821801%29.jpg',
+    },
+    {
+      id: 'loi',
+      name: 'Loi Suites Iguazú',
+      sub: 'Iryapú jungle reserve · ~15 min from the park entrance',
+      bullets: [
+        'Quieter jungle-resort vibe with hanging walkways through the canopy',
+        'Three pools, big rooms, free park shuttle, generous breakfast',
+        'Less rush at entry/exit than the in-park option',
+      ],
+      price: '$240–350 / night',
+      img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Selva-misionera.JPG/1280px-Selva-misionera.JPG',
+    },
+  ],
+};
+
+// ─────────────────────────────────────────  STATE  ─────────────────────────────
+
+const STORAGE_KEY = 'argentina-picks-v2';
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return blank();
+    const s = JSON.parse(raw);
+    return Object.assign(blank(), s);
+  } catch (e) { return blank(); }
+}
+function blank() { return { who: null, idx: 0, ratings: {}, days: 8, baHotel: null, igHotel: null, screen: 'welcome' }; }
+function saveState() { try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (e) {} }
+
+// ─────────────────────────────────────────  ROUTING  ───────────────────────────
+
+function show(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  state.screen = id;
+  saveState();
+  window.scrollTo({ top: 0, behavior: 'instant' });
+
+  if (id === 'screen-card') renderCard();
+  if (id === 'screen-itinerary') renderItinerary();
+  if (id === 'screen-lodging-ba') renderHotels('ba');
+  if (id === 'screen-lodging-iguazu') renderHotels('ig');
+  if (id === 'screen-share') renderShare();
+}
+
+function startAs(who) {
+  state.who = who;
+  state.idx = 0;
+  state.ratings = {};
+  saveState();
+  show('screen-card');
+}
+
+// ─────────────────────────────────────────  CARDS  ─────────────────────────────
+
+function renderCard() {
+  const total = PICKS.length;
+  if (state.idx >= total) { show('screen-transition'); return; }
+  const p = PICKS[state.idx];
+
+  const prog = document.getElementById('progress');
+  prog.innerHTML = '';
+  for (let i = 0; i < total; i++) {
+    const d = document.createElement('div');
+    d.className = 'dot' + (i < state.idx ? ' done' : (i === state.idx ? ' current' : ''));
+    prog.appendChild(d);
+  }
+
+  const img = document.getElementById('card-img');
+  img.src = p.img;
+  img.alt = p.title;
+
+  document.getElementById('card-tag').textContent = p.tag;
+  document.getElementById('card-title').textContent = p.title;
+  document.getElementById('card-subtitle').textContent = p.subtitle;
+  document.getElementById('card-why').textContent = p.why;
+
+  document.querySelectorAll('.rate button').forEach(b => b.classList.remove('flash'));
+}
+
+function rate(v) {
+  const p = PICKS[state.idx];
+  state.ratings[p.id] = v;
+  saveState();
+  const btn = document.querySelector(`.rate button[data-v="${v}"]`);
+  if (btn) {
+    const color = { no:'--c-no', maybe:'--c-maybe', yes:'--c-yes', love:'--c-love' }[v];
+    const c = getComputedStyle(document.documentElement).getPropertyValue(color).trim();
+    btn.style.background = c;
+    btn.style.color = 'white';
+    btn.style.borderColor = c;
+  }
+  setTimeout(() => {
+    document.querySelectorAll('.rate button').forEach(b => {
+      b.style.background = '';
+      b.style.color = '';
+      b.style.borderColor = '';
+    });
+    state.idx += 1;
+    saveState();
+    if (state.idx >= PICKS.length) show('screen-transition');
+    else renderCard();
+  }, 220);
+}
+
+// ─────────────────────────────────────────  ITINERARY  ─────────────────────────
+
+function getItinerary() {
+  let days = ITINERARY_BASE.map((d, i) => Object.assign({}, d, { _idx: i }));
+  const cfg = ITINERARY_EXTRA[state.days];
+  if (!cfg) return days;
+  if (cfg.drop) {
+    days = days.filter(d => !cfg.drop.includes('idx-' + d._idx));
+  }
+  if (cfg.add) {
+    cfg.add.forEach(extra => {
+      const pos = Math.min(extra.insertAt, days.length);
+      days.splice(pos, 0, extra);
+    });
+  }
+  return days;
+}
+
+function renderItinerary() {
+  const list = document.getElementById('days-list');
+  list.innerHTML = '';
+  const days = getItinerary();
+  days.forEach((d, i) => {
+    const el = document.createElement('div');
+    el.className = 'day' + (d.kind === 'flight' ? ' flight' : '') + (d.kind === 'dinner-note' ? ' dinner-note' : '');
+    el.innerHTML = `
+      <div class="dh">
+        <div class="dn">Day ${i+1}<span class="city">· ${escapeHtml(d.city)}</span></div>
+      </div>
+      <p class="dt">${escapeHtml(d.title)}</p>
+      <p class="da">${escapeHtml(d.activities)}</p>
+    `;
+    list.appendChild(el);
+  });
+  document.getElementById('length-val').textContent = state.days;
+}
+
+function changeLength(delta) {
+  const next = Math.max(6, Math.min(10, state.days + delta));
+  if (next === state.days) return;
+  state.days = next;
+  saveState();
+  renderItinerary();
+}
+
+// ─────────────────────────────────────────  LODGING  ───────────────────────────
+
+function renderHotels(key) {
+  const hotels = HOTELS[key];
+  const containerId = key === 'ba' ? 'ba-hotels' : 'ig-hotels';
+  const nextBtnId   = key === 'ba' ? 'ba-next' : 'ig-next';
+  const stateKey    = key === 'ba' ? 'baHotel' : 'igHotel';
+  const wrap = document.getElementById(containerId);
+  wrap.innerHTML = '';
+  hotels.forEach((h, i) => {
+    const sel = state[stateKey] === h.id;
+    const el = document.createElement('div');
+    el.className = 'h-card' + (sel ? ' selected' : '');
+    el.onclick = () => selectHotel(key, h.id);
+    el.innerHTML = `
+      <div class="h-photo">
+        ${h.img ? `<img src="${escapeAttr(h.img)}" alt="${escapeAttr(h.name)}" />` : ''}
+        <div class="badge">${i === 0 ? 'Primary' : 'Alternative'}</div>
+      </div>
+      <div class="h-body">
+        <h3 class="h-name">${escapeHtml(h.name)}</h3>
+        <div class="h-sub">${escapeHtml(h.sub)}</div>
+        <ul class="h-bullets">
+          ${h.bullets.map(b => `<li>${escapeHtml(b)}</li>`).join('')}
+        </ul>
+        <div class="h-price"><b>${escapeHtml(h.price)}</b></div>
+      </div>
+    `;
+    wrap.appendChild(el);
+  });
+  document.getElementById(nextBtnId).disabled = !state[stateKey];
+}
+
+function selectHotel(key, id) {
+  const stateKey = key === 'ba' ? 'baHotel' : 'igHotel';
+  state[stateKey] = id;
+  saveState();
+  renderHotels(key);
+}
+
+// ─────────────────────────────────────────  SHARE / SUMMARY  ───────────────────
+
+function finish() { show('screen-share'); }
+
+function bucketCounts() {
+  const c = { love: 0, yes: 0, maybe: 0, no: 0 };
+  PICKS.forEach(p => {
+    const v = state.ratings[p.id];
+    if (c[v] !== undefined) c[v] += 1;
+  });
+  return c;
+}
+
+function renderShare() {
+  document.getElementById('share-name').textContent = state.who || 'friend';
+
+  const c = bucketCounts();
+  const pillRow = document.getElementById('pill-row');
+  pillRow.innerHTML = '';
+  [['love','Absolutely yes'],['yes','Yes'],['maybe','Maybe'],['no','No thanks']].forEach(([k,label]) => {
+    if (!c[k]) return;
+    const el = document.createElement('span');
+    el.className = 'pill ' + k;
+    el.textContent = `${c[k]} ${label}`;
+    pillRow.appendChild(el);
+  });
+
+  const rows = document.getElementById('choice-rows');
+  rows.innerHTML = '';
+  const baName = (HOTELS.ba.find(h => h.id === state.baHotel) || {}).name || '—';
+  const igName = (HOTELS.ig.find(h => h.id === state.igHotel) || {}).name || '—';
+  [
+    ['Trip length', `${state.days} days`],
+    ['BA stay',     baName],
+    ['Iguazú stay', igName],
+  ].forEach(([k,v]) => {
+    const r = document.createElement('div');
+    r.className = 'choice-row';
+    r.innerHTML = `<div class="key">${escapeHtml(k)}</div><div class="val">${escapeHtml(v)}</div>`;
+    rows.appendChild(r);
+  });
+}
+
+function buildText() {
+  const lines = [];
+  lines.push(`Argentina picks — ${state.who || '?'}`);
+  lines.push(`Trip length: ${state.days} days`);
+  lines.push('');
+  lines.push('RATINGS');
+  ['love','yes','maybe','no'].forEach(bucket => {
+    const items = PICKS.filter(p => state.ratings[p.id] === bucket);
+    if (!items.length) return;
+    const label = { love: 'Absolutely yes', yes: 'Yes', maybe: 'Maybe', no: 'No thanks' }[bucket];
+    lines.push(`  ${label}:`);
+    items.forEach(p => lines.push(`    • ${p.title}`));
+  });
+  const unrated = PICKS.filter(p => !state.ratings[p.id]);
+  if (unrated.length) {
+    lines.push('  Not rated:');
+    unrated.forEach(p => lines.push(`    • ${p.title}`));
+  }
+  lines.push('');
+  lines.push('LODGING');
+  const baName = (HOTELS.ba.find(h => h.id === state.baHotel) || {}).name || '—';
+  const igName = (HOTELS.ig.find(h => h.id === state.igHotel) || {}).name || '—';
+  lines.push(`  Buenos Aires: ${baName}`);
+  lines.push(`  Iguazú: ${igName}`);
+  return lines.join('\n');
+}
+
+async function copyPicks() {
+  const text = buildText();
+  try {
+    await navigator.clipboard.writeText(text);
+    showToast('Copied to clipboard');
+  } catch (e) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); showToast('Copied'); } catch (_) { showToast('Copy failed — long-press to copy'); }
+    document.body.removeChild(ta);
+  }
+}
+
+function emailPicks() {
+  const subject = encodeURIComponent(`Argentina picks — ${state.who || ''}`);
+  const body = encodeURIComponent(buildText());
+  window.location.href = `mailto:?subject=${subject}&body=${body}`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 1600);
+}
+
+function reset() {
+  if (!confirm('Start over? Your ratings will be cleared.')) return;
+  state = blank();
+  saveState();
+  show('screen-welcome');
+}
+
+// ─────────────────────────────────────────  HELPERS  ───────────────────────────
+
+function escapeHtml(s) {
+  return (s || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+}
+function escapeAttr(s) { return escapeHtml(s); }
+
+// ─────────────────────────────────────────  BOOT  ──────────────────────────────
+(function boot() {
+  if (state.who && state.screen && state.screen !== 'welcome') {
+    show(state.screen);
+  } else {
+    show('screen-welcome');
+  }
+})();
+</script>
+</body>
+</html>
