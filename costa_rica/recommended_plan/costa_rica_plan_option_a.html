@@ -1,0 +1,516 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Costa Rica — Orlando &amp; Kit · August 8–19, 2026 (Option A: Monteverde)</title>
+<style>
+  @page { size: Letter; margin: 0.6in 0.7in; }
+
+  :root {
+    --ink: #1d1d1f;
+    --muted: #6b6b70;
+    --accent: #2a6e40;
+    --rule: #cfe0d4;
+    --soft: #eaf4ee;
+    --paper: #f7fbf8;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #e4ece6;
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino", Georgia, serif;
+    font-size: 11.5pt;
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 7.4in;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 0.7in 0.75in;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.06);
+  }
+
+  h1, h2, h3, .label, .pretitle, .footer, .meta-row, .check, .checklist, .calendar {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .cover { padding-bottom: 0.35in; border-bottom: 1px solid var(--rule); margin-bottom: 0.3in; }
+  .pretitle { font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.18in; }
+  h1 { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 38pt; line-height: 1.05; font-weight: 400; margin: 0 0 0.18in; letter-spacing: -0.01em; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 12.5pt; line-height: 1.55; color: var(--ink); max-width: 6in; margin: 0 0 0.3in; }
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in 0.4in; font-size: 9.5pt; color: var(--muted); margin-top: 0.1in; }
+  .meta-row .k { display: block; font-size: 7.8pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 2pt; }
+  .meta-row .v { color: var(--ink); font-size: 10pt; }
+
+  section { margin-top: 0.35in; }
+  section.major { page-break-before: always; }
+  h2.section { font-size: 17pt; font-weight: 500; letter-spacing: -0.005em; margin: 0 0 0.05in; padding-bottom: 0.06in; border-bottom: 1px solid var(--rule); }
+  .section-sub { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-style: italic; color: var(--muted); font-size: 11pt; margin: 0 0 0.18in; }
+
+  .day { display: grid; grid-template-columns: 1fr 2.2in; gap: 0.22in; align-items: start; margin-bottom: 0.24in; page-break-inside: avoid; break-inside: avoid; }
+  .day.no-image { grid-template-columns: 1fr; }
+  .day-head { display: flex; align-items: baseline; gap: 0.12in; margin-bottom: 0.06in; }
+  .day-num { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8.5pt; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .day-date { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 14pt; font-weight: 500; line-height: 1.15; }
+  .day-tag { font-style: italic; color: var(--accent); font-weight: 400; }
+  .day-body { margin: 0; line-height: 1.6; }
+  .day-body strong { font-weight: 600; }
+  figure.day-img { margin: 0; }
+  figure.day-img img { display: block; width: 100%; height: auto; border-radius: 2px; }
+  figure.day-img figcaption { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8pt; color: var(--muted); margin-top: 4pt; font-style: italic; line-height: 1.35; }
+
+  ul.checklist { list-style: none; padding: 0; margin: 0.1in 0; }
+  ul.checklist li { padding: 7pt 0 7pt 22pt; position: relative; border-bottom: 1px solid var(--rule); font-size: 10.5pt; line-height: 1.45; page-break-inside: avoid; }
+  ul.checklist li:last-child { border-bottom: none; }
+  ul.checklist li::before { content: ""; position: absolute; left: 0; top: 10pt; width: 11pt; height: 11pt; border: 1.2pt solid var(--accent); border-radius: 2px; }
+
+  .calendar { margin-top: 0.1in; }
+  .cal-row { display: grid; grid-template-columns: 1.4in 1fr; gap: 0.18in; padding: 9pt 0; border-bottom: 1px solid var(--rule); font-size: 10pt; page-break-inside: avoid; }
+  .cal-row:last-child { border-bottom: none; }
+  .cal-when { color: var(--accent); font-size: 9pt; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; padding-top: 1pt; }
+  .cal-what ul { margin: 0; padding-left: 16pt; }
+  .cal-what ul li { margin: 2pt 0; }
+
+  .card { background: var(--soft); border-radius: 4px; padding: 0.18in 0.22in; margin: 0.12in 0; font-size: 10pt; page-break-inside: avoid; }
+  .card h3 { margin: 0 0 0.06in; font-size: 12pt; font-weight: 600; }
+  .card ul { margin: 0; padding-left: 16pt; }
+  .card ul li { margin: 3pt 0; }
+  .card a { color: var(--accent); text-decoration: none; }
+  .card .note { margin: 6pt 0 0; font-size: 9.5pt; color: var(--muted); font-style: italic; }
+
+  .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.18in 0.3in; }
+  .practical-grid > div { page-break-inside: avoid; font-size: 10pt; line-height: 1.55; }
+  .practical-grid h3 { margin: 0 0 0.04in; font-size: 10pt; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; }
+
+  .addons li { margin: 7pt 0; font-size: 10.5pt; line-height: 1.55; }
+  .addons li strong { font-weight: 600; }
+
+  ol.verify { padding-left: 22pt; font-size: 10.5pt; }
+  ol.verify li { margin: 6pt 0; }
+
+  .alert { background: #fff8e6; border-left: 3px solid #c9922a; border-radius: 3px; padding: 0.1in 0.14in; font-size: 10pt; margin: 0.1in 0; line-height: 1.5; }
+  .alert strong { color: #8a5a10; }
+
+  .footer { margin-top: 0.4in; padding-top: 0.18in; border-top: 1px solid var(--rule); font-size: 8.5pt; color: var(--muted); letter-spacing: 0.04em; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<header class="cover">
+  <div class="pretitle">For Orlando &amp; Kit · August 8–19, 2026 &mdash; Option A: Monteverde</div>
+  <h1>Costa Rica.</h1>
+  <p class="lede">
+    Two nights in San José for art and theater, two in the Monteverde cloud forest for quetzals and hanging bridges, two at an active volcano for wildlife and hot springs, three on the Pacific coast for sloths, monkeys, and snorkeling. No car needed. Every transfer is a road shuttle. The whole flight is nine hours.
+  </p>
+  <div class="meta-row">
+    <div><span class="k">Depart San Diego</span><span class="v">Saturday, August 8 · evening</span></div>
+    <div><span class="k">Return San Diego</span><span class="v">Wednesday, August 19 · afternoon</span></div>
+    <div><span class="k">San José</span><span class="v">2 nights · Barrio Amílcar Arias</span></div>
+    <div><span class="k">Monteverde</span><span class="v">2 nights · cloud forest lodge · road shuttle</span></div>
+    <div><span class="k">Arenal / La Fortuna</span><span class="v">2 nights · volcano-side lodge</span></div>
+    <div><span class="k">Manuel Antonio</span><span class="v">3 nights · Pacific coast</span></div>
+    <div><span class="k">Air</span><span class="v">SAN ⇄ IAH ⇄ SJO on United (fastest) · or SAN ⇄ DFW ⇄ SJO on American</span></div>
+    <div><span class="k">In-country</span><span class="v">Interbus or Grayline shared shuttles · no rental car needed</span></div>
+  </div>
+</header>
+
+<section>
+<h2 class="section">Day by day</h2>
+<p class="section-sub">Ten nights in Costa Rica. Move mornings; afternoons rain.</p>
+
+<div class="day no-image">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 1</div>
+      <div class="day-date">Sunday, August 9 &middot; <span class="day-tag">bienvenidos a San José</span></div>
+    </div>
+    <p class="day-body">
+      Land early afternoon — the SJO connection through Houston is ~8.5 hours total, one of the shortest international runs from San Diego. Settle into a boutique hotel in <strong>Barrio Amílcar Arias</strong>, the neighborhood that's become San José's arts district: independent galleries, colorful murals, small restaurants, the kind of place you walk around without an agenda. A coffee, an easy dinner.
+    </p>
+  </div>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 2</div>
+      <div class="day-date">Monday, August 10 &middot; <span class="day-tag">the theater and the art</span></div>
+    </div>
+    <p class="day-body">
+      The morning at <strong>Teatro Nacional</strong> — Costa Rica's 1897 neo-baroque opera house, built by coffee barons who taxed their own exports to fund it. Marble staircases, a gilded chandelier, painted ceilings. English-language tours run daily; it's compact enough that you feel every corner. After lunch, the <strong>Museo de Arte y Diseño Contemporáneo (MADC)</strong> for Central American contemporary work that doesn't travel north. Then an afternoon through <strong>Barrio Escalante</strong> — the murals change seasonally, and there's always something going on in the small galleries off the main street.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/f/f6/Teatro_Nacional_at_Night.JPG" alt="Teatro Nacional de Costa Rica at night">
+    <figcaption>Teatro Nacional, 1897 — built by coffee-era barons who levied a tax on their own exports to fund it. (Photo: A. C. Vogt, CC BY-SA 4.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 3</div>
+      <div class="day-date">Tuesday, August 11 &middot; <span class="day-tag">into the cloud forest</span></div>
+    </div>
+    <p class="day-body">
+      A road shuttle northwest from San José, climbing into the Cordillera de Tilarán. The temperature drops as you gain altitude; by the time you arrive in <strong>Monteverde</strong> the air is cool and the trees are wrapped in moss. The cloud forest sits on the Continental Divide — cloud literally pours through the canopy. Settle in, short afternoon walk on the reserve trails, an early dinner. Bring a layer.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Cloud_Forest_at_Monteverde.JPG" alt="Monteverde cloud forest">
+    <figcaption>Monteverde Cloud Forest Reserve — sitting on the Continental Divide, where cloud pours through the canopy year-round.</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 4</div>
+      <div class="day-date">Wednesday, August 12 &middot; <span class="day-tag">quetzals and the canopy</span></div>
+    </div>
+    <p class="day-body">
+      An early morning guided walk for <strong>resplendent quetzals</strong> — one of the most striking birds in the world, and Monteverde is one of the best places to find them. Guides know the territory; it takes patience. Then the <strong>hanging bridges circuit</strong> at Selvatura or Sky Walk, which puts you at canopy level: emerald toucanets, three-toed sloths, howler monkeys, orchids growing from the bark, the longest suspension bridge in Costa Rica at 774 feet. Afternoon: the <strong>Bat Jungle</strong> — an unusual, genuinely fascinating educational exhibit Kit would probably appreciate more than expected — and the <strong>Monteverde Cheese Factory</strong>, founded by American Quaker settlers who moved from Alabama in 1951 and built a community around pacifism and farming. Optional evening: night walk through the cloud forest (glass frogs, kinkajous, porcupines).
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Cloud_Forest_at_Selvatura_Ziplines.JPG" alt="Monteverde cloud forest canopy at Selvatura">
+    <figcaption>The Selvatura hanging bridges put you at canopy level in the cloud forest — 1.9 miles of suspension walkways.</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 5</div>
+      <div class="day-date">Thursday, August 13 &middot; <span class="day-tag">the volcano</span></div>
+    </div>
+    <p class="day-body">
+      Road shuttle east toward <strong>Arenal</strong>. The approach to La Fortuna is one of the more dramatic in Central America: the volcano emerges from cloud as you get close, a near-perfect cone 5,437 feet above flat cattle country — a completely different landscape from the misty cloud forest you just left. Check in, short walk around the lodge grounds. Clear mornings are the window — afternoons in Arenal are reliably rainy. Tonight: hot springs.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Arenal_Volcano_in_Costa_Rica.JPG" alt="Arenal Volcano with clear sky">
+    <figcaption>Arenal Volcano — 5,437 feet. Clear mornings are the window; plan volcano views before noon. (Photo: BonniesPics, CC BY-SA 3.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 6</div>
+      <div class="day-date">Friday, August 14 &middot; <span class="day-tag">bridges, birds, springs</span></div>
+    </div>
+    <p class="day-body">
+      A morning on the <strong>hanging bridges</strong> that run through the Arenal rainforest canopy — 16 bridges total, the longest a 100-meter suspension crossing above the treetops. Toucans, three-toed sloths, emerald toucanets, howler monkeys. The afternoon is for rain — Arenal gets heavy daily afternoon showers in August, which is exactly why the evening hot springs work so well: volcanic-heated pools, built into the jungle, available well into the night.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/e7/Brown-throated_three-toed_sloth_female.JPG" alt="Three-toed sloth in Costa Rica">
+    <figcaption>Brown-throated three-toed sloth, Carara NP, Costa Rica — look up into cecropia trees at Manuel Antonio. (Photo: C. J. Sharp, CC BY-SA 3.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 7</div>
+      <div class="day-date">Saturday, August 15 &middot; <span class="day-tag">artisans and the Pacific</span></div>
+    </div>
+    <p class="day-body">
+      Transfer south toward Manuel Antonio. En route: a stop in <strong>Sarchí</strong>, the artisan town where families have been painting the geometric oxcart patterns — declared UNESCO Intangible Cultural Heritage — for generations. Watch a carver work; the patterns are intricate, specific to each workshop, and take hours per panel. Then the road drops toward the Pacific coast and the temperature changes. Arrive Manuel Antonio late afternoon.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/a/af/Scarlet_macaw_in_Costa_Rica.jpg" alt="Scarlet macaw in Costa Rica">
+    <figcaption>Scarlet macaws are resident at Manuel Antonio — you'll likely see them in the trees before you enter the park. (CC0 public domain)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 8</div>
+      <div class="day-date">Sunday, August 16 &middot; <span class="day-tag">the park</span></div>
+    </div>
+    <p class="day-body">
+      An early entrance to <strong>Manuel Antonio National Park</strong> — arrive by 7am before the heat and crowds. This is the most reliably wildlife-dense park in Costa Rica: white-faced capuchin monkeys walk the trail at knee-height, entirely unbothered. Three-toed sloths hang in the cecropia trees near the entrance. Scarlet macaws in the canopy. Raccoons on the beach. The park closes at 4pm; spend the morning inside and afternoon at the lodge pool. Mornings here are clear; rain comes by 2pm.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/3/3d/White-faced_capuchin_monkey_Manuel_Antonio.JPG" alt="White-faced capuchin monkey at Manuel Antonio">
+    <figcaption>White-faced capuchin at Manuel Antonio — they walk the trail at knee height, entirely unbothered by visitors. (Photo: C. J. Sharp, CC BY-SA 3.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 9</div>
+      <div class="day-date">Monday, August 17 &middot; <span class="day-tag">beach and snorkeling</span></div>
+    </div>
+    <p class="day-body">
+      A slow morning — coffee, no plan. Then to <strong>Playa Biesanz</strong>, the small protected cove near the park entrance: calm clear water, reef fish, rays, occasional sea turtles. Snorkel gear is available for rent nearby. This is beginner-friendly snorkeling — a protected bay, no current, good visibility in the morning before afternoon rain stirs up the surface. Lunch at one of the beachside places, afternoon back at the lodge.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/e/ea/Main_Beach_Manuel_Antonio_National_Park_Costa_Rica.JPG" alt="Manuel Antonio National Park main beach">
+    <figcaption>Manuel Antonio main beach — the park closes at 4pm; arrive by 7am for the best wildlife and the beach to yourself. (Photo: E. T. Gunther, CC BY-SA 3.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day no-image">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 10</div>
+      <div class="day-date">Tuesday, August 18 &middot; <span class="day-tag">the road back</span></div>
+    </div>
+    <p class="day-body">
+      A slow morning. Shuttle north to San José — about 3.5 hours. The city is worth one more evening: a <strong>final dinner in Barrio Escalante</strong>, the neighborhood that started the trip. Early night; SJO departs early.
+    </p>
+  </div>
+</div>
+
+<div class="day no-image">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 11</div>
+      <div class="day-date">Wednesday, August 19 &middot; <span class="day-tag">the short flight home</span></div>
+    </div>
+    <p class="day-body">
+      SJO is 15 minutes from the hotel district. Connect through Houston or Dallas; home by mid-afternoon. Total return travel: 9–10 hours — a normal travel day.
+    </p>
+  </div>
+</div>
+</section>
+
+<section class="major">
+<h2 class="section">Booking calendar</h2>
+<p class="section-sub">Everything that requires a reservation, in the order it matters.</p>
+
+<div class="calendar">
+  <div class="cal-row">
+    <div class="cal-when">This week</div>
+    <div class="cal-what">
+      <ul>
+        <li>Book SAN → IAH → SJO on United (or SAN → DFW → SJO on American) — single round-trip ticket. Target: ~$300–450 pp. Depart Aug 8 evening; return Aug 19 morning.</li>
+        <li>Confirm passports valid through February 2027 (airlines enforce six-month rule)</li>
+        <li>Book hotel in San José — boutique in Barrio Amílcar or Barrio Escalante; Aug 9–11</li>
+        <li>Book Monteverde cloud forest lodge — Aug 11–13. El Establo Mountain Hotel, Monteverde Lodge &amp; Gardens, or Belmar Hotel are well-regarded options.</li>
+        <li>Book Arenal lodge — Aug 13–15. Confirm hot springs access (on-site or partnered)</li>
+        <li>Book Manuel Antonio hotel — Aug 15–18. Aim for something above the park with Pacific views</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cal-row">
+    <div class="cal-when">Once lodging is confirmed</div>
+    <div class="cal-what">
+      <ul>
+        <li>Book Interbus or Grayline shared shuttles for each transfer leg (SJO→Monteverde, Monteverde→Arenal, Arenal→Manuel Antonio, Manuel Antonio→SJO) — all road shuttles, no boats</li>
+        <li>Purchase travel insurance — US health insurance is not accepted at Costa Rican private hospitals. Travel insurance with emergency medical is strongly recommended. No mandatory requirement, but practically essential.</li>
+        <li>Book Teatro Nacional tour in San José (Day 2) — tours fill; book at least 1 week out</li>
+        <li>Book hanging bridges admission for Day 4 — Selvatura or Sky Walk both recommend advance booking in August</li>
+        <li>Book Manuel Antonio National Park entry online — park has daily visitor caps; advance booking required</li>
+      </ul>
+    </div>
+  </div>
+  <div class="cal-row">
+    <div class="cal-when">2 weeks before</div>
+    <div class="cal-what">
+      <ul>
+        <li>Confirm all shuttle bookings and get pickup times</li>
+        <li>Download offline maps for all four regions (Google Maps works offline in Costa Rica)</li>
+        <li>Exchange or plan to withdraw colones — bring small USD bills ($5, $10, $20) in perfect condition for local purchases; large bills and damaged bills are refused</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 class="section">Lodging</h2>
+
+<div class="card">
+  <h3>San José — Barrio Amílcar Arias / Barrio Escalante</h3>
+  <ul>
+    <li>Boutique hotel in the arts district, walking distance to Teatro Nacional and MADC</li>
+    <li>Look for: Casa Conde, Hotel Don Carlos, or similar independent properties — avoid chain hotels downtown (chain row is louder and farther from the cultural neighborhood)</li>
+    <li>Aug 9–11 · 2 nights</li>
+  </ul>
+  <p class="note">San José hotels are easy to book late-season; priority is location in the right neighborhood, not brand.</p>
+</div>
+
+<div class="card">
+  <h3>Monteverde — Cloud forest lodge</h3>
+  <ul>
+    <li><strong>El Establo Mountain Hotel</strong> — full resort on the mountain, pool, extensive grounds, easy access to the reserve</li>
+    <li><strong>Monteverde Lodge &amp; Gardens</strong> (Preferred Hotels) — boutique, excellent guided walks, long-established reputation</li>
+    <li><strong>Belmar Hotel</strong> — smaller, family-run, Ecolodge certified, good for wildlife access</li>
+    <li>Monteverde can be cold and misty at night — confirm lodge has heating or warm bedding</li>
+    <li>Aug 11–13 · 2 nights</li>
+  </ul>
+  <p class="note">Road to Monteverde is paved most of the way now; shared shuttles handle it comfortably. The last stretch is winding mountain road — normal for this area.</p>
+</div>
+
+<div class="card">
+  <h3>Arenal / La Fortuna</h3>
+  <ul>
+    <li>Lodge with hot springs access — either on-site thermal pools or a partner arrangement with Tabacón or Baldi (the two largest hot spring complexes)</li>
+    <li><strong>Arenal Observatory Lodge</strong> is on the volcano's slopes with direct views and hanging bridge access — further from town, quieter. <strong>Nayara Springs</strong> is closer to town, more resort-style, plunge pools in each villa.</li>
+    <li>Aug 13–15 · 2 nights</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Manuel Antonio</h3>
+  <ul>
+    <li>Aim for a hillside property above the park with Pacific views — avoid the road-level hotels (noise, less view)</li>
+    <li><strong>Makanda by the Sea</strong> (adults only, boutique, infinity pool), <strong>La Mariposa</strong> (classic clifftop views), or <strong>Hotel Si Como No</strong> (eco-certified, wildlife on grounds)</li>
+    <li>All three are walking distance or a short ride to the park entrance</li>
+    <li>Aug 15–18 · 3 nights</li>
+  </ul>
+</div>
+</section>
+
+<section class="major">
+<h2 class="section">Flights and getting around</h2>
+
+<div class="card">
+  <h3>San Diego (SAN) → San José (SJO)</h3>
+  <ul>
+    <li><strong>United via Houston (IAH)</strong> — fastest option, ~8.5 hours total. Most convenient routing.</li>
+    <li><strong>American via Dallas/Fort Worth (DFW)</strong> — most frequent, ~9–10 hours total</li>
+    <li>Fares: typically $300–550 round-trip in August (green/low season)</li>
+    <li>Book as a single round-trip ticket: SAN → SJO Aug 8; SJO → SAN Aug 19</li>
+    <li>SJO (Juan Santamaría International) is 12 miles northwest of San José city center — 20–30 min by taxi or shuttle</li>
+  </ul>
+  <p class="note">Compare to Argentina: SAN → EZE is ~16 hours and $600–1,200. Costa Rica is meaningfully shorter and less expensive.</p>
+</div>
+
+<div class="card">
+  <h3>In-country transfers — no rental car needed</h3>
+  <ul>
+    <li><strong>Interbus</strong> and <strong>Grayline</strong> run shared door-to-door shuttles between all four destinations. Book online in advance.</li>
+    <li>SJO → Monteverde: road shuttle northwest, ~3–4 hours (mountain roads, winding but comfortable in a shared shuttle)</li>
+    <li>Monteverde → Arenal: shuttle east/northeast, ~3 hours — sometimes routed via the Tilarán lake road, which is scenic</li>
+    <li>Arenal → Manuel Antonio: shuttle south (possible Sarchí stop) — total ~4–5 hours. Sarchí is roughly en route; ask Interbus/Grayline if they stop or if it requires a separate arrangement.</li>
+    <li>Manuel Antonio → SJO: shuttle north — ~3.5 hours</li>
+  </ul>
+  <p class="note">All four destinations on this itinerary are road-accessible. Shared shuttles are the right call — mountain roads in Monteverde and Arenal are steep and unmarked, and driving an unfamiliar rental on them adds stress that doesn't belong on vacation.</p>
+</div>
+</section>
+
+<section>
+<h2 class="section">Practical</h2>
+
+<div class="practical-grid">
+  <div>
+    <h3>Entry — US citizens</h3>
+    <p>No visa required. Passport must be valid through at least February 2027 (airlines enforce a six-month validity rule even though Costa Rica only requires validity for your stay). A return or onward ticket is required — immigration enforces this. Proof of funds ($100/month of stay) may be requested. No COVID requirements.</p>
+    <p class="note" style="font-size:9.5pt;color:var(--muted);font-style:italic;">US State Dept. advisory as of April 2026: Level 2 — Exercise Increased Caution (petty theft, pickpocketing in tourist areas). Standard precautions apply.</p>
+  </div>
+
+  <div>
+    <h3>Health insurance</h3>
+    <p>No mandatory health insurance required at the border (unlike Argentina's 2025 rule — Costa Rica has no equivalent). However: US health insurance is not accepted by Costa Rican private hospitals. Purchase travel insurance with emergency medical before you go. A plan covering $50K+ in medical evacuation is worth the $80–120 it costs for 10 nights.</p>
+  </div>
+
+  <div>
+    <h3>Money</h3>
+    <p>Currency is the <strong>colón (CRC)</strong> — approximately 450 CRC per $1 USD as of mid-2026. US dollars are widely accepted at hotels, tour operators, national park fees, and restaurants in tourist areas. Pay in colones for local sodas, markets, and buses — paying in USD at local establishments loses value on the change rate.</p>
+    <p>Bring <strong>small USD bills in perfect condition</strong> ($5, $10, $20). Fifties and hundreds are hard to break; damaged or marked bills are refused. ATMs are reliable in San José, Quepos (Manuel Antonio), and La Fortuna — cash is useful in Tortuguero village, which has no ATM.</p>
+  </div>
+
+  <div>
+    <h3>Weather — August</h3>
+    <p><strong>Rainy (green) season</strong>, with a consistent pattern: mornings clear, afternoon rain starting around 1–2pm, usually 1–2 hours. Plan outdoor activities before noon.</p>
+    <ul style="padding-left:14pt;font-size:10pt;margin:4pt 0;">
+      <li><strong>San José:</strong> highs ~80°F, thunderstorms possible late afternoon</li>
+      <li><strong>Tortuguero:</strong> relatively drier than Pacific in August; humid, highs ~85°F</li>
+      <li><strong>Arenal:</strong> heavy daily rain, especially afternoons; mornings often clear with volcano visible</li>
+      <li><strong>Manuel Antonio:</strong> sunny mornings, consistent afternoon rain; highs ~85°F</li>
+    </ul>
+    <p>Pack a lightweight rain jacket. The upside: lower prices, smaller crowds, lush green everywhere.</p>
+  </div>
+
+  <div>
+    <h3>Phones and connectivity</h3>
+    <p>US carriers have Costa Rica coverage — check your plan before leaving. A local SIM (Kolbi or Claro, ~$10–20) provides excellent data coverage in San José, Arenal, and Manuel Antonio. Tortuguero has limited connectivity; most lodges have WiFi in common areas.</p>
+    <p>Download offline maps (Google Maps or Maps.me) for all four regions before you leave the US.</p>
+  </div>
+
+  <div>
+    <h3>Tips and customs</h3>
+    <p>A 10% service charge is legally required on restaurant bills in Costa Rica — it's already in the total. Tipping beyond that is optional but appreciated for guides (~$10–20/day for naturalist guides, especially the turtle night tour). Taxi drivers: round up. Hotel staff: $1–2/day. Haggling is not a cultural norm.</p>
+    <p><strong>Cloud forest etiquette:</strong> Stay on marked trails — the ecosystem is fragile. Don't use flash photography near wildlife. Follow your guide's positioning instructions during quetzal walks; flushing the bird ends the sighting for everyone.</p>
+  </div>
+
+  <div>
+    <h3>What to pack</h3>
+    <ul style="padding-left:14pt;font-size:10pt;margin:4pt 0;">
+      <li>Lightweight rain jacket (leave the umbrella)</li>
+      <li>Hiking shoes or trail runners — boardwalks get wet</li>
+      <li>Water shoes for Manuel Antonio beach</li>
+      <li>Snorkel gear (can rent at Playa Biesanz, but your own is better)</li>
+      <li>DEET insect repellent — essential near canals and jungle</li>
+      <li>Sunscreen — reef-safe required in national parks</li>
+      <li>Binoculars — sloth and bird spotting is dramatically better with them</li>
+      <li>Dark or neutral clothing for the night turtle tour (no white, no bright colors)</li>
+    </ul>
+  </div>
+
+  <div>
+    <h3>Safety</h3>
+    <p>Costa Rica is one of the safer countries in Central America for tourists. The US advisory is Level 2 (same level as France and Germany) due to petty theft. Standard precautions: don't leave anything visible in a car, use hotel safes, be aware in busy markets. The four destinations on this itinerary — San José arts district, Tortuguero (boat village), Arenal, Manuel Antonio — are all well-established tourist areas with good infrastructure.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 class="section">Optional add-ons</h2>
+<ul class="addons">
+  <li><strong>Macuco Safari (Tortuguero or Arenal):</strong> A 4WD + forest hike + zodiac boat combo. Arenal version ends at a hidden waterfall. About 3 hours, runs mornings. Book at the lodge.</li>
+  <li><strong>Brazilian side of Iguazú equivalent — Corcovado National Park (Osa Peninsula):</strong> The most biodiverse place on Earth, per National Geographic. Requires flying SJO→Puerto Jiménez or adding 3 days to the end. Too remote for this itinerary, but worth knowing it exists.</li>
+  <li><strong>White-water rafting on the Pacuare River:</strong> One of the top 5 rafting rivers in the world, Class III–IV, runs through primary rainforest. Typically done as a day trip from San José or on the transfer between Tortuguero and Arenal. Interbus can often arrange it on the transfer day.</li>
+  <li><strong>Night tour at Monteverde:</strong> If you want to add cloud forest without adding days, Monteverde is roughly en route from Arenal to Manuel Antonio (it's a detour, about 2 hours off the main road). A night walk through the cloud forest — frog, insects, kinkajous — is a distinct experience from anything else on this trip.</li>
+  <li><strong>Isla del Caño snorkeling:</strong> The best snorkeling in Costa Rica — a protected marine reserve 12 miles offshore from Drake Bay. Requires adding 2 nights near Corcovado. Not practical for this itinerary but significantly better snorkeling than Playa Biesanz if you ever return.</li>
+  <li><strong>Cahuita National Park:</strong> An alternative to Manuel Antonio on the Caribbean coast — coral reef snorkeling (the best on the Caribbean side), easier wildlife (sloths in the trees, monkeys), and a completely different Afro-Caribbean cultural vibe. Could replace Manuel Antonio if you want to stay Caribbean-side the whole trip.</li>
+</ul>
+</section>
+
+<section>
+<h2 class="section">Before you go — verify</h2>
+<ol class="verify">
+  <li>Passports valid through <strong>February 2027</strong> — confirm before booking flights</li>
+  <li>Round-trip flights booked: SAN → IAH → SJO Aug 8; SJO → IAH → SAN Aug 19</li>
+  <li>All four lodges confirmed with dates and confirmation numbers</li>
+  <li>All Interbus/Grayline transfers booked with pickup times confirmed (SJO→Monteverde, Monteverde→Arenal, Arenal→Manuel Antonio, Manuel Antonio→SJO)</li>
+  <li>Travel insurance purchased (emergency medical + evacuation coverage)</li>
+  <li>Teatro Nacional tour booked online for Monday Aug 10</li>
+  <li>Hanging bridges admission booked for Wednesday Aug 12 (Selvatura or Sky Walk)</li>
+  <li>Manuel Antonio National Park entry booked online for Sunday Aug 16</li>
+  <li>Offline maps downloaded for San José, Monteverde, La Fortuna, and Quepos/Manuel Antonio</li>
+  <li>Small USD bills packed ($5s, $10s, $20s — unmarked, undamaged)</li>
+  <li>Reef-safe sunscreen purchased (required in national parks)</li>
+</ol>
+</section>
+
+<footer class="footer">
+  Costa Rica Option A (Monteverde) — Orlando &amp; Kit · August 2026 &middot; Prepared May 2026
+</footer>
+
+</div>
+</body>
+</html>

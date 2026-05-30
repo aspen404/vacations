@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Costa Rica · August 2026</title>
+<style>
+  :root {
+    --bg: #F2F7F3;
+    --ink: #1F2937;
+    --ink-soft: #4B5563;
+    --ink-faint: #9CA3AF;
+    --line: #D4E8DA;
+    --card-bg: #FFFFFF;
+    --accent: #2a6e40;
+    --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(31,55,41,.08);
+    --shadow-lg: 0 1px 2px rgba(0,0,0,.04), 0 24px 48px rgba(31,55,41,.12);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0d1410;
+      --ink: #F3F4F6;
+      --ink-soft: #C9CDD3;
+      --ink-faint: #8A8F98;
+      --line: #1e2e22;
+      --card-bg: #141d17;
+    }
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--ink); }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    line-height: 1.5;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 22px 60px; }
+  .head { margin-bottom: 32px; }
+  .head .eyebrow { font-size: 11px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; }
+  .head h1 { margin: 0 0 8px; font-size: clamp(30px, 7vw, 42px); font-weight: 800; letter-spacing: -0.03em; }
+  .head p { margin: 0; color: var(--ink-soft); font-size: 16px; max-width: 540px; }
+
+  .options { display: grid; gap: 20px; margin-top: 8px; }
+
+  a.option {
+    display: block;
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    overflow: hidden;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: var(--shadow);
+    transition: transform .08s, border-color .15s, box-shadow .2s;
+  }
+  a.option:hover { border-color: var(--accent); box-shadow: var(--shadow-lg); transform: translateY(-1px); }
+
+  .option-photo {
+    aspect-ratio: 16 / 7;
+    overflow: hidden;
+    position: relative;
+  }
+  .option-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .option-badge {
+    position: absolute;
+    top: 14px; left: 14px;
+    background: rgba(255,255,255,.92);
+    color: var(--ink);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 999px;
+  }
+  .option-star {
+    position: absolute;
+    top: 14px; right: 14px;
+    background: var(--accent);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 999px;
+  }
+
+  .option-body { padding: 22px 24px 24px; }
+  .option-body h2 { font-size: 22px; margin: 0 0 4px; font-weight: 800; letter-spacing: -0.015em; }
+  .option-body .sub { font-size: 13px; color: var(--ink-faint); margin: 0 0 14px; }
+  .option-body .stops { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+  .stop-pill {
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    color: var(--ink-soft);
+  }
+  .option-body .desc { font-size: 14.5px; color: var(--ink-soft); margin: 0 0 16px; line-height: 1.5; }
+
+  .pros-cons { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 16px; }
+  .pc-block { font-size: 12.5px; line-height: 1.5; }
+  .pc-label { font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; margin-bottom: 4px; }
+  .pc-label.pro { color: var(--accent); }
+  .pc-label.con { color: #b45309; }
+  .pc-block ul { margin: 0; padding-left: 14px; color: var(--ink-soft); }
+  .pc-block ul li { margin: 2px 0; }
+
+  .cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: .02em;
+  }
+  .cta::after { content: "→"; transition: transform .15s; }
+  a.option:hover .cta::after { transform: translateX(3px); }
+
+  .back { margin-top: 40px; text-align: center; }
+  .back a { color: var(--ink-faint); font-size: 13px; text-decoration: none; }
+  .back a:hover { color: var(--ink-soft); }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <div class="eyebrow">Orlando &amp; Kit · August 2026</div>
+    <h1>Costa Rica</h1>
+    <p>Two options for the same trip. Same dates (Aug 8–19), same flight, same Arenal and Manuel Antonio. The difference is stops 2 and 3.</p>
+  </div>
+
+  <div class="options">
+
+    <a class="option" href="./recommended_plan/costa_rica_plan.html">
+      <div class="option-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Green_sea_turtle_nesting_on_beach_sand_chelonia_mydas.jpg" alt="Green sea turtle nesting">
+        <span class="option-badge">Turtle Option</span>
+        <span class="option-star">August timing ✦</span>
+      </div>
+      <div class="option-body">
+        <h2>With Tortuguero</h2>
+        <div class="sub">San José · Tortuguero · Arenal · Manuel Antonio</div>
+        <div class="stops">
+          <span class="stop-pill">🎭 Teatro Nacional</span>
+          <span class="stop-pill">🐢 Sea Turtles</span>
+          <span class="stop-pill">🌋 Arenal Hot Springs</span>
+          <span class="stop-pill">🦥 Sloths &amp; Monkeys</span>
+          <span class="stop-pill">🤿 Snorkeling</span>
+        </div>
+        <p class="desc">August is peak nesting season — the most important green turtle nesting site in the Western Hemisphere. You may watch a 300-pound turtle come ashore at night. One boat transfer (La Pavona → Tortuguero); all other legs are road shuttles.</p>
+        <div class="pros-cons">
+          <div class="pc-block">
+            <div class="pc-label pro">Strengths</div>
+            <ul>
+              <li>Once-in-a-lifetime night turtle tour</li>
+              <li>Caribbean canal wildlife (caimans, river otters, 3 monkey species)</li>
+              <li>Timing is perfect — peak August nesting</li>
+            </ul>
+          </div>
+          <div class="pc-block">
+            <div class="pc-label con">Tradeoffs</div>
+            <ul>
+              <li>One boat-only transfer (not hard, just different)</li>
+              <li>Tortuguero has no ATM; bring cash</li>
+              <li>Slightly more logistically moving</li>
+            </ul>
+          </div>
+        </div>
+        <span class="cta">Open full plan</span>
+      </div>
+    </a>
+
+    <a class="option" href="./recommended_plan/costa_rica_plan_option_a.html">
+      <div class="option-photo">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/d/d9/Cloud_Forest_at_Monteverde.JPG" alt="Monteverde cloud forest">
+        <span class="option-badge">Option A</span>
+      </div>
+      <div class="option-body">
+        <h2>With Monteverde</h2>
+        <div class="sub">San José · Monteverde · Arenal · Manuel Antonio</div>
+        <div class="stops">
+          <span class="stop-pill">🎭 Teatro Nacional</span>
+          <span class="stop-pill">🦜 Quetzals</span>
+          <span class="stop-pill">🌿 Cloud Forest</span>
+          <span class="stop-pill">🌋 Arenal Hot Springs</span>
+          <span class="stop-pill">🦥 Sloths &amp; Monkeys</span>
+          <span class="stop-pill">🤿 Snorkeling</span>
+        </div>
+        <p class="desc">Swaps the Caribbean canals for the cloud forest. Every transfer is a road shuttle — no boats, no docks, simpler logistics. Two completely different ecosystems back to back: misty mountain forest followed by volcanic lowland jungle.</p>
+        <div class="pros-cons">
+          <div class="pc-block">
+            <div class="pc-label pro">Strengths</div>
+            <ul>
+              <li>Simpler logistics — all road, no boats</li>
+              <li>Hanging bridges at canopy level (1.9mi circuit)</li>
+              <li>Quetzals, cloud forest night walk, Bat Jungle</li>
+              <li>Quaker settler history is a genuine cultural note</li>
+            </ul>
+          </div>
+          <div class="pc-block">
+            <div class="pc-label con">Tradeoffs</div>
+            <ul>
+              <li>No sea turtles</li>
+              <li>Quetzals are harder to find in August (peak is March–June)</li>
+              <li>Monteverde can be cold and misty — bring layers</li>
+            </ul>
+          </div>
+        </div>
+        <span class="cta">Open full plan</span>
+      </div>
+    </a>
+
+  </div>
+
+  <div class="back"><a href="../">← All trips</a></div>
+</div>
+</body>
+</html>
