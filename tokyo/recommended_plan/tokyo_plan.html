@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Tokyo — 8 Days · Immersive, Culture, Weird</title>
+<style>
+  @page { size: Letter; margin: 0.6in 0.7in; }
+
+  :root {
+    --ink: #1a1a1a;
+    --muted: #6b6b70;
+    --accent: #c0392b;
+    --rule: #e0d8d0;
+    --soft: #f5f0eb;
+    --paper: #faf8f5;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    padding: 0;
+    background: #2a1f1a;
+    color: var(--ink);
+    font-family: "Iowan Old Style", "Palatino", Georgia, serif;
+    font-size: 11.5pt;
+    line-height: 1.55;
+  }
+
+  .page {
+    max-width: 7.4in;
+    margin: 0 auto;
+    background: var(--paper);
+    padding: 0.7in 0.75in;
+    box-shadow: 0 2px 18px rgba(0,0,0,0.18);
+  }
+
+  h1, h2, h3, .pretitle, .footer, .meta-row, .checklist {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  }
+
+  .cover { padding-bottom: 0.35in; border-bottom: 1px solid var(--rule); margin-bottom: 0.3in; }
+  .pretitle { font-size: 9pt; letter-spacing: 0.22em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.18in; }
+  h1 { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 42pt; line-height: 1.0; font-weight: 400; margin: 0 0 0.18in; letter-spacing: -0.02em; }
+  h1 em { font-style: italic; color: var(--accent); }
+  .lede { font-size: 12.5pt; line-height: 1.55; color: var(--ink); max-width: 6in; margin: 0 0 0.3in; }
+  .meta-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.16in 0.4in; font-size: 9.5pt; color: var(--muted); margin-top: 0.1in; }
+  .meta-row .k { display: block; font-size: 7.8pt; letter-spacing: 0.16em; text-transform: uppercase; color: var(--accent); margin-bottom: 2pt; }
+  .meta-row .v { color: var(--ink); font-size: 10pt; }
+
+  section { margin-top: 0.35in; }
+  section.major { page-break-before: always; }
+  h2.section { font-size: 17pt; font-weight: 500; letter-spacing: -0.005em; margin: 0 0 0.05in; padding-bottom: 0.06in; border-bottom: 1px solid var(--rule); }
+  .section-sub { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-style: italic; color: var(--muted); font-size: 11pt; margin: 0 0 0.18in; }
+
+  .day { display: grid; grid-template-columns: 1fr 2.2in; gap: 0.22in; align-items: start; margin-bottom: 0.28in; page-break-inside: avoid; break-inside: avoid; }
+  .day.no-image { grid-template-columns: 1fr; }
+  .day-head { display: flex; align-items: baseline; gap: 0.12in; margin-bottom: 0.06in; }
+  .day-num { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8.5pt; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
+  .day-date { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 14pt; font-weight: 500; line-height: 1.15; }
+  .day-tag { font-style: italic; color: var(--accent); font-weight: 400; }
+  .day-body { margin: 0; line-height: 1.6; }
+  .day-body strong { font-weight: 600; }
+  figure.day-img { margin: 0; }
+  figure.day-img img { display: block; width: 100%; height: auto; border-radius: 2px; }
+  figure.day-img figcaption { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8pt; color: var(--muted); margin-top: 4pt; font-style: italic; line-height: 1.35; }
+
+  .card { background: var(--soft); border-radius: 4px; padding: 0.18in 0.22in; margin: 0.12in 0; font-size: 10pt; page-break-inside: avoid; }
+  .card h3 { margin: 0 0 0.06in; font-size: 11pt; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  .card ul { margin: 0; padding-left: 16pt; }
+  .card ul li { margin: 4pt 0; line-height: 1.5; }
+  .card .note { margin: 6pt 0 0; font-size: 9.5pt; color: var(--muted); font-style: italic; }
+
+  .weird-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 2pt 6pt;
+    border-radius: 2px;
+    vertical-align: middle;
+    margin-left: 4pt;
+    position: relative;
+    top: -1pt;
+  }
+
+  .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.18in 0.3in; }
+  .practical-grid > div { page-break-inside: avoid; font-size: 10pt; line-height: 1.55; }
+  .practical-grid h3 { margin: 0 0 0.04in; font-size: 10pt; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase; font-weight: 500; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+  .addons li { margin: 7pt 0; font-size: 10.5pt; line-height: 1.55; }
+  .addons li strong { font-weight: 600; }
+
+  .footer { margin-top: 0.4in; padding-top: 0.18in; border-top: 1px solid var(--rule); font-size: 8.5pt; color: var(--muted); letter-spacing: 0.04em; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: none; padding: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+<header class="cover">
+  <div class="pretitle">Eight Days · Immersive · Culture · Weird</div>
+  <h1>Tokyo. <em>深く.</em></h1>
+  <p class="lede">
+    One of the strangest cities on earth, if you go past the surface. The plan below is organized around neighborhoods, not monuments — each day drops you into a different version of Tokyo and leaves enough unscheduled time for the city to show you things that aren't in any guidebook.
+  </p>
+  <div class="meta-row">
+    <div><span class="k">Duration</span><span class="v">8 days · 7 nights</span></div>
+    <div><span class="k">Best months</span><span class="v">Oct–Nov (fall colors, cool), Mar–Apr (cherry blossoms), May</span></div>
+    <div><span class="k">Avoid if possible</span><span class="v">Aug (heat + humidity, 90°F+ feels hotter) · Golden Week (late Apr–early May, very crowded)</span></div>
+    <div><span class="k">Book ahead</span><span class="v">teamLab · Ghibli Museum (lottery) · Kabuki single acts · sumo (if tournament week)</span></div>
+    <div><span class="k">Getting in</span><span class="v">Narita (NRT) → Skyliner → Ueno, 41 min. Haneda (HND) → monorail or taxi, 30 min. Haneda is closer.</span></div>
+    <div><span class="k">Getting around</span><span class="v">IC card (Suica or Pasmo) loaded with ¥5,000. Covers subway, JR, buses. Don't rent a car.</span></div>
+  </div>
+</header>
+
+<section>
+<h2 class="section">Eight days</h2>
+<p class="section-sub">Each day is a neighborhood. Each neighborhood is a different city.</p>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 1</div>
+      <div class="day-date">Shinjuku &middot; <span class="day-tag">arrive, orient, stay up too late</span></div>
+    </div>
+    <p class="day-body">
+      Land, take the Narita Skyliner or Haneda monorail, check in. Don't sleep — fight the jet lag with movement. Wander <strong>Kabukicho</strong>, Shinjuku's entertainment district: neon, game centers, hostess clubs, Robot Restaurant signage (it closed, but the block stays deliriously lit). Find <strong>Omoide Yokocho</strong> <span class="weird-tag">weird</span> — "Memory Lane," a narrow alley of 60 yakitori stalls crammed under the train tracks, smoke in the air, plastic stools, salarymen drinking alone. Tiny and time-warped. Then cross to <strong>Golden Gai</strong> <span class="weird-tag">weird</span> — six narrow alleys, 200+ bars each seating 5–8 people. Every bar has a theme, a specialty, and a bartender with a story. Pick one that looks interesting, duck under the curtain, and see who's inside. Most welcome strangers.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dc/Colorful_neon_street_signs_in_Kabukich%C5%8D%2C_Shinjuku%2C_Tokyo.jpg" alt="Kabukicho neon, Shinjuku">
+    <figcaption>Kabukicho, Shinjuku — Wikimedia Featured Picture. The neon doesn't thin out until 4am. (Photo: Basile Morin, CC BY-SA 4.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 2</div>
+      <div class="day-date">Asakusa &amp; Akihabara &middot; <span class="day-tag">ancient and electric</span></div>
+    </div>
+    <p class="day-body">
+      At <strong>Senso-ji</strong> by 7am — Tokyo's oldest temple (628 AD), in the Asakusa district. Before the tour groups arrive, the incense smoke, the fortune slips, the 5-story pagoda, the old women sweeping the grounds — it's genuinely other-worldly. Walk Nakamise-dori for handmade crafts, then breakfast at a local kissaten nearby. Mid-morning: a woodblock printing workshop at <strong>Mokuhankan</strong> <span class="weird-tag">immersive</span>, the studio on the Asakusa backstreets run by Canadian master printer David Bull — one of the only places in the world still doing traditional <em>ukiyo-e</em> woodblock printing end-to-end. Two-hour sessions, you carve and print your own design, take it home. Book online before the trip. Afternoon: subway to <strong>Akihabara</strong> <span class="weird-tag">weird</span> — the electronics and anime district. Multi-story buildings selling every component imaginable; floors of used manga; figure stores. Find a <strong>maid cafe</strong> <span class="weird-tag">weird</span> — the servers wear French maid costumes and treat every customer as a returning master of the house. Kira Maid or Maidreamin are the most legible for first-timers. Strange, slightly uncomfortable, absolutely Tokyo. On the way out: any multi-floor <strong>gashapon hall</strong> <span class="weird-tag">weird</span> — capsule toy machines selling everything from miniature food to surrealist art objects, 300–500 yen each. You insert coins and get something random. Walk south toward the end of the day.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Hozomon_and_pagoda%2C_Sensoji_Temple%2C_Asakusa%2C_Tokyo.jpg" alt="Senso-ji Hozomon gate and pagoda, Asakusa">
+    <figcaption>Senso-ji, Asakusa — the Hozomon gate and five-storey pagoda. 628 AD. Arrive before 8am. (Daderot, public domain)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 3</div>
+      <div class="day-date">teamLab + Shibuya &middot; <span class="day-tag">the most immersive day</span></div>
+    </div>
+    <p class="day-body">
+      Morning: <strong>teamLab Planets</strong> <span class="weird-tag">immersive</span> in Toyosu. You remove your shoes, roll your pants up, and walk barefoot through six massive rooms: a field of flowers that responds to your movement, a room of floating orbs, a space where the floor, walls, and ceiling are a continuous digital sea. Genuinely unlike any art experience anywhere. Book at least 2–3 weeks in advance; time slots sell out. Allow 60–90 minutes. Afternoon: <strong>Shibuya</strong>. Walk the <strong>Shibuya Scramble</strong> from street level and then take the elevator to <strong>Shibuya Sky</strong> for the view from above — a glass outdoor observation deck with a zipline over the crossing. As the sun goes down, the crossing turns into the most kinetic thing you've ever watched. Evening: into the Shibuya maze — <strong>Nonbei Yokocho</strong> ("Drunkard's Alley"), Udagawacho record shops, late ramen.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Scramble_from_above%2C_SHIBUYA_SKY_%2849367160502%29_%28cropped%29.jpg" alt="Shibuya Scramble crossing aerial view">
+    <figcaption>Shibuya Scramble from above — the view from Shibuya Sky. 2,500+ people cross at once when the light changes. (Photo: Sei F, CC BY-SA 2.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 4</div>
+      <div class="day-date">Meiji &amp; Harajuku &amp; Kabuki &middot; <span class="day-tag">sacred, strange, theatrical</span></div>
+    </div>
+    <p class="day-body">
+      Early at <strong>Meiji Jingu</strong> — a Shinto shrine inside a 170-acre forest in the center of the city. The approach through the torii gates and cedar trees is one of the more unexpectedly moving things in Tokyo. Then walk south into <strong>Harajuku</strong>: Takeshita-dori on a weekend morning is peak Tokyo street fashion — decora, Lolita, cosplay, things with no Western equivalent. Mid-morning: an <strong>owl cafe</strong> <span class="weird-tag">weird</span> — Harajuku and nearby Shibuya have several; you sit in a room with free-roaming owls that perch on your arm, your head, wherever they feel like. Barn owls, great grey owls, tiny saw-whet owls. Allow 45 minutes. Ura-Harajuku (the back streets) for independent designers. Lunch in Omotesando (the architecture alone: the Prada building, the Tod's building, Omotesando Hills by Ando). Afternoon train to Ginza: an act at <strong>Kabukiza Theater</strong> <span class="weird-tag">immersive</span>. Single-act tickets (hitomaku-mi) go on sale at the box office the day of; no advance booking, about ¥1,000–2,000, earphone guides available in English. You're watching a 400-year-old performance tradition: white-face makeup, male actors playing female roles, vocalizations that sound like nothing else. One act is about 45 minutes.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/TeamLab_Borderless%2C_Odaiba%2C_Tokyo%2C_Japan_%2849070645226%29.jpg" alt="teamLab Borderless digital art installation">
+    <figcaption>teamLab Borderless — rooms of continuous digital art with no walls or floor. The physical and digital dissolve. (Photo: D. Convertini, CC BY-SA 2.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 5</div>
+      <div class="day-date">Yanaka + Ueno + Parasite Museum &middot; <span class="day-tag">old Tokyo, free museums, genuine dread</span></div>
+    </div>
+    <p class="day-body">
+      <strong>Yanaka</strong> in the morning — the neighborhood that survived WWII bombing intact, preserving old Tokyo: narrow lanes, independent shotengai shopping streets, Buddhist temples, cats on every corner. The cemetery here is famously beautiful, with cherry trees and winding paths. Walk through it. Continue to <strong>Ueno Park</strong> and the <strong>Tokyo National Museum</strong> — the most important collection of Japanese art and artifacts in the world, including swords, lacquerware, Buddhist sculpture, and Edo-period paintings. Allow at least two hours. Then: subway to Meguro for the <strong>Meguro Parasitological Museum</strong> <span class="weird-tag">weird</span>. It's free, it takes 40 minutes, it contains over 300 preserved parasite specimens including a 29-foot tapeworm removed from a human. The gift shop sells parasite-themed merchandise. One of the strangest things you can do in any city on earth. Evening: walk the <strong>Nakameguro canal</strong>, lined with independent restaurants and bars.
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/d/dd/2024-10-20_Shinjuku_Golden_Gai_at_night.jpg" alt="Golden Gai alleyways, Shinjuku">
+    <figcaption>Golden Gai, Shinjuku — 200+ bars in six alleys, each seating 5–8 people. Tokyo's most irreplicable social institution. (Photo: Alexey Komarov, CC BY 4.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day no-image">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 6</div>
+      <div class="day-date">Day trip: Nikko or Kamakura &middot; <span class="day-tag">leave the city</span></div>
+    </div>
+    <p class="day-body">
+      <strong>Nikko</strong> (2 hours north, JR Pass or Tobu Nikko Line): The Toshogu Shrine complex is so ornate it prompted the Japanese saying "never say magnificent until you've seen Nikko." Carved animals on every surface, gold leaf, a sacred bridge over a gorge, Japanese macaques in the surrounding mountains. UNESCO World Heritage Site. Go early. <br><br>
+      <strong>OR Kamakura</strong> (1 hour south, JR Yokosuka Line): The Great Buddha (Kotoku-in) — 44 feet of bronze, 13th century, you can go inside. Hasedera Temple with ocean views. Zen gardens at Engaku-ji and Kencho-ji. Less ornate than Nikko, more serene. Better if you want coast and quiet over overwhelming grandeur.
+    </p>
+  </div>
+</div>
+
+<div class="day">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 7</div>
+      <div class="day-date">Shimokitazawa + Roppongi &middot; <span class="day-tag">indie Tokyo, art Tokyo</span></div>
+    </div>
+    <p class="day-body">
+      <strong>Shimokitazawa</strong> in the afternoon — the bohemian neighborhood: indie music venues (many legendary small live houses), vintage clothing stores so dense they've become an industry, kissaten with handwritten menus, small theaters. It looks nothing like Shinjuku or Harajuku. Walk without a map. Evening: cross-city to <strong>Roppongi</strong> for the art. The <strong>Mori Art Museum</strong> on the 53rd floor of Roppongi Hills is one of the best contemporary art museums in Asia — rotating major exhibitions and a permanent city view. Next door: the <strong>Tokyo City View</strong> observation deck, which at night is one of the most dramatic views in the city. Then: dinner in Roppongi, which has an outsized expat and international food scene relative to the rest of Tokyo. Late: teamLab Borderless <span class="weird-tag">immersive</span> at Azabudai Hills if you haven't done a teamLab yet (different from Planets — larger, more wanderable).
+    </p>
+  </div>
+  <figure class="day-img">
+    <img src="https://upload.wikimedia.org/wikipedia/commons/9/98/Tokyo_skyline_seen_from_Tokyo_Skytree.jpg" alt="Tokyo skyline from Tokyo Skytree">
+    <figcaption>Tokyo skyline from Skytree — 37 million people. The Mori Art Museum view is lower but more intimate. (Photo: Ruthsic, CC BY-SA 4.0)</figcaption>
+  </figure>
+</div>
+
+<div class="day no-image">
+  <div>
+    <div class="day-head">
+      <div class="day-num">Day 8</div>
+      <div class="day-date">Tsukiji + Last Hours &middot; <span class="day-tag">breakfast at the market, whatever you missed</span></div>
+    </div>
+    <p class="day-body">
+      <strong>Tsukiji Outer Market</strong> by 8am: the old wholesale market is gone (moved to Toyosu) but the surrounding outer market remains — the best breakfast in the city. Grilled scallops, sea urchin on rice, tamagoyaki (rolled omelette), fatty tuna. A short walk to Tsukishima for <em>monjayaki</em> (Tokyo's own savory pancake, more liquid than okonomiyaki, cooked on a griddle at your table). Then: whatever you missed or want to revisit. Last afternoon in Asakusa, buying omiyage (gifts). Depart from Narita or Haneda.
+    </p>
+  </div>
+</div>
+</section>
+
+<section class="major">
+<h2 class="section">The genuinely weird — a shortlist</h2>
+<p class="section-sub">Things that have no equivalent anywhere else on earth.</p>
+
+<div class="card">
+  <h3>Ghibli Museum</h3>
+  <ul>
+    <li>Mitaka, 25 min from Shinjuku. Designed by Hayao Miyazaki himself — no signs, deliberately non-linear, meant to be explored not guided.</li>
+    <li><strong>Tickets by lottery only.</strong> Available via Lawson convenience store or the official site, typically 3 months in advance. This is not an exaggeration. Many visitors plan their Tokyo trip around having gotten a ticket.</li>
+    <li>If you can get a ticket, it's worth structuring the whole trip around Day 6 instead of the day trip.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Don Quijote (Donki) at 2am</h3>
+  <ul>
+    <li>The discount store chain is open 24 hours. The Shinjuku or Shibuya branches are seven floors of organized chaos — food, wigs, cosplay costumes, electronics, toiletries, ceremonial items — all crammed with no apparent logic, jingle playing on loop.</li>
+    <li>Not a tourist attraction. Genuinely where Tokyoites shop at midnight. Go without an agenda and just wander.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Sumo morning practice</h3>
+  <ul>
+    <li>Some sumo stables (heya) allow visitors to watch morning practice. Requires an introduction letter from a Japanese contact or booking through a specialized tour operator.</li>
+    <li>If there's a tournament that week (Tokyo holds three per year: January, May, September), buy tickets and go instead — a full day tournament is one of the stranger sporting events you can attend anywhere.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>2.5D Theater</h3>
+  <ul>
+    <li>Live musical theater adaptations of anime and manga, performed by human actors with elaborate staging. A major industry in Japan with dedicated theaters and fan communities.</li>
+    <li>Most shows are entirely in Japanese; no translation available. That's fine. The spectacle carries it.</li>
+    <li>Check what's playing at the Tokyo International Forum, TDC Hall, or AiiA Theater before you leave — if anything looks interesting, book it for Day 7 evening instead of Roppongi.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Kintsugi workshop</h3>
+  <ul>
+    <li>Kintsugi is the Japanese practice of repairing broken pottery with gold lacquer — the break becomes part of the beauty rather than a flaw to hide. The philosophy is as significant as the technique.</li>
+    <li>Several Tokyo studios offer 2–3 hour workshops: you bring or choose a broken ceramic piece, repair it with urushi lacquer and gold powder, take it home. Studios in Harajuku, Shimokitazawa, and Nakameguro areas offer sessions.</li>
+    <li>Book online before the trip — sessions fill quickly and most require advance registration. Search "kintsugi workshop Tokyo" for current offerings; the landscape changes seasonally.</li>
+    <li>For a Studio Art student: this is one of the most conceptually interesting craft experiences available in Japan. The aesthetics (wabi-sabi, mono no aware) are worth understanding before you go.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Ferret, hedgehog, and exotic animal cafes</h3>
+  <ul>
+    <li><strong>Ferret cafe:</strong> Small rooms where ferrets roam freely — they're social and curious and will climb on you. Several in the Harajuku/Shibuya area.</li>
+    <li><strong>Hedgehog cafe:</strong> Harry Harajuku and Mofuwa Hedgehog (Shibuya) are well-reviewed; you hold hedgehogs under staff supervision. 30–60 minute sessions.</li>
+    <li><strong>Cat cafes</strong> are the most established; Temari no Ouchi (themed like a Victorian house) and Cat Cafe Mocha are popular. Most charge by the hour (¥800–1,200) plus a drink.</li>
+    <li>Owl cafes (covered in Day 4) are the most visually dramatic. Hedgehog cafes are the quietest. Ferret cafes are the most chaotic.</li>
+  </ul>
+  <p class="note">Book ahead for hedgehog and ferret cafes — slots are limited. Walk-ins work for most cat cafes.</p>
+</div>
+
+<div class="card">
+  <h3>Purikura photo booths</h3>
+  <ul>
+    <li>Purikura (print clubs) are photo booths that shoot you, then let you edit the image in real time — smooth skin, bigger eyes, add stickers, backgrounds, text, anything. The output is a sheet of tiny sticker-photos.</li>
+    <li>The machine's AI vision settings for "beauty" are aggressively calibrated for Japanese aesthetics. The results are startling. Arcades in Shibuya, Harajuku, and Ikebukuro all have floors of them.</li>
+    <li>Uniquely Japan in the most specific sense: this is a social ritual teenage girls have been doing for 30 years. The machines have evolved into something elaborate and strange.</li>
+    <li>¥400–600 per session. Take 3–4 rounds to understand the editing interface.</li>
+  </ul>
+</div>
+
+<div class="card">
+  <h3>Capsule hotel — one night</h3>
+  <ul>
+    <li>Not a budget move — the good ones (Nine Hours in Narita or Shinjuku, Book and Bed in Shinjuku) are thoughtfully designed and worth one night for the experience.</li>
+    <li>Book and Bed Shinjuku is specifically the one: a hotel where your sleeping unit is a shelf inside a large bookcase, surrounded by books. You read until you fall asleep.</li>
+  </ul>
+</div>
+</section>
+
+<section>
+<h2 class="section">Practical</h2>
+<div class="practical-grid">
+  <div>
+    <h3>Getting around</h3>
+    <p>IC card (Suica or Pasmo) loaded at any station machine — covers subway, JR lines, buses, and many convenience store purchases. ¥5,000 to start. Never take taxis for cross-city travel; the subway is faster, cheaper, and runs until midnight. Taxis after midnight are fine and metered.</p>
+    <p>Google Maps works perfectly for Tokyo transit routing in English — enter a destination and it gives you the exact platform and exit number.</p>
+  </div>
+
+  <div>
+    <h3>Money</h3>
+    <p>Japan is still predominantly <strong>cash</strong>. Many restaurants, small bars, and temples don't take cards. Withdraw yen at <strong>7-Eleven ATMs</strong> (most reliable for foreign cards) or Japan Post offices. ¥50,000 should cover a week of food and local purchases.</p>
+    <p>Tipping is not practiced and can cause confusion. Don't tip.</p>
+  </div>
+
+  <div>
+    <h3>Language</h3>
+    <p>English signage is excellent in stations and tourist areas. Google Translate camera mode handles menus (point at text, it translates in real time). Most restaurant counters have plastic food displays or picture menus. "Sumimasen" (excuse me) and "arigato gozaimasu" (thank you) get you very far.</p>
+  </div>
+
+  <div>
+    <h3>Eating</h3>
+    <p>Conveyor belt sushi (kaiten-zushi) at Sushiro or Hamazushi is excellent and costs ¥100–200/plate. Standing ramen bars are faster and often as good as sit-down. Convenience store food (7-Eleven, FamilyMart, Lawson) is genuinely good — onigiri, sandwiches, hot oden. The <em>kissaten</em> (old-school coffee shop) serves thick toast, drip coffee, and sometimes eggs — one of the great Tokyo institutions.</p>
+  </div>
+
+  <div>
+    <h3>What to avoid</h3>
+    <p><strong>Robot Restaurant is closed.</strong> It shut during COVID and has not reopened. Multiple operators have reused the name/concept; none are the original and none are worth the price. Skip any "Robot Restaurant experience" tours.</p>
+    <p>Don't buy a tourist day pass for the subway — the IC card charges per journey and almost always works out cheaper.</p>
+  </div>
+
+  <div>
+    <h3>Connectivity</h3>
+    <p>Pocket Wi-Fi rental (pick up at the airport) or eSIM (Airalo has Japan eSIMs from $8 for 7 days). Japan's LTE coverage is excellent everywhere including subway stations. Don't rely on hotel Wi-Fi alone — you'll want maps and translation constantly.</p>
+  </div>
+
+  <div>
+    <h3>Behavior</h3>
+    <p>Don't eat while walking — it's considered rude. Queues are orderly; join the back. Subway etiquette is strict: no talking on phone, no speakerphone, give up priority seats. Tattoos are an issue at traditional onsen (public baths) — call ahead or find a tattoo-friendly one.</p>
+  </div>
+
+  <div>
+    <h3>Things to buy</h3>
+    <p>Artisanal knives at Kappabashi (the kitchenware district near Asakusa). Specific-region Kit Kats (sakura, wasabi, sake) at the Kit Kat Chocolatory in Ginza. Vintage Levi's from the 1960s–70s — Tokyo is the best city in the world for this, particularly in Shimokitazawa and Koenji. Art books at the MUJI flagship or Tsutaya bookstore in Daikanyama.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 class="section">Optional add-ons</h2>
+<ul class="addons">
+  <li><strong>Kyoto overnight (Days 5–6 alternative):</strong> 2.5 hours on the Shinkansen. Fushimi Inari (10,000 torii gates, best at dawn), Arashiyama bamboo grove, Philosopher's Path. Nishiki Market. Stay one night at a ryokan with dinner — one of the best Japan experiences available. Replaces the Nikko/Kamakura day trip with something bigger.</li>
+  <li><strong>Onsen ryokan near Hakone (Day 6 alternative):</strong> 85 minutes from Shinjuku. Stay one night at a traditional inn with private onsen; Mt. Fuji visible on clear days from the lake. Hakone Open Air Museum has world-class sculpture. Return next morning.</li>
+  <li><strong>Nakano Broadway:</strong> The quieter, deeper alternative to Akihabara for otaku culture — less flashy, more specialist. Old Mandarake stores full of 30-year-old figures. Add as an afternoon extension to Akihabara day.</li>
+  <li><strong>Toyosu tuna auction:</strong> The most exclusive experience in this plan. 60 visitor slots per day at 5:30am, available by online lottery 2 months in advance. If you get it, you watch multi-million-yen tuna auctioned in 10 seconds each. Most people don't get it. Try anyway.</li>
+  <li><strong>Koenji:</strong> The other bohemian neighborhood (west of Shimokitazawa on the Chuo Line). More working-class, more musicians, more interesting vintage than Shimokitazawa. Add as an extension of Day 7.</li>
+  <li><strong>Shibori / indigo dyeing workshop:</strong> Traditional Japanese fabric dyeing — you twist, bind, or clamp cotton fabric in specific patterns, dip it in an indigo vat, unfold it to reveal the design. Several studios in Asakusa and Yanaka offer 1.5–2 hour workshops. You leave with a scarf or cloth you dyed yourself. One of the more tactile and genuinely Japanese craft experiences available.</li>
+  <li><strong>teamLab Borderless (Azabudai Hills):</strong> Different experience from Planets — larger, more wanderable, some rooms you can stay in for 30 minutes. If you're doing one teamLab, Planets is more concentrated. If you're doing both, Borderless is the follow-up.</li>
+</ul>
+</section>
+
+<footer class="footer">
+  Tokyo · 8 Days · Immersive, Culture, Weird · Prepared 2026
+</footer>
+
+</div>
+</body>
+</html>
