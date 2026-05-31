@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberPatriot Training — Summer 2026</title>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b27;
+  --surface2: #1e2435;
+  --border: #2a3050;
+  --text: #e2e8f0;
+  --muted: #7a8499;
+  --accent: #4f8ef7;
+  --green: #3ddc84;
+  --yellow: #f0c040;
+  --red: #e05c5c;
+  --c1: #c084f5; /* W1 */
+  --c2: #f0a040; /* W2 */
+  --c3: #4f8ef7; /* W3 */
+  --c4: #3ddc84; /* W4 */
+  --c5: #40c4f0; /* W5 */
+  --c6: #e05c5c; /* W6 */
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+code { font-family: 'SF Mono', 'Fira Code', monospace; font-size: 0.85em; background: var(--surface2); padding: 1px 5px; border-radius: 3px; }
+
+/* ── DASHBOARD ── */
+#dashboard { max-width: 900px; margin: 0 auto; padding: 28px 18px 80px; }
+
+.dash-header { margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid var(--border); }
+.dash-header h1 { font-size: 1.55rem; font-weight: 700; margin-bottom: 4px; }
+.dash-header p { color: var(--muted); font-size: 0.88rem; }
+.progress-row { display: flex; align-items: center; gap: 12px; margin-top: 14px; }
+.progress-wrap { flex: 1; background: var(--surface2); border-radius: 99px; height: 7px; }
+.progress-fill { height: 7px; border-radius: 99px; background: linear-gradient(90deg, #4f8ef7, #c084f5); transition: width .4s; }
+.progress-label { font-size: 0.78rem; color: var(--muted); white-space: nowrap; }
+
+.week-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-bottom: 24px; }
+@media (max-width: 680px) { .week-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 420px) { .week-grid { grid-template-columns: 1fr; } }
+
+.week-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 18px 16px;
+  cursor: pointer; transition: border-color .2s, transform .15s;
+  display: flex; flex-direction: column; gap: 6px;
+}
+.week-card:hover { transform: translateY(-2px); }
+.wc-top { display: flex; align-items: center; justify-content: space-between; }
+.wc-num { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; }
+.wc-arrow { font-size: 0.75rem; color: var(--muted); }
+.wc-name { font-size: 1rem; font-weight: 700; line-height: 1.3; }
+.wc-tag { font-size: 0.73rem; color: var(--muted); }
+.wc-bar-wrap { height: 4px; background: var(--surface2); border-radius: 2px; margin-top: 8px; }
+.wc-bar { height: 4px; border-radius: 2px; width: 0%; transition: width .4s; }
+.wc-pct { font-size: 0.7rem; color: var(--muted); text-align: right; margin-top: 3px; }
+
+.extra-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media (max-width: 480px) { .extra-cards { grid-template-columns: 1fr; } }
+.extra-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 14px 16px;
+  cursor: pointer; transition: border-color .2s;
+  display: flex; gap: 12px; align-items: center;
+}
+.extra-card:hover { border-color: var(--muted); }
+.extra-icon { font-size: 1.4rem; flex-shrink: 0; }
+.extra-info .extra-title { font-size: 0.9rem; font-weight: 600; margin-bottom: 2px; }
+.extra-info .extra-sub { font-size: 0.76rem; color: var(--muted); }
+
+/* ── DETAIL VIEW ── */
+#detail { display: none; max-width: 860px; margin: 0 auto; padding: 20px 18px 80px; }
+
+.detail-nav { display: flex; align-items: center; gap: 16px; margin-bottom: 22px; flex-wrap: wrap; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 7px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 0.84rem; color: var(--text); cursor: pointer;
+  transition: border-color .2s;
+}
+.back-btn:hover { border-color: var(--muted); }
+.week-nav-btns { display: flex; gap: 8px; margin-left: auto; }
+.wnav-btn {
+  padding: 7px 12px; border-radius: 7px;
+  background: var(--surface); border: 1px solid var(--border);
+  font-size: 0.82rem; color: var(--muted); cursor: pointer;
+  transition: border-color .2s, color .2s;
+}
+.wnav-btn:hover:not(:disabled) { border-color: var(--accent); color: var(--text); }
+.wnav-btn:disabled { opacity: .3; cursor: default; }
+
+.detail-header { margin-bottom: 6px; }
+.detail-week-label { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 6px; }
+.detail-title { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+.detail-goal { font-size: 0.9rem; color: var(--muted); margin-bottom: 16px; }
+.detail-progress-row { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.detail-progress-row .progress-wrap { flex: 1; }
+
+/* Orientation block */
+.orient-block {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: 12px; padding: 20px; margin-bottom: 24px;
+}
+.orient-block h2 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-bottom: 14px; }
+.orient-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .orient-grid { grid-template-columns: 1fr; } }
+.orient-item h3 { font-size: 0.78rem; font-weight: 700; margin-bottom: 5px; }
+.orient-item p { font-size: 0.83rem; color: var(--muted); line-height: 1.6; }
+.orient-links { margin-top: 14px; padding-top: 14px; border-top: 1px solid var(--border); }
+.orient-links h3 { font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+.orient-links ul { list-style: none; display: flex; gap: 12px; flex-wrap: wrap; }
+.orient-links li a {
+  display: inline-block; padding: 5px 12px;
+  background: var(--surface2); border: 1px solid var(--border);
+  border-radius: 6px; font-size: 0.8rem; color: var(--text);
+  transition: border-color .2s;
+}
+.orient-links li a:hover { border-color: var(--accent); text-decoration: none; color: var(--accent); }
+
+/* Day blocks */
+.day-block { margin-bottom: 22px; }
+.day-label {
+  font-size: 0.71rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .07em; color: var(--muted);
+  padding-bottom: 8px; border-bottom: 1px solid var(--border);
+  margin-bottom: 12px;
+}
+.task-list { list-style: none; }
+.task-item { display: flex; align-items: flex-start; gap: 10px; padding: 5px 0; }
+.task-item input[type=checkbox] { width: 16px; height: 16px; margin-top: 3px; accent-color: var(--green); cursor: pointer; flex-shrink: 0; }
+.task-item label { font-size: 0.875rem; cursor: pointer; line-height: 1.55; }
+.task-item.done label { text-decoration: line-through; color: var(--muted); }
+
+/* Callouts */
+.callout { border-radius: 10px; padding: 13px 15px; margin: 14px 0; }
+.callout p, .callout li { font-size: 0.84rem; line-height: 1.6; }
+.callout.tip  { background: rgba(61,220,132,.09);  border: 1px solid rgba(61,220,132,.25); }
+.callout.ai   { background: rgba(124,92,246,.1);   border: 1px solid rgba(124,92,246,.3); }
+.callout.warn { background: rgba(240,192,64,.09);  border: 1px solid rgba(240,192,64,.25); }
+.callout.info { background: rgba(79,142,247,.09);  border: 1px solid rgba(79,142,247,.25); }
+.callout strong { font-weight: 600; }
+.callout.tip  strong { color: var(--green); }
+.callout.ai   strong { color: #9d7cf9; }
+.callout.warn strong { color: var(--yellow); }
+.callout.info strong { color: var(--accent); }
+
+.return-run { background: rgba(61,220,132,.07); border: 1px solid rgba(61,220,132,.2); border-radius: 9px; padding: 12px 14px; margin: 14px 0; font-size: 0.84rem; }
+.return-run strong { color: var(--green); }
+
+hr { border: none; border-top: 1px solid var(--border); margin: 28px 0; }
+
+/* Travel / in-season as detail views */
+.section-header { margin-bottom: 18px; }
+.section-header h1 { font-size: 1.35rem; font-weight: 700; margin-bottom: 4px; }
+.section-header p { font-size: 0.88rem; color: var(--muted); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════
+     DASHBOARD VIEW
+═══════════════════════════════════════════════════ -->
+<div id="dashboard">
+  <div class="dash-header">
+    <h1>CyberPatriot Training — Summer 2026</h1>
+    <p>Six weeks. One resource per week. Build your own system through practice, not lectures.</p>
+    <div class="progress-row">
+      <div class="progress-wrap"><div class="progress-fill" id="global-bar" style="width:0%"></div></div>
+      <div class="progress-label" id="global-label">Loading…</div>
+    </div>
+  </div>
+
+  <div class="week-grid">
+    <!-- W1 -->
+    <div class="week-card" style="border-color: rgba(192,132,245,.35)" onclick="showWeek('w1')" id="card-w1">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c1)">Week 1</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">Aperture Science</div>
+      <div class="wc-tag">Easy warmup → Ubuntu diagnostic</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w1" style="background:var(--c1)"></div></div>
+      <div class="wc-pct" id="pct-w1">0%</div>
+    </div>
+    <!-- W2 -->
+    <div class="week-card" style="border-color: rgba(240,160,64,.35)" onclick="showWeek('w2')" id="card-w2">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c2)">Week 2</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">OverTheWire: Bandit</div>
+      <div class="wc-tag">Level up your Linux CLI</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w2" style="background:var(--c2)"></div></div>
+      <div class="wc-pct" id="pct-w2">0%</div>
+    </div>
+    <!-- W3 -->
+    <div class="week-card" style="border-color: rgba(79,142,247,.35)" onclick="showWeek('w3')" id="card-w3">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c3)">Week 3</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">Aperture Science</div>
+      <div class="wc-tag">Easy warmup → Windows diagnostic</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w3" style="background:var(--c3)"></div></div>
+      <div class="wc-pct" id="pct-w3">0%</div>
+    </div>
+    <!-- W4 -->
+    <div class="week-card" style="border-color: rgba(61,220,132,.35)" onclick="showWeek('w4')" id="card-w4">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c4)">Week 4</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">Under The Wire</div>
+      <div class="wc-tag">Windows depth — PowerShell + return run</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w4" style="background:var(--c4)"></div></div>
+      <div class="wc-pct" id="pct-w4">0%</div>
+    </div>
+    <!-- W5 -->
+    <div class="week-card" style="border-color: rgba(64,196,240,.35)" onclick="showWeek('w5')" id="card-w5">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c5)">Week 5</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">Cisco Packet Tracer</div>
+      <div class="wc-tag">Networking — routers, switches, VLANs</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w5" style="background:var(--c5)"></div></div>
+      <div class="wc-pct" id="pct-w5">0%</div>
+    </div>
+    <!-- W6 -->
+    <div class="week-card" style="border-color: rgba(224,92,92,.35)" onclick="showWeek('w6')" id="card-w6">
+      <div class="wc-top">
+        <div class="wc-num" style="color:var(--c6)">Week 6</div>
+        <div class="wc-arrow">→</div>
+      </div>
+      <div class="wc-name">Syned Practice Images</div>
+      <div class="wc-tag">Fresh images — full simulation</div>
+      <div class="wc-bar-wrap"><div class="wc-bar" id="bar-w6" style="background:var(--c6)"></div></div>
+      <div class="wc-pct" id="pct-w6">0%</div>
+    </div>
+  </div>
+
+  <div class="extra-cards">
+    <div class="extra-card" onclick="showWeek('travel')">
+      <div class="extra-icon">✈️</div>
+      <div class="extra-info">
+        <div class="extra-title">While Traveling (Jul 7 – Aug 1)</div>
+        <div class="extra-sub">Browser-only, laptop-friendly options</div>
+      </div>
+    </div>
+    <div class="extra-card" onclick="showWeek('inseason')">
+      <div class="extra-icon">🏁</div>
+      <div class="extra-info">
+        <div class="extra-title">In-Season (September+)</div>
+        <div class="extra-sub">Keep sharp once the club starts</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     DETAIL VIEW (shared container)
+═══════════════════════════════════════════════════ -->
+<div id="detail">
+  <div class="detail-nav">
+    <div class="back-btn" onclick="showDashboard()">← Dashboard</div>
+    <div class="week-nav-btns">
+      <button class="wnav-btn" id="prev-btn" onclick="navWeek(-1)">← Prev</button>
+      <button class="wnav-btn" id="next-btn" onclick="navWeek(1)">Next →</button>
+    </div>
+  </div>
+  <div id="detail-content"></div>
+</div>
+
+
+<!-- ═══════════════════════════════════════════════════
+     WEEK CONTENT TEMPLATES (hidden)
+═══════════════════════════════════════════════════ -->
+<div style="display:none">
+
+<!-- ── W1 ── -->
+<div id="tpl-w1">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c1)">Week 1</div>
+    <div class="detail-title">Aperture Science — Ubuntu</div>
+    <div class="detail-goal">Two days of easy wins to shake off the rust, then the real diagnostic. Build confidence first, then find the gaps.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w1" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w1">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>A community-made CyberPatriot practice virtual machine, themed around the Portal video game. It contains 100 hidden security vulnerabilities worth 250 points. A built-in scoring engine (called <em>aeacus</em>) runs in the background and updates your score in real-time as you fix things — like a scoreboard that responds immediately.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work?</h3>
+        <p>You download the VM image (~30GB), open it in VMware Workstation, and start working on the Ubuntu Linux system inside. The scoring engine is already installed. Every time you fix a real vulnerability — remove a bad user account, enable the firewall, patch a misconfigured service — your score ticks up. You can see your score live in a small window or browser tab.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>You've competed before. You don't need a lecture — you need to know exactly where your gaps are right now, at this moment in summer 2026. This image is rated Round 2–3 difficulty (harder than Round 1), so it will find holes in your knowledge that Round 1 wouldn't. That's the point. High score isn't the goal. Information is.</p>
+      </div>
+      <div class="orient-item">
+        <h3>What is "hardening"?</h3>
+        <p>Hardening means making a system harder for an attacker to compromise — fixing weak passwords, disabling unused services, turning on the firewall, removing unauthorized users. That's what CyberPatriot's scoring engine checks. Every fix earns points. Breaking something required (a service the scenario says to keep running) loses points. There are also short text-based "forensics questions" worth bonus points — more on those below.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why warm up first?</h3>
+        <p>Aperture Science is Round 2–3 difficulty — it will find gaps even for experienced competitors. Starting cold on a hard image after months off is a fast path to a demoralizing Day 1. So: Days 1–2 use an Easy-rated image from Titan Turtles to get some wins, remember the workflow, and build buy-in. Then Aperture Science on Day 3 as the real diagnostic. Same tool, different weight class.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://titanturtles.org/practiceimages" target="_blank">Titan Turtles — Warmup Images</a></li>
+        <li><a href="https://github.com/anishgoyal1108/Aperture-Science-Practice-Image-Bundle" target="_blank">Aperture Science — GitHub</a></li>
+        <li><a href="https://www.vmware.com/products/workstation-player.html" target="_blank">VMware Workstation Pro (free personal use)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>On Claude Code and competition day:</strong> This plan uses Claude throughout practice — that's intentional and great for learning. But CyberPatriot rules change every season. Preliminary and State rounds typically allow internet; National Finals do NOT. Some schools also restrict AI tools regardless of national rules. <strong>Build your skills assuming Claude won't be there on competition day.</strong> Every checklist item should have the actual command written out — not "ask Claude." Your Claude prompt file is for the edge cases, not the backbone.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1–2 — Warmup: CyberTech Ubuntu (Easy)</div>
+    <div class="callout tip">
+      <p><strong>This is the warmup image.</strong> Easy difficulty, Ubuntu 24, from Titan Turtles. The goal isn't to learn anything new — it's to shake off the months-off rust and remember what it feels like to score points. Hit the obvious stuff: bad users, firewall off, weak passwords, services that shouldn't be running. Let the score climb. Build the muscle memory back.</p>
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w1-1" onchange="ck()"><label for="w1-1">Install VMware Workstation Pro (free for personal use — search "VMware Workstation Pro personal use download"). If you already have it, skip.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-2" onchange="ck()"><label for="w1-2">Go to <a href="https://titanturtles.org/practiceimages" target="_blank">titanturtles.org/practiceimages</a>, find <strong>CyberTech Ubuntu</strong> (listed as Easy, Ubuntu 24), download it.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-3" onchange="ck()"><label for="w1-3">Import into VMware, boot, read the scenario file, take a snapshot named <code>clean</code> before touching anything.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-4" onchange="ck()"><label for="w1-4">Work through it with whatever you remember. Don't stress about what you don't know yet — just rack up points on the things you do. Check the score every 20–30 minutes.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-5" onchange="ck()"><label for="w1-5">When you feel like you've hit your ceiling on the easy image, write down 3–5 things you remembered working well. That's your starting checklist skeleton.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 3 — Switch to Aperture Science Ubuntu (Setup)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w1-6" onchange="ck()"><label for="w1-6">Download the Aperture Science Ubuntu image from the <a href="https://github.com/anishgoyal1108/Aperture-Science-Practice-Image-Bundle" target="_blank">GitHub repo</a>. Check the README for current file size. Start the download — it's large.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-7" onchange="ck()"><label for="w1-7">Import into VMware, boot, log in (password: <code>ratman</code>). Confirm the scoring engine shows your score.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-8" onchange="ck()"><label for="w1-8"><strong>Take a snapshot before touching anything</strong> — VM menu → Snapshot → Take Snapshot → name it <code>clean</code>. You'll need this on Day 6.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-9" onchange="ck()"><label for="w1-9">Read the scenario/README file on the Desktop. It lists required services — do not disable those. Disabling them loses points (score can go down, not just stall). Scoring engine polls every few minutes — don't panic if a fix doesn't register instantly.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 3–4 — Aperture Science First Pass (Diagnostic)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w1-10" onchange="ck()"><label for="w1-10">Work through the image using what you know. This one is harder than the warmup — expect walls. That's the point. Write down every specific thing you can't figure out.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-11" onchange="ck()"><label for="w1-11">Every time you're stuck for more than 15 minutes: write it down specifically. "Couldn't set password aging rules" is useful. "Didn't know Linux" is not.</label></li>
+    </ul>
+    <div class="callout ai">
+      <p><strong>Claude Code is fair game once you've genuinely tried.</strong> If stuck for 15+ minutes, ask Claude — but paste the exact command and exact error. "Ubuntu 22.04, ran <code>sudo ufw enable</code>, got 'command not found'" is a good question. "Firewall won't work" is not.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 5 — Debrief + Forensics</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w1-12" onchange="ck()"><label for="w1-12">Check the answer key in the GitHub repo (look for a file named something like <code>answers.txt</code> or <code>key.md</code>). For every category where you scored 0 or near-zero: understand why.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-13" onchange="ck()"><label for="w1-13">Write your first personal Linux checklist. Use this category skeleton: <strong>Users &amp; Groups → Auth Policy (passwords/lockout) → SSH Config → Firewall → Services → Scheduled Tasks (cron) → Software Removal → Updates → Forensics Questions</strong>. Your words, not copied.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-14" onchange="ck()"><label for="w1-14">Write a separate "gaps list" — 5–10 specific things you couldn't fix. This is the input for Week 2.</label></li>
+    </ul>
+
+    <div class="callout info">
+      <p><strong>Forensics bonus questions — what they are:</strong> Competition images include text-based questions in the scenario file worth bonus points. They ask things like "What user last logged in?" or "What process is listening on port 4444?" or "Find the file modified in /tmp in the last hour." Key commands: <code>last</code> / <code>lastlog</code> (login history), <code>ss -tulnp</code> (what's listening), <code>find /tmp -mtime -1</code> (recently modified files), <code>cat ~/.bash_history</code> (command history). Look for forensics questions in your scenario file — they're free points most teams miss.</p>
+    </div>
+
+    <div class="callout ai">
+      <p><strong>Claude debrief exercise:</strong> Paste your gaps list and ask: <em>"I'm prepping for CyberPatriot on an Ubuntu image. Here are the specific things I couldn't figure out: [list]. Walk me through each one."</em> Take notes. Add the answers to your checklist.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 6–7 — Second Pass on Aperture Science</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w1-15" onchange="ck()"><label for="w1-15">Restore the <code>clean</code> snapshot (VM menu → Snapshot → Manage Snapshots → select <code>clean</code> → Restore). Run it again with your checklist open and gaps filled in from Day 5.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-16" onchange="ck()"><label for="w1-16">Set a 2-hour timer. Work through your checklist methodically. Also try to answer any forensics questions in the scenario file.</label></li>
+      <li class="task-item"><input type="checkbox" id="w1-17" onchange="ck()"><label for="w1-17">Record your score at the 2-hour mark. Write it down — this is your baseline to beat in Week 2's return run.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── W2 ── -->
+<div id="tpl-w2">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c2)">Week 2</div>
+    <div class="detail-title">OverTheWire: Bandit</div>
+    <div class="detail-goal">Go deep on Linux CLI through a wargame — every level teaches a command you'll actually use in competition. Then return to Week 1's image to see the improvement.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w2" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w2">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>OverTheWire is a series of "wargames" — hacking challenges designed to teach specific skills. Bandit is the beginner one, and it's specifically about Linux. There are 34 levels. Each level gives you a clue, and you SSH into their server, use Linux commands to find a password, then use that password to unlock the next level. It's a game you play in your terminal.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work?</h3>
+        <p>You open a terminal and SSH into <code>bandit.labs.overthewire.org</code>. The first level is almost trivially easy — just reading a file. By level 10–15 you're combining commands with pipes, finding files by ownership or permission, decoding hidden data. No installation needed. Works on any laptop from anywhere — perfect for travel too.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>Bandit teaches exactly what CyberPatriot needs: navigating the filesystem, finding files by permission or size or owner, understanding users and groups, reading protected files, piping commands together. It's disguised as a puzzle game, but every level is a real Linux skill. After 20 levels, you'll find things on the Aperture Science image you couldn't see before.</p>
+      </div>
+      <div class="orient-item">
+        <h3>What to expect</h3>
+        <p>Levels 0–8 will feel easy if you use Linux regularly. Levels 9–15 will require looking up a command or two. Levels 16–25 get into SSL, nmap, and other networking tools — that's stretch territory; don't get stuck there. The goal is to get to level 20 with solid understanding, not to blitz through all 34.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://overthewire.org/wargames/bandit/" target="_blank">OverTheWire: Bandit</a></li>
+        <li><a href="https://overthewire.org/wargames/bandit/bandit0.html" target="_blank">Level 0 — Start Here</a></li>
+        <li><a href="https://man7.org/linux/man-pages/man1/find.1.html" target="_blank">Linux find command reference</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <p><strong>Rule:</strong> Try each level for 15 minutes before asking for help. If you're genuinely stuck, ask Claude what a specific <em>command</em> does — not for the answer. "What does <code>find -exec</code> do?" is fine. "How do I solve Bandit level 6?" is skipping the learning.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1 — Levels 0–8</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w2-1" onchange="ck()"><label for="w2-1">Open a terminal and SSH in: <code>ssh bandit0@bandit.labs.overthewire.org -p 2220</code> (password: <code>bandit0</code>). <em>On Windows:</em> if you get "ssh not recognized," open PowerShell as admin and run <code>Add-WindowsCapability -Online -Name OpenSSH.Client~~~~0.0.1.0</code>. Or use Git Bash.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-2" onchange="ck()"><label for="w2-2">Complete levels 0–8. These use: <code>ls</code>, <code>cd</code>, <code>cat</code>, <code>file</code>, <code>du</code>, <code>find</code>. Should be manageable.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-3" onchange="ck()"><label for="w2-3">Start a "commands learned" list — every command Bandit introduced that you hadn't used confidently before.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 2–3 — Levels 9–15</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w2-4" onchange="ck()"><label for="w2-4">Level 9–10: <code>strings</code>, <code>grep</code>. Finding text in binary files and files with specific content.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-5" onchange="ck()"><label for="w2-5">Level 11–14: base64 encoding/decoding, ROT13, compression (<code>gzip</code>, <code>bzip2</code>, <code>tar</code>). These show up in CyberPatriot forensics questions.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-6" onchange="ck()"><label for="w2-6">Keep adding to your commands list. By level 15 you should have at least 10 commands you know significantly better than you did Monday.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 4 — Levels 16–20 (Stretch)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w2-7" onchange="ck()"><label for="w2-7">Level 16–20: SSH keys, port scanning with <code>nmap</code>, SSL connections with <code>openssl s_client</code>. These are harder — spend an hour here but don't spiral.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-8" onchange="ck()"><label for="w2-8">If a level has you stuck for 30+ minutes, note it in your gaps list and move on. You can come back.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 5 — Map Back to CyberPatriot + SSH Hardening</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w2-9" onchange="ck()"><label for="w2-9">Look at your "commands learned" list. For each command: would you use this on a CyberPatriot Ubuntu image? If yes, add it to your Linux checklist with a concrete example. Bandit levels 4–7 on file ownership/permissions map directly to SUID auditing — make sure that connection is explicit in your checklist.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-10" onchange="ck()"><label for="w2-10">Make sure these are on your checklist with syntax: <code>find / -perm -4000 2>/dev/null</code> (SUID files — if a common binary like <code>/usr/bin/vim</code> has this, it's a problem), <code>find / -perm -o+w 2>/dev/null</code> (world-writable files/dirs), <code>grep -r "password" /etc/</code> (credentials in configs). The <code>2>/dev/null</code> just hides "permission denied" noise — always include it.</label></li>
+    </ul>
+
+    <div class="callout tip">
+      <p><strong>SSH hardening — one of the most consistently scored Linux categories:</strong> Open <code>/etc/ssh/sshd_config</code> on your Ubuntu VM and add/change these settings:<br>
+      <code>PermitRootLogin no</code> — prevents root login via SSH<br>
+      <code>Protocol 2</code> — disables the older, insecure SSH protocol<br>
+      <code>X11Forwarding no</code> — blocks graphical app forwarding<br>
+      <code>MaxAuthTries 3</code> — limits login attempts<br>
+      After editing: <code>sudo systemctl restart ssh</code> to apply. Add this as its own "SSH Config" section in your Linux checklist.</p>
+    </div>
+
+    <div class="callout ai">
+      <p><strong>Claude exercise:</strong> Share your updated Linux checklist and ask: <em>"I'm prepping for CyberPatriot on Ubuntu. Here's my current hardening checklist organized by category. What scoring categories am I missing or underdeveloped?"</em> Merge the useful additions in.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 6–7 — Return Run on Aperture Science Ubuntu</div>
+    <div class="return-run">
+      <strong>Return run:</strong> Restore your Week 1 VM snapshot (or re-import). Run it again with your updated checklist and the new commands from Bandit. The delta between this score and your Week 1 Day 7 score is what one focused week of study actually buys you.
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w2-11" onchange="ck()"><label for="w2-11">2-hour timed run. Checklist open. Go.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-12" onchange="ck()"><label for="w2-12">Record your score at 2 hours. Compare to Week 1 Day 7 baseline. Write the delta down.</label></li>
+      <li class="task-item"><input type="checkbox" id="w2-13" onchange="ck()"><label for="w2-13">Update your Linux checklist one more time from anything you caught this run that wasn't on it before.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── W3 ── -->
+<div id="tpl-w3">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c3)">Week 3</div>
+    <div class="detail-title">Aperture Science — Windows</div>
+    <div class="detail-goal">Same pattern as Week 1 — easy warmup first to get wins, then the harder diagnostic. Build your Windows playbook the same way you built the Linux one.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w3" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w3">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>The Windows image from the same Aperture Science bundle — "Aperture Science Moon Base." Same concept: 100 vulnerabilities, 250 points, scored in real-time by aeacus. Windows 10, competition-style scenario. The auto-login is intentionally disabled because that's itself a vulnerability to find and fix.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work + credentials</h3>
+        <p>Same as Week 1 — VMware, download, boot, scenario file, score engine. <strong>Note:</strong> the Windows image disables auto-login intentionally (it's a vulnerability). Check the GitHub repo README for the default login credentials — they're listed there. Launch GUI tools by pressing <kbd>Win+R</kbd> and typing the command name (<code>secpol.msc</code>, <code>gpedit.msc</code>, etc.). The multi-part archive: extract in order (Part1, Part2…) using 7-Zip or a similar tool; don't try to open parts individually.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>Competition is split roughly evenly between Linux and Windows. You just spent two weeks leveling up your Linux game. Now apply the same systematic loop — diagnostic pass, identify gaps, build checklist, return run — to Windows. The logic is identical; the tools are different.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Companion: cypat.guide</h3>
+        <p><a href="https://cypat.guide" target="_blank">cypat.guide</a> is the best community-written CyberPatriot reference. Use its Windows section as a lookup while you work — not as a reading assignment. When you hit a wall on the image, open cypat.guide to see if the fix is documented there. Then add what you learn to your personal checklist in your own words.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://github.com/anishgoyal1108/Aperture-Science-Practice-Image-Bundle" target="_blank">GitHub — Windows Image Download</a></li>
+        <li><a href="https://cypat.guide" target="_blank">cypat.guide — Windows reference</a></li>
+        <li><a href="https://developer.microsoft.com/en-us/windows/downloads/virtual-machines/" target="_blank">Microsoft free Windows VM (backup)</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1 — Warmup: Santa's Workshop (Beginner)</div>
+    <div class="callout tip">
+      <p><strong>Same warmup logic as Week 1.</strong> Santa's Workshop is explicitly beginner-difficulty, Win 10, from Titan Turtles. Hit the obvious Windows stuff — bad accounts, firewall off, weak password policy, sketchy services. Get wins before the harder image. The scoring engine feedback on easy items is a great confidence reset.</p>
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-1" onchange="ck()"><label for="w3-1">Go to <a href="https://titanturtles.org/practiceimages" target="_blank">titanturtles.org/practiceimages</a>, find <strong>Santa's Workshop</strong> (Win 10, Beginner), download it.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-2" onchange="ck()"><label for="w3-2">Import into VMware, boot (check the Titan Turtles page or README for credentials), take a <code>clean</code> snapshot, read the scenario file.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-3" onchange="ck()"><label for="w3-3">Work through it with what you know about Windows hardening. Rack up the easy points. Write down 3–5 things that worked — these seed your Windows checklist.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 2 — Switch to Aperture Science Windows (Setup + First Pass)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-4" onchange="ck()"><label for="w3-4">Download Aperture Science Windows image from the <a href="https://github.com/anishgoyal1108/Aperture-Science-Practice-Image-Bundle" target="_blank">GitHub repo</a>. Multi-part download — extract all parts together using 7-Zip before opening in VMware.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-5" onchange="ck()"><label for="w3-5">Import, boot, check GitHub README for credentials. Take a <code>clean</code> snapshot. Read the scenario file before touching anything.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-6" onchange="ck()"><label for="w3-6">First pass — same approach as Week 1's Aperture Science. Use what you know, write down every specific gap.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 2–3 — Work Through the Image</div>
+    <p style="font-size:.83rem; color:var(--muted); margin-bottom: 10px;">Key tools and what they do:</p>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-7" onchange="ck()"><label for="w3-7"><strong><code>lusrmgr.msc</code></strong> — Local Users and Groups. Who's on the machine? Who's in the Administrators group? Anyone suspicious?</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-8" onchange="ck()"><label for="w3-8"><strong><code>secpol.msc</code> → Account Policies</strong> — Set minimum password length, complexity, max age, account lockout threshold and duration</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-9" onchange="ck()"><label for="w3-9"><strong>Windows Security app</strong> — Verify Real-time protection, Firewall (all 3 profiles), SmartScreen are all ON</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-10" onchange="ck()"><label for="w3-10"><strong><code>services.msc</code></strong> — Find and disable services that shouldn't be running: Remote Registry, Telnet, FTP Publishing, anything obviously wrong</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-11" onchange="ck()"><label for="w3-11"><strong>Apps &amp; Features</strong> — Remove prohibited software. Common CyberPatriot targets: Nmap, Wireshark if not in scenario, game cheats, P2P apps</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-12" onchange="ck()"><label for="w3-12"><strong>Windows Update</strong> — Run it, install everything available</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-13" onchange="ck()"><label for="w3-13"><strong><code>gpedit.msc</code></strong> — Disable AutoRun/AutoPlay, enable audit logging for logon events and account management</label></li>
+    </ul>
+    <div class="callout ai">
+      <p><strong>Claude for Windows is especially useful</strong> because GUI menu paths are harder to memorize than Linux commands. Asking "what's the gpedit.msc path to disable AutoRun?" or "what secpol.msc settings are most common in CyberPatriot?" gets you fast, specific answers.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 4 — cypat.guide Comparison</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-14" onchange="ck()"><label for="w3-14">Open <a href="https://cypat.guide" target="_blank">cypat.guide</a> Windows section. Go through their list — what did you already cover, and what did you miss?</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-15" onchange="ck()"><label for="w3-15">Add the gaps to your personal Windows checklist in your own words. If you just copy their list, you won't remember it under competition pressure.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 5 — Answer Key + Checklist + Forensics</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-16" onchange="ck()"><label for="w3-16">Review the Windows image answer key in the GitHub repo. Same debrief process: understand every zero-scoring category.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-17" onchange="ck()"><label for="w3-17">Write your Windows checklist. Your words, organized by this skeleton: <strong>Users &amp; Groups → Auth Policy → RDP/Remote Access → Firewall → Services → Startup Items → Software Removal → Updates → Forensics Questions</strong>.</label></li>
+    </ul>
+    <div class="callout info">
+      <p><strong>Windows forensics bonus questions:</strong> Same concept as Linux — look in the scenario file for specific investigation questions. Windows equivalents: <code>net user</code> (all user accounts), <code>Get-EventLog -LogName Security -Newest 20</code> (recent security events in PowerShell), <code>netstat -ano</code> (listening ports + process IDs), <code>tasklist /v</code> (running processes). If a forensics question asks about a suspicious process or login, these are the tools.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 6–7 — Return Run</div>
+    <div class="return-run">
+      <strong>Return run:</strong> Restore the Windows image. 90-minute timer. Run your checklist. Record your score at the timer — compare to your first-pass score from Day 1–2.
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w3-18" onchange="ck()"><label for="w3-18">How much of the 250 available points did you get in 90 minutes? Write it down.</label></li>
+      <li class="task-item"><input type="checkbox" id="w3-19" onchange="ck()"><label for="w3-19">One final checklist update from anything you caught this run that wasn't on it before.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── W4 ── -->
+<div id="tpl-w4">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c4)">Week 4</div>
+    <div class="detail-title">Under The Wire — Windows Depth</div>
+    <div class="detail-goal">Windows equivalent of Week 2. PowerShell wargame to build Windows internals fluency, then a return run on the Windows image to measure the improvement.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w4" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w4">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>Under The Wire is the Windows equivalent of OverTheWire Bandit — a wargame where you SSH into a server and use PowerShell commands to solve challenges and unlock the next level. The "Century" series is the beginner track. It teaches the Windows command-line and PowerShell in the same gamified, level-by-level format that made Bandit useful for Linux.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work?</h3>
+        <p>SSH into their server (or use PSRemoting) to reach each level's environment. Each level gives a clue; you use PowerShell to find the password for the next level. No download needed — works from any terminal that can SSH. The challenges teach <code>Get-ChildItem</code>, <code>Get-Content</code>, <code>Get-LocalUser</code>, <code>Get-Service</code>, <code>Get-Process</code>, event log queries, and registry navigation — all directly relevant to Windows hardening.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>You just did Week 3's Windows image with mostly GUI tools. Under The Wire builds the PowerShell fluency to check things that the GUI doesn't show cleanly: who's in what group, what services are running, what's in the registry, what processes are active. After this week, your Windows skills have the same depth your Linux skills got from Bandit. Then you return-run the Windows image to prove it.</p>
+      </div>
+      <div class="orient-item">
+        <h3>What to expect</h3>
+        <p>If you've never used PowerShell seriously, the syntax will feel odd at first — it's more verbose than bash. The key idea: PowerShell commands are <code>Verb-Noun</code> (Get-Service, Set-LocalUser, Remove-LocalGroupMember). Levels 1–8 of Century are approachable. Levels 9–15 are harder. Don't aim to finish Century entirely — the goal is the PowerShell vocabulary that translates directly to competition.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://underthewire.tech/" target="_blank">Under The Wire — Home</a></li>
+        <li><a href="https://underthewire.tech/century" target="_blank">Century Series — Start Here</a></li>
+        <li><a href="https://cypat.guide" target="_blank">cypat.guide — Windows deep reference</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout info">
+    <p><strong>Same rule as Bandit:</strong> Try each level for 15 minutes. Ask Claude for concepts ("what does <code>Get-LocalGroupMember</code> return?") not answers. Keep a "PowerShell commands learned" list the same way you kept a Linux commands list.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1 — Setup + Century Levels 1–8</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w4-1" onchange="ck()"><label for="w4-1">Go to underthewire.tech/century. Read the connection instructions — SSH in to Century level 1 (credentials are on the page).</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-2" onchange="ck()"><label for="w4-2">Complete levels 1–8. These teach: listing files, reading files, finding content, counting objects, working with dates and sizes.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-3" onchange="ck()"><label for="w4-3">Start your "PowerShell commands learned" list — same format as your Linux list from Week 2.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 2–3 — Century Levels 9–15 (Stretch)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w4-4" onchange="ck()"><label for="w4-4">Levels 9–12: user accounts, groups, scheduled tasks, services. This is directly what you'll use in competition — <code>Get-LocalUser</code>, <code>Get-LocalGroupMember</code>, <code>Get-ScheduledTask</code>, <code>Get-Service</code>.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-5" onchange="ck()"><label for="w4-5">Levels 13–15: registry, event logs, network info. Harder — spend an hour here but don't spiral.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-6" onchange="ck()"><label for="w4-6">Keep adding to your PowerShell list. Especially note: <code>Get-LocalUser | Select *</code> (all user properties), <code>Get-LocalGroupMember Administrators</code> (who has admin), <code>netstat -ano</code> (listening ports).</label></li>
+    </ul>
+    <div class="callout ai">
+      <p><strong>Claude for Under The Wire:</strong> PowerShell syntax is verbose. "How do I list all local users and see their enabled/disabled status in PowerShell?" is a perfect Claude question. Take the answer, test it in the wargame environment, add it to your list.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 4 — Map PowerShell Back to Windows Hardening</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w4-7" onchange="ck()"><label for="w4-7">Open cypat.guide Windows section. Go through it with your PowerShell list in hand. For each item in cypat.guide that you can now do in PowerShell (not just GUI), mark it and note the PowerShell command.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-8" onchange="ck()"><label for="w4-8">Update your Windows checklist to add PowerShell alternatives for things you previously could only do in GUI tools. Having both is faster — sometimes the GUI is quicker, sometimes PowerShell is.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-9" onchange="ck()"><label for="w4-9">Add any Windows hardening categories from cypat.guide that your Week 3 checklist missed entirely. Common gaps: registry hardening, shared folder auditing, PowerShell execution policy.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 5–7 — Return Run on Windows Image</div>
+    <div class="return-run">
+      <strong>Return run:</strong> Restore the Aperture Science Windows snapshot. Run it again — this time with your updated checklist, your PowerShell commands, and cypat.guide open for reference. The delta from your Week 3 Day 6–7 score is what two weeks of focused study bought you.
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w4-10" onchange="ck()"><label for="w4-10">90-minute timed run. Checklist open. Try answering the forensics questions too.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-11" onchange="ck()"><label for="w4-11">Record score at 90 minutes. Compare to Week 3's score. Write the delta.</label></li>
+      <li class="task-item"><input type="checkbox" id="w4-12" onchange="ck()"><label for="w4-12">Final checklist update from anything you caught this run that wasn't on it before.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── W5 ── -->
+<div id="tpl-w5">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c5)">Week 5</div>
+    <div class="detail-title">Cisco Packet Tracer</div>
+    <div class="detail-goal">The third leg of the competition. Learn to read and fix network configurations — routers, switches, VLANs, and basic security settings.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w5" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w5">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>Cisco Packet Tracer is a free network simulator made by Cisco. You drag routers, switches, and computers onto a canvas, connect them with virtual cables, and configure them using Cisco's IOS command-line interface (or a GUI). It simulates real Cisco hardware behavior without needing physical equipment. Free with a Cisco NetAcad account.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work?</h3>
+        <p>Download Packet Tracer, create a free NetAcad account to activate it. Open a blank canvas, add devices from the sidebar, connect them with the right cable types (straight-through vs. crossover — Packet Tracer handles this mostly automatically). Click a device to open its CLI, then type IOS commands to configure it. The simulation shows whether packets are flowing correctly.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>CyberPatriot's networking challenge gives you a Packet Tracer file with a broken or insecure configuration. You read the existing config, spot what's wrong, and fix it. The skill isn't building networks from scratch — it's reading what's there and knowing what a secure configuration should look like. This week teaches you the vocabulary to do that.</p>
+      </div>
+      <div class="orient-item">
+        <h3>What to expect</h3>
+        <p>IOS has a mode hierarchy: User EXEC (<code>></code>) → Privileged EXEC (<code>#</code>, reached with <code>enable</code>) → Global Config (<code>(config)#</code>, reached with <code>configure terminal</code>) → Interface Config (<code>(config-if)#</code>). Commands only work in the right mode — if you get "invalid command," you're probably in the wrong mode. Use <code>?</code> after any partial command to see what's valid there. Use Claude for syntax this week — memorizing it isn't the goal, but <code>show running-config</code> is something you should be able to read fluently.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://www.netacad.com/courses/packet-tracer" target="_blank">Cisco Packet Tracer Download</a></li>
+        <li><a href="https://www.netacad.com/courses/networking/networking-basics" target="_blank">NetAcad: Networking Basics (free course)</a></li>
+        <li><a href="https://cypat.guide" target="_blank">cypat.guide — Cisco section</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="callout warn">
+    <p><strong>Verify before Round 1:</strong> CyberPatriot typically allows internet access during competition, but rules change by season. Check this year's rules at <a href="https://www.uscyberpatriot.org" target="_blank">uscyberpatriot.org</a> before you count on Claude being available on competition day. The skills you build this week are yours regardless.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1 — Install + Explore</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w5-1" onchange="ck()"><label for="w5-1">Download Packet Tracer from NetAcad (requires a free Cisco account). Install it.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-2" onchange="ck()"><label for="w5-2">Complete the built-in "Getting Started" tutorial inside the app. It shows you how to drag devices, connect cables, and open configurations.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-3" onchange="ck()"><label for="w5-3">Can you explain the difference between a router and a switch in one sentence each? If not, look it up now before building anything.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 2–3 — Build a Working Network</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w5-4" onchange="ck()"><label for="w5-4">Build from scratch: 1 router, 2 switches, 4 PCs. Use subnet <code>192.168.1.0/255.255.255.0</code> — assign PCs addresses like 192.168.1.10, .11, .12, .13 and the router interface 192.168.1.1. Verify all 4 PCs can ping each other.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-5" onchange="ck()"><label for="w5-5">Learn the IOS basics: <code>enable</code> → <code>configure terminal</code> → <code>interface fa0/0</code> → <code>ip address [x.x.x.x] [mask]</code> → <code>no shutdown</code>. Use <code>show ip interface brief</code> to verify.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-6" onchange="ck()"><label for="w5-6">Set a password on router console access (<code>line console 0</code> → <code>password [pw]</code> → <code>login</code>) and privileged mode (<code>enable secret [pw]</code>).</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-7" onchange="ck()"><label for="w5-7">Create a VLAN on a switch: <code>vlan 10</code> → <code>name Authorized</code>. Assign one port to it: <code>interface fa0/1</code> → <code>switchport access vlan 10</code>.</label></li>
+    </ul>
+    <div class="callout ai">
+      <p><strong>Claude + Cisco IOS:</strong> IOS syntax is where Claude really earns its keep. Ask "what's the IOS command to see all configured interfaces?" or "how do I create a VLAN and assign a port to it?" and use the answer directly. The skill you're building is knowing what configuration options exist — not memorizing the exact syntax.</p>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 4 — Security Configuration (High-ROI Items)</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w5-8" onchange="ck()"><label for="w5-8">Disable unused switch ports: <code>interface range fa0/5-24</code> → <code>shutdown</code></label></li>
+      <li class="task-item"><input type="checkbox" id="w5-9" onchange="ck()"><label for="w5-9">Configure port security on an active port: max 1 MAC address, violation action = shutdown</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-10" onchange="ck()"><label for="w5-10">Encrypt stored passwords: <code>service password-encryption</code> in global config</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-11" onchange="ck()"><label for="w5-11"><strong>Banner (almost always scored):</strong> <code>banner motd #Unauthorized access is prohibited#</code> — the <code>#</code> is the delimiter character; it marks where the message starts and ends. Trivially easy, often worth 5–10 points.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-11b" onchange="ck()"><label for="w5-11b"><strong>SSH on VTY lines (consistently scored):</strong> First generate keys: <code>crypto key generate rsa modulus 2048</code> and <code>ip ssh version 2</code>. Then: <code>line vty 0 4</code> → <code>transport input ssh</code> → <code>login local</code>. This disables Telnet (insecure) in favor of SSH on remote access lines.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-12" onchange="ck()"><label for="w5-12">Disable unused router services: <code>no ip http server</code>, <code>no ip http secure-server</code> (unless scenario requires web management)</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-13" onchange="ck()"><label for="w5-13">Use <code>do show running-config</code> to review everything you've set. Practice reading this output — competition gives you a broken config file, not a blank canvas. Reading configs is the real skill.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 5 — NetAcad Guided Activities</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w5-14" onchange="ck()"><label for="w5-14">Start the free "Networking Basics" course on NetAcad. Complete at least 2 modules on topics that felt shaky this week.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-15" onchange="ck()"><label for="w5-15">The course includes guided Packet Tracer activities — do at least one. These feel exactly like the CyberPatriot networking challenge: a pre-built network with specific tasks to complete.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 6–7 — Cisco Reference Sheet + Claude Prompt File</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w5-16" onchange="ck()"><label for="w5-16">Write a one-page Cisco IOS reference: the commands you'd use most in competition, with correct syntax. Include: passwords, banner, VTY SSH, VLANs, port security, service password-encryption. Copy-paste is fine here — you want this accurate.</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-17" onchange="ck()"><label for="w5-17">Add 3–4 Cisco-related Claude prompts to your competition prompt file. Example: "I have a Packet Tracer file with a switch config. Ports fa0/1-4 are supposed to be on VLAN 10 but traffic isn't passing. What should I check first?"</label></li>
+      <li class="task-item"><input type="checkbox" id="w5-18" onchange="ck()"><label for="w5-18">Also note: in competition, the <code>?</code> key in IOS shows valid commands at any point. "What can I type here?" is always available — even if Claude isn't.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── W6 ── -->
+<div id="tpl-w6">
+  <div class="detail-header">
+    <div class="detail-week-label" style="color:var(--c6)">Week 6</div>
+    <div class="detail-title">Syned Practice Images</div>
+    <div class="detail-goal">Fresh images you haven't seen before, a full 6-hour simulation, and locking in your competition system — checklists, Cisco reference, Claude prompts, and competition-day protocol.</div>
+  </div>
+  <div class="detail-progress-row">
+    <div class="progress-wrap"><div class="progress-fill" id="dp-w6" style="width:0%"></div></div>
+    <div class="progress-label" id="dl-w6">—</div>
+  </div>
+
+  <div class="orient-block">
+    <h2>About This Resource</h2>
+    <div class="orient-grid">
+      <div class="orient-item">
+        <h3>What is it?</h3>
+        <p>Syned is a community site that hosts CyberPatriot-style practice VM images made by other competitors and coaches. Multiple Ubuntu and Windows images available, varying in difficulty and focus area. Different from Aperture Science: no themed scenario, no guaranteed answer key, more variety. Each image is 3–12GB.</p>
+      </div>
+      <div class="orient-item">
+        <h3>How does it work?</h3>
+        <p>Download an image from the site, import into VMware, boot it up. The scoring engine should be running. Work through it the same way you've been working through Aperture Science — read the scenario first, run your checklist, chase edge cases. The main difference: you haven't practiced on these images before. Unknown territory.</p>
+      </div>
+      <div class="orient-item">
+        <h3>Why this week?</h3>
+        <p>Aperture Science images are excellent, but by Week 6 you've run them multiple times. You're recognizing the specific vulnerabilities, not your own knowledge. Syned images reset that — you don't know what's in them. That unknown is what competition day feels like. The goal of Week 6 is to test your actual system against something you've never seen, then simulate a full 6-hour round.</p>
+      </div>
+      <div class="orient-item">
+        <h3>What to expect + hardware note</h3>
+        <p>Your checklist should handle 60–70% of points systematically. The remaining 30–40% is scenario-specific or harder vulnerabilities. That gap is normal. <strong>RAM note for the simulation (Day 4–5):</strong> running two VMs simultaneously needs at least 12–16GB RAM. If your machine has 8GB, run Ubuntu and Windows in alternating shifts instead of simultaneously — set 3 hours each rather than 2.5+2.5 at the same time.</p>
+      </div>
+    </div>
+    <div class="orient-links">
+      <h3>Links</h3>
+      <ul>
+        <li><a href="https://syned.org/cyberpatriot-practice-images/" target="_blank">Syned Practice Images (try first)</a></li>
+        <li><a href="https://titanturtles.org/practiceimages" target="_blank">Titan Turtles Practice Images (fallback if Syned is down)</a></li>
+        <li><a href="https://cypat.guide" target="_blank">cypat.guide — final reference</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 1–2 — Ubuntu Run</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w6-1" onchange="ck()"><label for="w6-1">Download a Syned Ubuntu image (pick any — you haven't seen them before, that's the point).</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-2" onchange="ck()"><label for="w6-2">2-hour timed run. Read scenario, execute your checklist, use Claude only when genuinely stuck on execution — not on what to do.</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-3" onchange="ck()"><label for="w6-3">Record score at 2 hours. Note anything your checklist missed — add it.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 3 — Windows Run</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w6-4" onchange="ck()"><label for="w6-4">Download a Syned Windows image. 90-minute timed run with your Windows checklist.</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-5" onchange="ck()"><label for="w6-5">Debrief: what's new that wasn't on your checklist? Update it.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 4–5 — Full 6-Hour Simulation</div>
+    <div class="callout warn">
+      <p><strong>This is the test run.</strong> Block 6 hours. Both images running simultaneously. Packet Tracer open. Run your full competition system: read scenarios → execute checklists → use Claude for anything you're stuck on → chase edge points in remaining time. No solution-hunting — only syntax lookup.</p>
+    </div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w6-6" onchange="ck()"><label for="w6-6">Suggested time split: 2.5 hrs Ubuntu, 2.5 hrs Windows, 1 hr Cisco. Adjust based on where you feel weakest going in.</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-7" onchange="ck()"><label for="w6-7">At the 6-hour mark: record your final scores for both VMs. That's your pre-season baseline.</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-8" onchange="ck()"><label for="w6-8">Write a one-paragraph debrief: what would you do differently in the first 30 minutes of a real round?</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Day 6–7 — Lock In Your System</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="w6-9" onchange="ck()"><label for="w6-9">Final Linux checklist — saved somewhere you can open in 5 seconds on competition day</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-10" onchange="ck()"><label for="w6-10">Final Windows checklist</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-11" onchange="ck()"><label for="w6-11">Final Cisco IOS reference sheet</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-12" onchange="ck()"><label for="w6-12">Final Claude prompt file — your 5–10 best competition-day questions</label></li>
+      <li class="task-item"><input type="checkbox" id="w6-13" onchange="ck()"><label for="w6-13">Competition-day protocol: 1 page. How you spend the first 10 minutes, when to switch machines, when to use Claude vs. move on from a category</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── TRAVEL ── -->
+<div id="tpl-travel">
+  <div class="section-header">
+    <h1>✈️ While Traveling (July 7 – Aug 1)</h1>
+    <p>No VMware. Browser-only. Optional — do what sounds interesting. Even 30 minutes on a plane adds up.</p>
+  </div>
+  <div class="callout tip">
+    <p><strong>PicoCTF is the primary travel resource.</strong> It was moved here from the main 6-week sequence because it's browser-based (no VM) and works anywhere. CTF challenges build security intuition — the "why" behind vulnerabilities — that makes your competition hardening smarter. The Carnegie Mellon picoGym is always available, free, and has hundreds of challenges at all difficulty levels.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Browser-Only Options</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="tr-1" onchange="ck()"><label for="tr-1"><strong><a href="https://play.picoctf.org/practice" target="_blank">PicoCTF picoGym</a> (start here)</strong> — Create a free account. Go to Practice → picoGym. Start with General Skills and Forensics challenges (most relevant to CyberPatriot). For each challenge you solve, write one sentence about the vulnerability. Set a goal of 10–15 challenges across the trip.</label></li>
+      <li class="task-item"><input type="checkbox" id="tr-2" onchange="ck()"><label for="tr-2"><strong><a href="https://overthewire.org/wargames/bandit/" target="_blank">OverTheWire Bandit</a></strong> — if you didn't finish past level 20, keep going. SSH from any terminal, works anywhere.</label></li>
+      <li class="task-item"><input type="checkbox" id="tr-3" onchange="ck()"><label for="tr-3"><strong>Review and tighten your checklists</strong> — perfect airplane task. Read through them, add anything from competition rounds you've done before that you know works.</label></li>
+      <li class="task-item"><input type="checkbox" id="tr-4" onchange="ck()"><label for="tr-4"><strong><a href="https://tryhackme.com/path/outline/presecurity" target="_blank">TryHackMe Pre-Security Path</a></strong> — structured video-style learning if you want something more guided. Network Fundamentals section is good context for the Cisco week content.</label></li>
+    </ul>
+  </div>
+</div>
+
+<!-- ── IN-SEASON ── -->
+<div id="tpl-inseason">
+  <div class="section-header">
+    <h1>🏁 In-Season Prep (September+)</h1>
+    <p>The summer built your foundation. This is a lightweight maintenance list to keep sharp once the club starts and school gets busy.</p>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Two Weeks Before Round 1</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="is-1" onchange="ck()"><label for="is-1">Run one Syned or Aperture Science image to re-warm muscle memory. 2-hour timed run.</label></li>
+      <li class="task-item"><input type="checkbox" id="is-2" onchange="ck()"><label for="is-2">Review your checklists — any gaps that are still open from the summer?</label></li>
+      <li class="task-item"><input type="checkbox" id="is-3" onchange="ck()"><label for="is-3">Check this season's rules at <a href="https://www.uscyberpatriot.org" target="_blank">uscyberpatriot.org</a>. Specifically: what internet and AI tools are explicitly permitted during competition?</label></li>
+      <li class="task-item"><input type="checkbox" id="is-4" onchange="ck()"><label for="is-4">Confirm your competition workspace: checklists accessible, Claude Code ready, VMware running, Packet Tracer installed, Cisco reference sheet open.</label></li>
+    </ul>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label">Between Rounds</div>
+    <ul class="task-list">
+      <li class="task-item"><input type="checkbox" id="is-5" onchange="ck()"><label for="is-5">After each round: write down what you caught that surprised you, and what you missed that you should have gotten. Update your checklist within 24 hours while it's fresh.</label></li>
+      <li class="task-item"><input type="checkbox" id="is-6" onchange="ck()"><label for="is-6">Run at least one practice image between rounds — even if it's just 90 minutes on a weekend. Don't let the reps atrophy.</label></li>
+      <li class="task-item"><input type="checkbox" id="is-7" onchange="ck()"><label for="is-7">Later rounds may introduce Active Directory (Windows Server), MySQL hardening, or Apache/nginx web server config. If those show up in your round, ask Claude to walk you through the basics of each one before the next round.</label></li>
+    </ul>
+  </div>
+</div>
+
+</div><!-- end hidden templates -->
+
+
+<script>
+const KEY = 'cp2026v3';
+const ORDER = ['w1','w2','w3','w4','w5','w6','travel','inseason'];
+let current = null;
+
+// ── Persistence ──
+function load() { try { return JSON.parse(localStorage.getItem(KEY)||'{}'); } catch { return {}; } }
+
+function save() {
+  // Merge current DOM state into persisted state so nothing is lost when
+  // switching between the detail view (clones) and the hidden templates.
+  const s = load();
+  document.querySelectorAll('input[type=checkbox]').forEach(c => { s[c.id] = c.checked; });
+  localStorage.setItem(KEY, JSON.stringify(s));
+}
+
+function restore() {
+  const s = load();
+  document.querySelectorAll('input[type=checkbox]').forEach(c => {
+    if (s[c.id]) { c.checked = true; c.closest('.task-item').classList.add('done'); }
+  });
+}
+
+function ck() {
+  // Sync 'done' style on all boxes, save, then refresh progress.
+  document.querySelectorAll('input[type=checkbox]').forEach(c =>
+    c.closest('.task-item').classList.toggle('done', c.checked));
+  save();
+  recalc();
+}
+
+// ── Progress ──
+// Read from localStorage so checked state is accurate whether the
+// checkboxes are in the hidden template or the visible detail clone.
+function weekProgress(id) {
+  const tpl = document.getElementById('tpl-'+id);
+  if (!tpl) return { t: 0, d: 0 };
+  const s = load();
+  const boxes = tpl.querySelectorAll('input[type=checkbox]');
+  let d = 0;
+  boxes.forEach(cb => { if (s[cb.id]) d++; });
+  return { t: boxes.length, d };
+}
+
+function recalc() {
+  let total = 0, done = 0;
+  ORDER.forEach(id => {
+    const { t, d } = weekProgress(id);
+    total += t; done += d;
+    const pct = t ? Math.round(d / t * 100) : 0;
+
+    // Dashboard mini-bar
+    const bar = document.getElementById('bar-'+id);
+    const pctEl = document.getElementById('pct-'+id);
+    if (bar) bar.style.width = pct + '%';
+    if (pctEl) pctEl.textContent = pct + '%';
+
+    // Detail-view progress bar (lives in detail-content when that week is open)
+    if (current === id) {
+      const dc = document.getElementById('detail-content');
+      if (dc) {
+        const dpEl = dc.querySelector('[id="dp-'+id+'"]');
+        const dlEl = dc.querySelector('[id="dl-'+id+'"]');
+        if (dpEl) dpEl.style.width = pct + '%';
+        if (dlEl) dlEl.textContent = d + ' / ' + t + ' tasks';
+      }
+    }
+  });
+
+  const gp = total ? Math.round(done / total * 100) : 0;
+  document.getElementById('global-bar').style.width = gp + '%';
+  document.getElementById('global-label').textContent =
+    done + ' of ' + total + ' tasks (' + gp + '% done)';
+}
+
+// ── Navigation ──
+function showDashboard() {
+  document.getElementById('dashboard').style.display = 'block';
+  document.getElementById('detail').style.display = 'none';
+  current = null;
+  window.scrollTo(0, 0);
+  recalc();
+}
+
+function showWeek(id) {
+  const tpl = document.getElementById('tpl-'+id);
+  if (!tpl) return;
+  current = id;
+
+  // Populate detail view from template
+  const dc = document.getElementById('detail-content');
+  dc.innerHTML = tpl.innerHTML;
+
+  // Restore checkbox state on the clones; remove inline onchange to
+  // prevent double-firing, then attach a single event listener.
+  const s = load();
+  dc.querySelectorAll('input[type=checkbox]').forEach(cb => {
+    cb.removeAttribute('onchange');
+    if (s[cb.id]) { cb.checked = true; cb.closest('.task-item').classList.add('done'); }
+    cb.addEventListener('change', ck);
+  });
+
+  // Prev / Next buttons
+  const idx = ORDER.indexOf(id);
+  document.getElementById('prev-btn').disabled = idx <= 0;
+  document.getElementById('next-btn').disabled = idx >= ORDER.length - 1;
+  const showNav = id !== 'travel' && id !== 'inseason';
+  document.querySelector('.week-nav-btns').style.display = showNav ? 'flex' : 'none';
+
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('detail').style.display = 'block'; // ← was '' which let CSS none win
+  window.scrollTo(0, 0);
+  recalc();
+}
+
+function navWeek(dir) {
+  if (!current) return;
+  const idx = ORDER.indexOf(current);
+  const nxt = ORDER[idx + dir];
+  if (nxt) showWeek(nxt);
+}
+
+// ── Boot ──
+restore();
+recalc();
+</script>
+</body>
+</html>
