@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Vancouver &amp; Whistler — 12 Days · Two Lanes, Pick Your Own</title>
+<title>Vancouver &amp; Whistler — 12 Days · Easy Pace, Adventure, Arts</title>
 <style>
   @page { size: Letter; margin: 0.6in 0.7in; }
 
@@ -10,7 +10,6 @@
     --ink: #1b211d;
     --muted: #5f6b63;
     --accent: #2e7d5b;
-    --fast: #b9542b;
     --rule: #d8e2da;
     --soft: #eef3ee;
     --paper: #f8f8f4;
@@ -54,29 +53,29 @@
   h2.section { font-size: 17pt; font-weight: 500; letter-spacing: -0.005em; margin: 0 0 0.05in; padding-bottom: 0.06in; border-bottom: 1px solid var(--rule); }
   .section-sub { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-style: italic; color: var(--muted); font-size: 11pt; margin: 0 0 0.18in; }
 
-  .day { margin-bottom: 0.22in; page-break-inside: avoid; break-inside: avoid; }
+  .day { margin-bottom: 0.24in; page-break-inside: avoid; break-inside: avoid; }
   .day-head { display: flex; align-items: baseline; gap: 0.12in; margin-bottom: 0.06in; flex-wrap: wrap; }
   .day-num { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 8.5pt; letter-spacing: 0.22em; color: var(--accent); text-transform: uppercase; white-space: nowrap; }
   .day-date { font-family: "Iowan Old Style", "Palatino", Georgia, serif; font-size: 14pt; font-weight: 500; line-height: 1.15; }
   .day-tag { font-style: italic; color: var(--accent); font-weight: 400; }
-
-  .lanes { margin: 0.04in 0 0; }
-  .lane { display: flex; gap: 8pt; align-items: baseline; margin: 4pt 0; line-height: 1.5; }
-  .lane .lab { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 1.5pt 7pt; border-radius: 2px; white-space: nowrap; flex-shrink: 0; position: relative; top: -1pt; }
-  .lane.fast .lab { background: var(--fast); }
-  .lane.slow .lab { background: var(--accent); }
-  .lane.all .lab { background: var(--muted); }
-  .lane .opt { margin: 0; }
-  .lane .opt strong { font-weight: 600; }
+  .day-body { margin: 0; line-height: 1.6; }
+  .day-body strong { font-weight: 600; }
 
   .card { background: var(--soft); border-radius: 4px; padding: 0.18in 0.22in; margin: 0.12in 0; font-size: 10pt; page-break-inside: avoid; }
   .card h3 { margin: 0 0 0.06in; font-size: 11pt; font-weight: 600; color: var(--accent); letter-spacing: 0.04em; text-transform: uppercase; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; }
-  .card ul { margin: 0; padding-left: 0; list-style: none; }
-  .card ul li { margin: 5pt 0; line-height: 1.5; }
-  .lab-inline { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 1.5pt 7pt; border-radius: 2px; white-space: nowrap; }
-  .lab-inline.fast { background: var(--fast); }
-  .lab-inline.slow { background: var(--accent); }
-  .lab-inline.all { background: var(--muted); }
+  .card ul { margin: 0; padding-left: 16pt; }
+  .card ul li { margin: 4pt 0; line-height: 1.5; }
+  .card .note { margin: 6pt 0 0; font-size: 9.5pt; color: var(--muted); font-style: italic; }
+
+  .tag {
+    display: inline-block; background: var(--accent); color: white;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 7.5pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase;
+    padding: 2pt 6pt; border-radius: 2px; vertical-align: middle; margin-left: 4pt; position: relative; top: -1pt;
+  }
+  .tag.adr { background: #b9542b; }
+  .tag.art { background: #5a4b8a; }
+  .tag.easy { background: #2e7d5b; }
 
   .practical-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.18in 0.3in; }
   .practical-grid > div { page-break-inside: avoid; font-size: 10pt; line-height: 1.55; }
@@ -94,10 +93,18 @@
   .todo-group.done li { opacity: 0.55; }
   .todo-group.done h3 { color: #5a7a5a; }
 
-  table.glance { width: 100%; border-collapse: collapse; font-size: 9pt; }
+  table.glance { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
   table.glance th { text-align: left; padding: 4pt 8pt 4pt 0; color: var(--accent); font-size: 8pt; letter-spacing: .1em; text-transform: uppercase; }
   table.glance td { padding: 4pt 8pt 4pt 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
-  table.glance .fastcell { color: var(--fast); }
+
+  .lanes { margin: 0.04in 0 0; }
+  .lane { display: flex; gap: 8pt; align-items: baseline; margin: 4pt 0; line-height: 1.5; }
+  .lane .lab { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 7.5pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #fff; padding: 1.5pt 7pt; border-radius: 2px; white-space: nowrap; flex-shrink: 0; position: relative; top: -1pt; }
+  .lane.fast .lab { background: #b9542b; }
+  .lane.slow .lab { background: var(--accent); }
+  .lane.all .lab { background: var(--muted); }
+  .lane .opt { margin: 0; }
+  .lane .opt strong { font-weight: 600; }
 
   @media print {
     body { background: white; }
@@ -111,7 +118,7 @@
 <header class="cover">
   <div class="pretitle">Twelve Days · British Columbia · Easy Pace</div>
   <h1>Vancouver <em>&amp;</em> Whistler.</h1>
-  <p class="lede">A laid-back family summer on the coast and in the mountains — built around one focused thing most days, with plenty of room to do nothing. Every day below gives you <strong>two lanes</strong>: a <strong>fast lane</strong> (the active, adventurous option) and a <strong>slow lane</strong> (gentle, scenic, cultural). Nobody's locked in — hand the group the menu and let everyone pick per day. A few things are whole-group or already booked.</p>
+  <p class="lede">A laid-back family summer on the coast and in the mountains — built around one focused thing most days, with plenty of room to do nothing. The Vancouver half is North-Shore forest, ocean, and city sights; the Whistler half is alpine scenery, culture, and a little adventure for those who want it. Tracks split where the group does: galleries, makers, and gentle outings for Becky and Kit; hiking and animals for Orlando, ropes and climbing for him and Eli; escape rooms for everyone who's in.</p>
   <div class="meta-row">
     <div><span class="k">Fly in</span><span class="v">Tue Jul 7 · AC8767 SAN→YVR · land ~7:55pm · then to Deep Cove (~30 min)</span></div>
     <div><span class="k">Fly home</span><span class="v">Sat Jul 18 · AC8768 YVR→SAN · departs 5:50pm · all four</span></div>
@@ -119,109 +126,89 @@
     <div><span class="k">Whistler base</span><span class="v">Ski-in/out townhome (host Michael) · Jul 14 (4pm) → Jul 18 (10am) · 4 nights</span></div>
     <div><span class="k">Rental car</span><span class="v">Hertz Midsize SUV (Toyota RAV4 or similar) @ YVR · pick up on arrival Tue Jul 7, return Sat Jul 18 noon · conf# L37329216A3 · ~$1,198 total</span></div>
     <div><span class="k">Wheels the whole trip</span><span class="v">You've got the SUV from the airport on day one — North-Shore sights and the Sea-to-Sky drive are all easy. Downtown, parking (not access) is the only catch.</span></div>
-    <div><span class="k">Already booked</span><span class="v">Vallea Lumina (Tue Jul 14, 9:15pm) · Whistler Via Ferrata Private (Fri Jul 17, 9am · Orlando + Eli)</span></div>
-    <div><span class="k">How to use it</span><span class="v">Pick a lane per person, per day — and don't feel you must fill every day. The slow lane is a real answer; so is the house.</span></div>
+    <div><span class="k">Already booked</span><span class="v">Whistler Via Ferrata — Private · Fri Jul 17, 9:00 AM · Orlando + Eli</span></div>
+    <div><span class="k">Ground rule</span><span class="v">~One focused activity a day for those who are interested — plenty of room for alternatives, or just chilling, for those who aren't.</span></div>
+    <div><span class="k">🟢 Taking it easy</span><span class="v">Some of the group will sit out the high-exertion stuff (ropes, ziplines, paddling, rafting) — every day has a gentle, scenic, or cultural alternative.</span></div>
   </div>
 </header>
 
 <section>
-<h2 class="section">The two lanes</h2>
-<p class="section-sub">A menu, not an assignment. Same trip, two speeds — choose fresh each day.</p>
+<h2 class="section">The legend</h2>
+<p class="section-sub">Who each day is really for — so nobody's dragged onto something that isn't theirs.</p>
 <div class="card">
   <ul>
-    <li><span class="lab-inline fast">Fast</span> &nbsp;The active option — hiking, climbing, ropes, ziplines, coasters, kayaking, escape-room sprints.</li>
-    <li><span class="lab-inline slow">Slow</span> &nbsp;The gentle option — scenic, cultural, galleries, makers, markets, easy walks, sitting by the water.</li>
-    <li><span class="lab-inline all">All</span> &nbsp;Whole-group or already booked — the night shows, the drive days, Vallea Lumina, Via Ferrata.</li>
+    <li><span class="tag easy">easy / all</span> Gentle, scenic, cultural, or low-effort — works for everyone, including anyone taking it easy.</li>
+    <li><span class="tag art">arts</span> Becky &amp; Kit's lane: galleries, makers, markets, theatre.</li>
+    <li><span class="tag adr">active</span> Orlando &amp; Eli's lane: hiking, animals, ropes courses, climbing &amp; Via Ferrata, ziplines, coasters — plus escape rooms (Kit's in too).</li>
   </ul>
-  <p class="note" style="margin:8pt 0 0;font-size:9.5pt;color:var(--muted);font-style:italic;">Nobody's pre-slotted. Anyone can fast-lane one day and slow-lane the next. A note on the high-exertion fast-lane stuff (ropes, ziplines, paddling, rafting): not everyone will want it, and there's always a slow-lane alternative the same day.</p>
 </div>
 </section>
 
 <section>
 <h2 class="section">Vancouver — the North Shore week</h2>
-<p class="section-sub">Deep Cove base, your own SUV from day one. Lean into the North Shore; dip into the city when you feel like it.</p>
+<p class="section-sub">Deep Cove base, your own SUV from day one. Lean into the North Shore; dip into the city on the days you feel like the trip.</p>
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 1</div><div class="day-date">Tue, Jul 7 · Arrive Deep Cove · <span class="day-tag">land, settle, eat</span></div></div>
-  <div class="lanes">
-    <div class="lane all"><span class="lab">All</span><span class="opt">Wheels down at YVR around 7:55pm — <strong>pick up the RAV4</strong> and drive to <strong>Deep Cove</strong> in North Vancouver (~30–40 min; allow time for customs and the rental counter). Drop bags, walk into the tiny seaside village for a late dinner. Nothing scheduled. Sleep.</span></div>
-  </div>
+  <p class="day-body">Wheels down at YVR around 7:55pm. <strong>Pick up the RAV4</strong> and drive across to <strong>Deep Cove</strong> in North Vancouver (~30–40 min depending on the bridge; allow time to clear customs and the rental counter first). Check into the Vrbo, drop bags, and walk into the tiny village for a late dinner — Deep Cove is a quiet seaside pocket, not a city, which is exactly the right first night. Nothing scheduled. Sleep.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 2</div><div class="day-date">Wed, Jul 8 · North Shore</div></div>
-  <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt"><strong>Grouse Mountain</strong> — Skyride gondola up, then the <strong>Gravity Coaster</strong> and the <strong>Ziplines</strong> (book ride times ahead; slots fill in summer).</span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt"><strong>Capilano Suspension Bridge</strong> — the big swaying canyon bridge, Treetops walkways, Cliffwalk; all easy walking (timed entry — book; 25% off after 5pm). Or the free <strong>Lynn Canyon</strong> bridge nearby. Grouse's gondola + grizzly Wildlife Refuge is a gentle option too, same mountain.</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 2</div><div class="day-date">Wed, Jul 8 · Capilano · <span class="day-tag">ease in, close to home</span> <span class="tag easy">easy / all</span></div></div>
+  <p class="day-body">The gentlest possible start, and it's on your side of the water: <strong>Capilano Suspension Bridge Park</strong> — the big swaying bridge over the canyon, plus the Treetops walkways and the Cliffwalk. It's all walking, no exertion, and genuinely impressive. <strong>Buy a timed-entry ticket ahead</strong> (peak-summer midday windows fill); if you'd rather a slower, cheaper evening, the park runs a <strong>25%-off Twilight rate after 5pm</strong> in summer. If you'd prefer free and even lower-key, <strong>Lynn Canyon Park</strong> has its own (free) suspension bridge and forest trails nearby. Back to Deep Cove for dinner.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 3</div><div class="day-date">Thu, Jul 9 · Deep Cove &amp; the water</div></div>
-  <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt"><strong>Deep Cove Kayak / SUP</strong> on the inlet (rentals steps from the Vrbo), then the <strong>Quarry Rock</strong> walk for the lookout — <em>verify the trail's open; it's had on-and-off closures.</em></span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt">Potter around <strong>Deep Cove village</strong> — coffee, the famous Honey's doughnuts, browse the shops, sit on the waterfront. A real do-nothing morning.</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 3</div><div class="day-date">Thu, Jul 9 · Grouse Mountain · <span class="day-tag">one mountain, two speeds</span> <span class="tag adr">active</span> <span class="tag easy">easy / all</span></div></div>
+  <p class="day-body">A rare activity where the group splits without splitting up: ride the <strong>Skyride gondola</strong> up <strong>Grouse Mountain</strong> (North Shore, reachable without going downtown). At the top, <strong>Eli &amp; Orlando</strong> hit the <strong>Gravity Coaster</strong> and the <strong>Ziplines</strong> (book both ahead — coaster ride-times and zipline slots fill in summer). Everyone else stays with the gondola crowd: the grizzly-bear <strong>Wildlife Refuge</strong>, the Lumberjack Show, Birds in Motion — all included with mountain admission, no exertion required. Everyone meets up top for lunch and the view. Quiet evening back in the Cove.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 4</div><div class="day-date">Fri, Jul 10 · Downtown &amp; Granville Island</div></div>
-  <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt">Rent bikes and ride the <strong>Stanley Park Seawall</strong> loop (flat, ~10 km, ocean the whole way) — or hit a downtown <strong>escape room</strong>.</span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt"><strong>Granville Island</strong> via the little Aquabus — the Public Market graze, plus an optional <strong>glassblowing class</strong> at Vancouver Studio Glass (book ahead).</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 4</div><div class="day-date">Fri, Jul 10 · Granville Island · <span class="day-tag">make something</span> <span class="tag art">arts</span></div></div>
+  <p class="day-body">First proper city day. Head downtown — park once (the island's own lots are tight) and hop the little <strong>Aquabus</strong> across False Creek to <strong>Granville Island</strong> — the Public Market (free, no booking) is a long, happy graze. The focused thing, a Becky-and-Kit one: a <strong>glassblowing class at Vancouver Studio Glass</strong> right on the island (book ahead; single-session, make a paperweight), while Orlando and Eli wander the market and the boatyard. Ferry back, easy night.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 5</div><div class="day-date">Sat, Jul 11 · Puzzles + a show</div></div>
-  <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt">An <strong>escape room</strong> — Find &amp; Seek in the city, or Trapped in Burnaby (easy drive). For something whole-group on foot, Vancouver Mysteries is a self-guided Gastown game.</span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt">A wander through <strong>Gastown</strong> or the seawall, easy lunch, save energy for tonight.</span></div>
-    <div class="lane all"><span class="lab">All</span><span class="opt">Evening: <strong>Come From Away</strong> (7:30pm) — the Tony-nominated Canadian musical about Gander, Newfoundland taking in 7,000 stranded passengers after 9/11. Book ahead.</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 5</div><div class="day-date">Sat, Jul 11 · Escape room + a show · <span class="day-tag">your people, your puzzles</span> <span class="tag art">arts</span> <span class="tag easy">easy / all</span></div></div>
+  <p class="day-body">Daytime: the thing you and Kit actually came for — an <strong>escape room</strong>. Take your pick — <strong>Find &amp; Seek</strong> in the city, or <strong>Trapped</strong> in Burnaby (an easy drive now you've got the car) — or, for something the whole group can do on foot, <strong>Vancouver Mysteries</strong> is a self-guided outdoor mystery game through Gastown with a costumed "detective." Evening: catch <strong>Come From Away</strong> — the Tony-nominated Canadian musical about the Newfoundland town that took in 7,000 air passengers stranded after 9/11 (Arts Club's acclaimed production at the Stanley on South Granville; Sat Jul 11 has a 7:30pm). It's the musical you actually want — not the Stanley-Park kids' titles — and a fitting story for a Canada trip. (<strong>Bard on the Beach</strong> Shakespeare is the alternative if you'd rather a play.) Book ahead.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 6</div><div class="day-date">Sun, Jul 12 · Nothing day · <span class="day-tag">on purpose</span></div></div>
-  <div class="lanes">
-    <div class="lane all"><span class="lab">All</span><span class="opt">A genuine day off in the Cove — this is the "take it easy" the trip is built around. Hang at the house, swim, read. For the restless: repeat Quarry Rock or the kayaks, or a beach afternoon. No agenda.</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 6</div><div class="day-date">Sun, Jul 12 · Deep Cove day · <span class="day-tag">do less</span> <span class="tag easy">easy / all</span></div></div>
+  <p class="day-body">A genuine nothing day in the Cove — this is the "take it easy" the trip is built around; anyone who'd rather just hang at the house, hang. For the restless: the easy <strong>Quarry Rock</strong> walk leaves right from the village for a payoff view (<strong>verify it's open</strong> — the trail has had on-and-off closures; check the District of North Vancouver notices the week of), a good one for the hikers; or <strong>Deep Cove Kayak</strong> rents boats and SUPs steps from the door (skip the paddle if an arm's not up for it). Ice cream, water, sunset.</p>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 7</div><div class="day-date">Mon, Jul 13 · Last Vancouver day</div></div>
-  <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt">A North Shore hike — the <strong>Lynn Canyon</strong> loop or <strong>Quarry Rock</strong> — to bank one more before the mountains.</span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt">A <strong>Forbidden Vancouver</strong> walking tour (Lost Souls of Gastown / Dark Secrets of Stanley Park — ~2 hrs, cultural, book ahead), or a café day. Pack tonight.</span></div>
-  </div>
+  <div class="day-head"><div class="day-num">Day 7</div><div class="day-date">Mon, Jul 13 · Last Vancouver day · <span class="day-tag">a cultural cap</span> <span class="tag art">arts</span></div></div>
+  <p class="day-body">Easy, walkable morning: a <strong>Forbidden Vancouver</strong> walking tour (Lost Souls of Gastown, or Dark Secrets of Stanley Park — ~2 hrs, cultural, low-key, book ahead) is a nice cap on the city. Spend the rest of the day at the Cove's pace, and pack up tonight — tomorrow you move to the mountains.</p>
 </div>
 </section>
 
 <section class="major">
 <h2 class="section">Whistler — the mountain stretch</h2>
-<p class="section-sub">You have the car. Four nights, an easy rhythm, the alpine doing most of the work — and the same two lanes each day.</p>
+<p class="section-sub">You have the car now. Four nights, an easy rhythm, the alpine doing most of the work — and each day offered as a <strong>fast lane</strong> and a <strong>slow lane</strong> to pick from.</p>
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 8</div><div class="day-date">Tue, Jul 14 · Drive up + Vallea Lumina</div></div>
   <div class="lanes">
     <div class="lane fast"><span class="lab">Fast</span><span class="opt">Break the Sea-to-Sky drive in Squamish: the <strong>Sea to Sky Gondola</strong> with trails up top, or the strenuous free <strong>Stawamus Chief</strong> climb.</span></div>
     <div class="lane slow"><span class="lab">Slow</span><span class="opt">A gentler drive stop: <strong>Shannon Falls</strong> (5-min roadside) + the gondola ride for the view, or the <strong>Britannia Mine Museum</strong> (underground train, the "BOOM!" show).</span></div>
-    <div class="lane all"><span class="lab">All</span><span class="opt">Check in 4pm; dinner in the Village. <strong>9:15pm — Vallea Lumina</strong> (booked): a glowing 1.5-km night walk, roundtrip shuttle included, so you don't even drive to it.</span></div>
+    <div class="lane all"><span class="lab">All</span><span class="opt">Check out of Deep Cove by 11am; into the Whistler townhome at 4pm, dinner in the Village. <strong>9:15pm — Vallea Lumina</strong> (booked): a glowing 1.5-km night walk, roundtrip shuttle included, so you don't even drive to it.</span></div>
   </div>
 </div>
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 9</div><div class="day-date">Wed, Jul 15 · Whistler your way</div></div>
   <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt">A Whistler hike — the <strong>Train Wreck</strong> suspension-bridge trail or alpine trails off the lift — or a day in the <strong>Whistler Mountain Bike Park</strong>.</span></div>
+    <div class="lane fast"><span class="lab">Fast</span><span class="opt">A Whistler hike — the <strong>Train Wreck</strong> suspension-bridge trail or the <strong>Lost Lake</strong> loop, or alpine trails off the lift — or a day in the <strong>Whistler Mountain Bike Park</strong>.</span></div>
     <div class="lane slow"><span class="lab">Slow</span><span class="opt">A <strong>bear-viewing tour</strong> — small-group 4×4, watch black bears on the ski slopes from the vehicle (book ahead; gentle, scenic, anyone can join).</span></div>
   </div>
 </div>
 
 <div class="day">
-  <div class="day-head"><div class="day-num">Day 10</div><div class="day-date">Thu, Jul 16 · Split day · <span class="day-tag">pick your speed</span></div></div>
+  <div class="day-head"><div class="day-num">Day 10</div><div class="day-date">Thu, Jul 16 · Pick your speed</div></div>
   <div class="lanes">
-    <div class="lane fast"><span class="lab">Fast</span><span class="opt"><strong>The Adventure Group's Aerial Obstacle Course</strong> (a real treetop ropes course) at Cougar Mountain, 10 min north — or <strong>Ziptrek ziplines</strong> in the village. <em>Note: under-16s need an adult on the tour, so Eli pairs with an adult on these.</em></span></div>
+    <div class="lane fast"><span class="lab">Fast</span><span class="opt"><strong>The Adventure Group's Aerial Obstacle Course</strong> (a treetop ropes course) at Cougar Mountain, 10 min north — or <strong>Ziptrek ziplines</strong> in the village. <em>Under-16s need an adult on the tour, so Eli pairs with an adult on these.</em></span></div>
     <div class="lane slow"><span class="lab">Slow</span><span class="opt">Two walk-ups, steps apart in the Village: the <strong>Audain Art Museum</strong> (superb BC art, open Thu, ~$22) and the <strong>Squamish Líl̓wat Cultural Centre</strong> (First Nations culture, hourly tours, gentle 3pm forest walk).</span></div>
   </div>
 </div>
@@ -230,28 +217,28 @@
   <div class="day-head"><div class="day-num">Day 11</div><div class="day-date">Fri, Jul 17 · Via Ferrata + Peak 2 Peak</div></div>
   <div class="lanes">
     <div class="lane fast"><span class="lab">Fast</span><span class="opt"><strong>Via Ferrata, 9:00 AM — booked</strong> (Orlando + Eli): a guided cable-and-rung climb in the alpine via the Whistler lift.</span></div>
-    <div class="lane slow"><span class="lab">Slow</span><span class="opt"><strong>PEAK 2 PEAK gondola</strong> — glass-bottom cabins between Whistler and Blackcomb, the Cloudraker Skybridge and Raven's Eye viewpoints, no exertion. Ride up and meet the climbers at the top for lunch.</span></div>
+    <div class="lane slow"><span class="lab">Slow</span><span class="opt"><strong>PEAK 2 PEAK gondola</strong> — glass-bottom cabins between Whistler and Blackcomb, the Cloudraker Skybridge and Raven's Eye viewpoints, no exertion. Ride up and meet the climbers at the top for lunch. <em>Ask if the Via Ferrata already bundles lift access before buying separate tickets.</em></span></div>
   </div>
 </div>
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 12</div><div class="day-date">Sat, Jul 18 · Drive back + fly home</div></div>
   <div class="lanes">
-    <div class="lane all"><span class="lab">All</span><span class="opt">Check out by 10am. Drive the Sea-to-Sky back to YVR — leave Whistler by about <strong>12:30–1pm</strong> to clear the ~2.5-hr drive, car return, and check-in for the <strong>5:50pm</strong> flight. Home to San Diego by ~9pm.</span></div>
+    <div class="lane all"><span class="lab">All</span><span class="opt">Check out by 10am. Drive the Sea-to-Sky back to YVR — leave Whistler by about <strong>12:30–1pm</strong> to clear the ~2.5-hr drive, car return, and check-in for the <strong>5:50pm</strong> flight. (Squamish has good lunch if time allows.) Home to San Diego by ~9pm.</span></div>
   </div>
 </div>
 </section>
 
 <section class="major">
 <h2 class="section">Booking checklist</h2>
-<p class="section-sub">What to lock now, what can wait, what you can just walk up to. Lane tags show which speed each one is. Prices CAD, approximate — confirm at booking.</p>
+<p class="section-sub">The main event. What to lock now, what can wait, and what you can just walk up to. Prices are CAD and approximate — confirm at booking.</p>
 
 <div class="todo-group done">
   <h3>Already done ✓</h3>
   <ul>
     <li><input type="checkbox" checked> <span><strong>Flights</strong> — AC8767 SAN→YVR Tue Jul 7 (land ~7:55pm); AC8768 YVR→SAN Sat Jul 18 (dep 5:50pm). All four, business.</span></li>
     <li><input type="checkbox" checked> <span><strong>Lodging</strong> — Deep Cove Vrbo (Jul 7–14) + Whistler townhome (Jul 14–18).</span></li>
-    <li><input type="checkbox" checked> <span><strong>Rental car</strong> — Hertz Midsize SUV (RAV4 or similar) @ YVR, pickup Tue Jul 7 8pm → return Sat Jul 18 noon. Conf# L37329216A3, ~$1,198.</span></li>
+    <li><input type="checkbox" checked> <span><strong>Rental car</strong> — Hertz Midsize SUV (Toyota RAV4 or similar) @ YVR, pickup Tue Jul 7 8pm → return Sat Jul 18 noon. Conf# L37329216A3, ~$1,198.</span></li>
     <li><input type="checkbox" checked> <span><strong>Whistler Via Ferrata (Private)</strong> — Fri Jul 17, 9:00 AM, Orlando + Eli.</span></li>
     <li><input type="checkbox" checked> <span><strong>Vallea Lumina</strong> — Tue Jul 14, 9:15pm · 3 adults + 1 youth · roundtrip shuttle included · booking #353850252.</span></li>
   </ul>
@@ -260,38 +247,37 @@
 <div class="todo-group">
   <h3>🔴 Book now — real sell-out risk for mid-July</h3>
   <ul>
-    <li><input type="checkbox"> <span><strong>Come From Away</strong> (musical, Sat Jul 11, 7:30pm) — Arts Club at the Stanley Industrial Alliance Stage, 2750 Granville St; Tony-nominated, runs to Jul 26, from ~$39. <a href="https://www.artsclub.com/">artsclub.com</a> or 604-687-1644. <em>Alt: <a href="https://bardonthebeach.org/">Bard on the Beach</a> (Shakespeare).</em></span> <span class="who">all</span></li>
-    <li><input type="checkbox"> <span><strong>Whistler ropes course — The Adventure Group (TAG)</strong> (Aerial Obstacle Course, Cougar Mountain · Thu Jul 16) — <strong>under-16s need an adult on the tour</strong>, so book an adult on with Eli; confirm TAG's exact 2026 supervision rule when booking. Day Ticket bundles more at basecamp. <a href="https://tagwhistler.com/">tagwhistler.com</a>. <em>Pure-zipline alt: <a href="https://whistler.ziptrek.com/tours/">Ziptrek</a>, ~$115–130pp.</em></span> <span class="who">fast</span></li>
-    <li><input type="checkbox"> <span><strong>Bear-viewing tour</strong> (Whistler, Wed Jul 15) — small-group 4×4, daily slots limited. <a href="https://www.whistlerphotosafaris.com/pages/bear-viewing-family-adventures-in-whistler">whistlerphotosafaris.com</a>. ~$199 adult.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Capilano Suspension Bridge</strong> (Wed Jul 8) — <strong>timed entry</strong>, midday windows fill. <a href="https://www.capbridge.com/tickets-and-hours/">capbridge.com</a>. Twilight rate −25% after 5pm (summer).</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Grouse Mountain ziplines + Gravity Coaster</strong> (Wed Jul 8) — book ride times ahead, slots fill. <a href="https://www.grousemountain.com/tickets-passes-summer">grousemountain.com</a>. Zipline ~$64, coaster ~$29–42 (+ admission). Gondola + Wildlife Refuge is the slow-lane version, included with admission.</span> <span class="who">fast</span></li>
+    <li><input type="checkbox"> <span><strong>Whistler ropes course — The Adventure Group (TAG)</strong> (Aerial Obstacle Course, Cougar Mountain · Thu Jul 16 · Eli + Orlando) — Eli's pick. <strong>Under-16 needs an adult on the tour</strong>, so book Orlando on too; confirm TAG's exact 2026 supervision rule (ground vs participating) when booking. Day Ticket bundles more at basecamp. <a href="https://tagwhistler.com/">tagwhistler.com</a>. <em>Pure-zipline alt: <a href="https://whistler.ziptrek.com/tours/">Ziptrek</a>, ~$115–130pp.</em></span> <span class="who">Eli · OJC</span></li>
+    <li><input type="checkbox"> <span><strong>Bear-viewing tour</strong> (Whistler, Wed Jul 15) — small-group 4×4, daily slots limited. <a href="https://www.whistlerphotosafaris.com/pages/bear-viewing-family-adventures-in-whistler">whistlerphotosafaris.com</a>. ~$199 adult.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Capilano Suspension Bridge</strong> (Wed Jul 8) — <strong>timed entry</strong>, midday windows fill. <a href="https://www.capbridge.com/tickets-and-hours/">capbridge.com</a>. Twilight rate −25% after 5pm (summer).</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Grouse Mountain ziplines + Gravity Coaster</strong> (Thu Jul 9, Eli + Orlando) — book ride times ahead, slots fill. <a href="https://www.grousemountain.com/tickets-passes-summer">grousemountain.com</a>. Zipline ~$64, coaster ~$29–42 (+ admission). Gondola + Wildlife Refuge for the others is included with admission.</span> <span class="who">Eli · OJC</span></li>
+    <li><input type="checkbox"> <span><strong>Come From Away</strong> (musical, Sat Jul 11, 7:30pm) — Arts Club at the Stanley Industrial Alliance Stage, 2750 Granville St. Tony-nominated true story (Gander, Newfoundland, 9/11); runs to Jul 26; tickets from ~$39. Book at <a href="https://www.artsclub.com/">artsclub.com</a> or 604-687-1644 — book ahead for good seats. <em>Alt: <a href="https://bardonthebeach.org/">Bard on the Beach</a> for Shakespeare.</em></span> <span class="who">all</span></li>
   </ul>
 </div>
 
 <div class="todo-group">
   <h3>🟡 Book a few days ahead</h3>
   <ul>
-    <li><input type="checkbox"> <span><strong>Escape room — Vancouver</strong> (Sat Jul 11): <a href="https://www.gofindandseek.com/escape-rooms-vancouver/">Find &amp; Seek</a> (in-city), <a href="https://vancouvermysteries.com/">Vancouver Mysteries</a> (outdoor Gastown game), or Trapped Burnaby (~$34, easy drive).</span> <span class="who">fast</span></li>
-    <li><input type="checkbox"> <span><strong>Glassblowing class</strong> (Fri Jul 10, Granville Island) — <a href="https://vancouverstudioglass.com/pages/classes-workshops">Vancouver Studio Glass</a> (~$195, 16+) or <a href="https://www.terminalcityglass.com/">Terminal City Glass</a> (~$140). Small classes, book ahead.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Forbidden Vancouver walking tour</strong> (Mon Jul 13) — advance booking required, small caps. <a href="https://forbiddenvancouver.ca/">forbiddenvancouver.ca</a>. ~$35, ~2 hrs.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>PEAK 2 PEAK / Alpine sightseeing</strong> (Fri Jul 17) — doesn't truly sell out; book a day ahead to lock the online rate. Whistler Blackcomb app / Guest Services. <em>Ask if the Via Ferrata already includes lift access.</em></span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Escape! Whistler</strong> — <em>optional</em> second escape night up the mountain. <a href="https://escapewhistler.com/">escapewhistler.com</a>. ~$40–46pp.</span> <span class="who">fast</span></li>
+    <li><input type="checkbox"> <span><strong>Escape room — Vancouver</strong> (Sat Jul 11): <a href="https://www.gofindandseek.com/escape-rooms-vancouver/">Find &amp; Seek</a> (in-city), or the gentler whole-group <a href="https://vancouvermysteries.com/">Vancouver Mysteries</a> outdoor game (Gastown). Trapped Burnaby (~$34) is an easy drive now you've got the car.</span> <span class="who">OJC · Kit</span></li>
+    <li><input type="checkbox"> <span><strong>Glassblowing class</strong> (Fri Jul 10, Granville Island) — <a href="https://vancouverstudioglass.com/pages/classes-workshops">Vancouver Studio Glass</a> (~$195, 16+) or <a href="https://www.terminalcityglass.com/">Terminal City Glass</a> (~$140). Small classes, book ahead.</span> <span class="who">Becky · Kit</span></li>
+    <li><input type="checkbox"> <span><strong>Forbidden Vancouver walking tour</strong> (Mon Jul 13) — advance booking required, small caps. <a href="https://forbiddenvancouver.ca/">forbiddenvancouver.ca</a>. ~$35, ~2 hrs.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>PEAK 2 PEAK / Alpine sightseeing</strong> (Fri Jul 17, Becky + Kit) — doesn't truly sell out; book a day ahead to lock the online rate. Whistler Blackcomb app / Guest Services. <em>Price not confirmable live — check the app. Ask if the Via Ferrata already includes lift access.</em></span> <span class="who">Becky · Kit</span></li>
+    <li><input type="checkbox"> <span><strong>Escape! Whistler</strong> — <em>optional</em>, if you want a second escape night up the mountain. <a href="https://escapewhistler.com/">escapewhistler.com</a>. ~$40–46pp.</span> <span class="who">OJC · Kit</span></li>
   </ul>
 </div>
 
 <div class="todo-group">
   <h3>🟢 Walk up — no booking needed</h3>
   <ul>
-    <li><input type="checkbox"> <span><strong>Audain Art Museum</strong>, Whistler — "booking not required." Open <strong>Thu–Mon</strong> (closed Tue/Wed), ~$22. <a href="https://audainartmuseum.com/visit/">audainartmuseum.com</a>.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Squamish Líl̓wat Cultural Centre</strong>, Whistler — open <strong>Tue–Sun</strong> (closed Mon), hourly tours. <a href="https://slcc.ca/">slcc.ca</a>.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Vancouver Aquarium</strong> (Stanley Park) — general admission, walk-up/online; you'll see sea otters in the regular exhibits. <em>The special Sea Otter Encounter is <strong>sold out — no dates until further notice</strong> (as of June 2026), so leave it flexible.</em></span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Lynn Canyon Park</strong> + free suspension bridge (North Van) — free, walk-up. <a href="https://lynncanyon.ca/">lynncanyon.ca</a>.</span> <span class="who">either</span></li>
-    <li><input type="checkbox"> <span><strong>Granville Island Public Market</strong> — free, via the Aquabus. <a href="https://granvilleisland.com/public-market">granvilleisland.com</a>.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Stanley Park Seawall bike rental</strong> — flat ~10 km loop; rentals near the park entrance (Denman St). Walk-up.</span> <span class="who">fast</span></li>
-    <li><input type="checkbox"> <span><strong>Sea to Sky Gondola</strong> (Squamish, en route Jul 14) — walk-up fine; online saves ~$5. ~$74. <a href="https://www.seatoskygondola.com/hours-and-prices/">seatoskygondola.com</a>.</span> <span class="who">either</span></li>
-    <li><input type="checkbox"> <span><strong>Britannia Mine Museum</strong> (en route Jul 14) — walk-up generally fine. <a href="https://www.britanniaminemuseum.ca/">britanniaminemuseum.ca</a>.</span> <span class="who">slow</span></li>
-    <li><input type="checkbox"> <span><strong>Whistler Sliding Centre</strong> — free self-guided Olympic tour (Wed–Sun). Paid summer bobsleigh is a separate bookable add-on. <a href="https://www.whistlerslidingcentre.com/">whistlerslidingcentre.com</a>.</span> <span class="who">either</span></li>
-    <li><input type="checkbox"> <span><strong>Deep Cove Kayak / SUP</strong> — first-come rentals steps from the Vrbo. <a href="https://www.deepcovekayak.com/">deepcovekayak.com</a>. Skip the paddle if an arm's not up for it.</span> <span class="who">fast</span></li>
+    <li><input type="checkbox"> <span><strong>Audain Art Museum</strong>, Whistler — "booking not required." Open <strong>Thu–Mon</strong> (closed Tue/Wed), ~$22. <a href="https://audainartmuseum.com/visit/">audainartmuseum.com</a>.</span> <span class="who">Becky · Kit</span></li>
+    <li><input type="checkbox"> <span><strong>Squamish Líl̓wat Cultural Centre</strong>, Whistler — open <strong>Tue–Sun</strong> (closed Mon), hourly tours. <a href="https://slcc.ca/">slcc.ca</a>.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Vancouver Aquarium</strong> (Stanley Park) — general admission, walk-up/online; you'll see sea otters in the regular exhibits. <em>Note: the special Sea Otter Encounter is <strong>sold out — no dates until further notice</strong> (as of June 2026), so leave it flexible.</em></span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Lynn Canyon Park</strong> + free suspension bridge (North Van) — free, walk-up. <a href="https://lynncanyon.ca/">lynncanyon.ca</a>.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Granville Island Public Market</strong> — free, via the Aquabus. <a href="https://granvilleisland.com/public-market">granvilleisland.com</a>.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Sea to Sky Gondola</strong> (Squamish, en route Jul 14) — walk-up fine; online saves ~$5. ~$74. <a href="https://www.seatoskygondola.com/hours-and-prices/">seatoskygondola.com</a>.</span> <span class="who">all</span></li>
+    <li><input type="checkbox"> <span><strong>Britannia Mine Museum</strong> (en route Jul 14) — walk-up generally fine. <a href="https://www.britanniaminemuseum.ca/">britanniaminemuseum.ca</a>.</span> <span class="who">Eli · all</span></li>
+    <li><input type="checkbox"> <span><strong>Whistler Sliding Centre</strong> — free self-guided Olympic tour (Wed–Sun). Public summer bobsleigh is a separate paid, bookable add-on if Eli wants it. <a href="https://www.whistlerslidingcentre.com/">whistlerslidingcentre.com</a>.</span> <span class="who">all / Eli</span></li>
+    <li><input type="checkbox"> <span><strong>Deep Cove Kayak / SUP</strong> — first-come rentals steps from the Vrbo. <a href="https://www.deepcovekayak.com/">deepcovekayak.com</a>. Skip the paddle if an arm's not up for it.</span> <span class="who">OJC · Eli · Kit</span></li>
   </ul>
 </div>
 </section>
@@ -305,23 +291,27 @@
   </div>
   <div>
     <h3>Driving the Sea-to-Sky</h3>
-    Hwy 99 to Whistler is ~120 km / 2–2.5 hrs, paved and spectacular but winding with few passing lanes. One stop is plenty. Fuel up before you leave the city. The drive back on Jul 18 needs a real buffer before the 5:50pm flight.
+    Hwy 99 from Vancouver to Whistler is ~120 km / 2–2.5 hrs, paved and spectacular but winding with few passing lanes. Don't over-plan stops — one is plenty. Fuel up before you leave the city. The same drive back on Jul 18 needs a real time buffer before a 5:50pm flight.
   </div>
   <div>
-    <h3>The slow lane is a real answer</h3>
-    Not everyone wants ropes, ziplines, paddling, or rafting — and that's the design. Every day has a gentle, scenic, or cultural option, and "just the house" is always on the menu. Pick per person; regroup for dinner.
+    <h3>Taking it easy — the skip list</h3>
+    For anyone sitting out the high-exertion stuff: skip ziplines, ropes/Tree adventures, Via Ferrata, whitewater rafting, and kayak/SUP/canoe; glassblowing has some arm work, so it's optional. Everything tagged <span class="tag easy">easy / all</span> is built to be comfortable for everyone.
   </div>
   <div>
-    <h3>Eli (15) solo time</h3>
-    Whistler Village is car-free and self-contained — Eli can roam it on his own: food, the arcade, shops, the bike-park base, the lake. The harnessed adventures (ropes course, ziplines, Via Ferrata) all require an adult for under-16, so those run with an adult along.
+    <h3>Eli on his own (15)</h3>
+    Whistler Village is car-free and self-contained — Eli can roam it solo: food, the arcade, shops, the skate/bike-park base, the lake. The harnessed adventures (ropes course, ziplines, Via Ferrata) all require an adult for under-16, so those run with Orlando — no hardship, they're his lane too.
   </div>
   <div>
     <h3>Money &amp; weather</h3>
-    Prices here are Canadian dollars; tap-to-pay is universal. Mid-July is peak summer — warm and dry in town, cooler and breezy in the alpine (bring a layer for Peak 2 Peak and the evening show). Long daylight, ~9:15pm sunset.
+    Prices here are Canadian dollars; tap-to-pay is universal. Mid-July is peak summer — warm and dry in town, cooler and breezy in the alpine (bring a layer for Peak 2 Peak and the evening shows). Long daylight, ~9:15pm sunset.
   </div>
   <div>
     <h3>Hours that bite</h3>
-    Audain Art Museum is <strong>closed Tue/Wed</strong> (do it Thu Jul 16). SLCC is <strong>closed Mon</strong>. Whistler Sliding Centre self-tour runs Wed–Sun. Capilano timed windows, Come From Away, and Vallea Lumina showtimes are fixed — book the slot you want.
+    Audain Art Museum is <strong>closed Tue/Wed</strong> (do it Thu Jul 16). SLCC is <strong>closed Mon</strong>. Whistler Sliding Centre self-tour runs Wed–Sun. Capilano timed windows and Vallea Lumina showtimes are fixed — book the slot you actually want.
+  </div>
+  <div>
+    <h3>A couple of corrections</h3>
+    "Bridgetown Forge" is in Portland, Oregon — not Vancouver; use Fraser River Forge if you want blacksmithing (arm-heavy, Eli/Orlando only). "Par-Tee Putt" is a downtown mini-golf bar (670 Smithe St), not on Granville Island. "Time Escape" / "i-Exit" couldn't be verified — stick to the named rooms above.
   </div>
 </div>
 </section>
@@ -330,27 +320,25 @@
 <h2 class="section">Twelve days at a glance</h2>
 <div class="card">
   <table class="glance">
-    <tr><th>Day</th><th class="fastcell">Fast lane</th><th>Slow lane</th></tr>
-    <tr><td><strong>Tue Jul 7</strong> · Deep Cove</td><td colspan="2">Arrive ~8pm · pick up SUV · settle (all)</td></tr>
-    <tr><td><strong>Wed Jul 8</strong> · Deep Cove</td><td class="fastcell">Grouse coaster + zip <em>(book)</em></td><td>Capilano / Lynn Canyon bridges <em>(book Capilano)</em></td></tr>
-    <tr><td><strong>Thu Jul 9</strong> · Deep Cove</td><td class="fastcell">Deep Cove kayak + Quarry Rock</td><td>Deep Cove village chill</td></tr>
-    <tr><td><strong>Fri Jul 10</strong> · Deep Cove</td><td class="fastcell">Stanley Park seawall bike / escape room</td><td>Granville Island + glass class</td></tr>
-    <tr><td><strong>Sat Jul 11</strong> · Deep Cove</td><td class="fastcell">Escape room</td><td>Gastown / seawall stroll</td></tr>
-    <tr><td colspan="3" style="color:var(--muted);"><strong>Sat Jul 11 eve</strong> — Come From Away musical, 7:30pm (all) · <em>book</em></td></tr>
-    <tr><td><strong>Sun Jul 12</strong> · Deep Cove</td><td colspan="2">Nothing day — house, beach, optional Quarry Rock/kayak (all)</td></tr>
-    <tr><td><strong>Mon Jul 13</strong> · Deep Cove</td><td class="fastcell">Lynn Canyon / Quarry Rock hike</td><td>Forbidden Vancouver tour</td></tr>
-    <tr><td><strong>Tue Jul 14</strong> · → Whistler</td><td class="fastcell">Sea to Sky Gondola / Stawamus Chief</td><td>Shannon Falls + gondola / Britannia Mine</td></tr>
-    <tr><td colspan="3" style="color:var(--muted);"><strong>Tue Jul 14 eve</strong> — Vallea Lumina, 9:15pm (all) · <em>booked ✓</em></td></tr>
-    <tr><td><strong>Wed Jul 15</strong> · Whistler</td><td class="fastcell">Whistler hike / bike park</td><td>Bear-viewing tour <em>(book)</em></td></tr>
-    <tr><td><strong>Thu Jul 16</strong> · Whistler</td><td class="fastcell">Ropes course (TAG) / Ziptrek <em>(book)</em></td><td>Audain Museum + SLCC</td></tr>
-    <tr><td><strong>Fri Jul 17</strong> · Whistler</td><td class="fastcell">Via Ferrata 9am <em>(booked ✓)</em></td><td>Peak 2 Peak gondola</td></tr>
-    <tr><td><strong>Sat Jul 18</strong> · → home</td><td colspan="2">Check out 10am · drive YVR · fly 5:50pm (all)</td></tr>
+    <tr><th>Day</th><th>Base</th><th>The one thing (and who)</th></tr>
+    <tr><td><strong>Tue Jul 7</strong></td><td>Deep Cove</td><td>Arrive ~8pm · pick up SUV · settle</td></tr>
+    <tr><td><strong>Wed Jul 8</strong></td><td>Deep Cove</td><td>Capilano Suspension Bridge · all <em>(book)</em></td></tr>
+    <tr><td><strong>Thu Jul 9</strong></td><td>Deep Cove</td><td>Grouse Mtn — coaster/zip (Eli+OJC) + gondola/refuge (all) <em>(book)</em></td></tr>
+    <tr><td><strong>Fri Jul 10</strong></td><td>Deep Cove</td><td>Granville Island + glassblowing class <em>(book)</em></td></tr>
+    <tr><td><strong>Sat Jul 11</strong></td><td>Deep Cove</td><td>Escape room (OJC+Kit) · Come From Away musical <em>(book)</em></td></tr>
+    <tr><td><strong>Sun Jul 12</strong></td><td>Deep Cove</td><td>Nothing day · Quarry Rock / kayak optional</td></tr>
+    <tr><td><strong>Mon Jul 13</strong></td><td>Deep Cove</td><td>Forbidden Vancouver tour · easy last city day</td></tr>
+    <tr><td><strong>Tue Jul 14</strong></td><td>→ Whistler</td><td>Sea-to-Sky drive · check in 4pm · Vallea Lumina 9:15pm <em>(booked ✓)</em></td></tr>
+    <tr><td><strong>Wed Jul 15</strong></td><td>Whistler</td><td><span class="fastcell">Fast:</span> Whistler hike / bike park · Slow: bear-viewing tour <em>(book)</em></td></tr>
+    <tr><td><strong>Thu Jul 16</strong></td><td>Whistler</td><td><span class="fastcell">Fast:</span> ropes course / Ziptrek <em>(book)</em> · Slow: Audain + SLCC</td></tr>
+    <tr><td><strong>Fri Jul 17</strong></td><td>Whistler</td><td><span class="fastcell">Fast:</span> Via Ferrata 9am <em>(booked ✓)</em> · Slow: Peak 2 Peak gondola</td></tr>
+    <tr><td><strong>Sat Jul 18</strong></td><td>→ home</td><td>Check out 10am · drive YVR · fly 5:50pm</td></tr>
   </table>
 </div>
 </section>
 
 <footer class="footer">
-  Vancouver &amp; Whistler · 12 Days · Two Lanes, Pick Your Own · Prepared 2026 · prices CAD, confirm at booking
+  Vancouver &amp; Whistler · 12 Days · Easy Pace, Adventure, Arts · Prepared 2026 · prices CAD, confirm at booking
 </footer>
 </div>
 </body>
