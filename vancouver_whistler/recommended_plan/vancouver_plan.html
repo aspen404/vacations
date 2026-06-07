@@ -105,6 +105,7 @@
   .lane.all .lab { background: var(--muted); }
   .lane .opt { margin: 0; }
   .lane .opt strong { font-weight: 600; }
+  table.glance .fastcell { color: #b9542b; font-weight: 600; }
 
   @media print {
     body { background: white; }
@@ -124,7 +125,7 @@
     <div><span class="k">Fly home</span><span class="v">Sat Jul 18 · AC8768 YVR→SAN · departs 5:50pm · all four</span></div>
     <div><span class="k">Vancouver base</span><span class="v">Deep Cove Vrbo (North Vancouver) · Jul 7 (4pm) → Jul 14 (11am) · 7 nights</span></div>
     <div><span class="k">Whistler base</span><span class="v">Ski-in/out townhome (host Michael) · Jul 14 (4pm) → Jul 18 (10am) · 4 nights</span></div>
-    <div><span class="k">Rental car</span><span class="v">Hertz Midsize SUV (Toyota RAV4 or similar) @ YVR · pick up on arrival Tue Jul 7, return Sat Jul 18 noon · conf# L37329216A3 · ~$1,198 total</span></div>
+    <div><span class="k">Rental car</span><span class="v">Hertz Midsize SUV (Toyota RAV4 or similar) @ YVR · pick up on arrival Tue Jul 7, drop Sat Jul 18 · conf# L37329216A3 · ~$1,198. ⚠️ Return is booked for noon — but you drive back from Whistler that morning, so extend it to ~4pm.</span></div>
     <div><span class="k">Wheels the whole trip</span><span class="v">You've got the SUV from the airport on day one — North-Shore sights and the Sea-to-Sky drive are all easy. Downtown, parking (not access) is the only catch.</span></div>
     <div><span class="k">Already booked</span><span class="v">Whistler Via Ferrata — Private · Fri Jul 17, 9:00 AM · Orlando + Eli</span></div>
     <div><span class="k">Ground rule</span><span class="v">~One focused activity a day for those who are interested — plenty of room for alternatives, or just chilling, for those who aren't.</span></div>
@@ -138,8 +139,9 @@
 <div class="card">
   <ul>
     <li><span class="tag easy">easy / all</span> Gentle, scenic, cultural, or low-effort — works for everyone, including anyone taking it easy.</li>
-    <li><span class="tag art">arts</span> Becky &amp; Kit's lane: galleries, makers, markets, theatre.</li>
-    <li><span class="tag adr">active</span> Orlando &amp; Eli's lane: hiking, animals, ropes courses, climbing &amp; Via Ferrata, ziplines, coasters — plus escape rooms (Kit's in too).</li>
+    <li><span class="tag art">arts</span> Galleries, makers, markets, theatre — Becky &amp; Kit's usual speed.</li>
+    <li><span class="tag adr">active</span> Hiking, animals, ropes courses, climbing &amp; Via Ferrata, ziplines, coasters, escape rooms.</li>
+    <li style="list-style:none;color:var(--muted);font-style:italic;font-size:9.5pt;">In Whistler, each day is split into a <strong>Fast lane</strong> and a <strong>Slow lane</strong> — pick per person.</li>
   </ul>
 </div>
 </section>
@@ -175,7 +177,7 @@
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 6</div><div class="day-date">Sun, Jul 12 · Deep Cove day · <span class="day-tag">do less</span> <span class="tag easy">easy / all</span></div></div>
-  <p class="day-body">A genuine nothing day in the Cove — this is the "take it easy" the trip is built around; anyone who'd rather just hang at the house, hang. For the restless: the easy <strong>Quarry Rock</strong> walk leaves right from the village for a payoff view (<strong>verify it's open</strong> — the trail has had on-and-off closures; check the District of North Vancouver notices the week of), a good one for the hikers; or <strong>Deep Cove Kayak</strong> rents boats and SUPs steps from the door (skip the paddle if an arm's not up for it). Ice cream, water, sunset.</p>
+  <p class="day-body">A genuine nothing day in the Cove — this is the "take it easy" the trip is built around; anyone who'd rather just hang at the house, hang. For the restless: the easy <strong>Quarry Rock</strong> walk leaves right from the village for a payoff view (<strong>verify it's open</strong> — the trail has had on-and-off closures; check the District of North Vancouver notices the week of), a good one for the hikers; or <strong>Deep Cove Kayak</strong> rents boats and SUPs steps from the door (skip the paddle if you'd rather not). Ice cream, water, sunset.</p>
 </div>
 
 <div class="day">
@@ -186,7 +188,7 @@
 
 <section class="major">
 <h2 class="section">Whistler — the mountain stretch</h2>
-<p class="section-sub">You have the car now. Four nights, an easy rhythm, the alpine doing most of the work — and each day offered as a <strong>fast lane</strong> and a <strong>slow lane</strong> to pick from.</p>
+<p class="section-sub">Four nights, an easy rhythm, the alpine doing most of the work — and each day offered as a <strong>fast lane</strong> and a <strong>slow lane</strong> to pick from.</p>
 
 <div class="day">
   <div class="day-head"><div class="day-num">Day 8</div><div class="day-date">Tue, Jul 14 · Drive up + Vallea Lumina</div></div>
@@ -238,7 +240,7 @@
   <ul>
     <li><input type="checkbox" checked> <span><strong>Flights</strong> — AC8767 SAN→YVR Tue Jul 7 (land ~7:55pm); AC8768 YVR→SAN Sat Jul 18 (dep 5:50pm). All four, business.</span></li>
     <li><input type="checkbox" checked> <span><strong>Lodging</strong> — Deep Cove Vrbo (Jul 7–14) + Whistler townhome (Jul 14–18).</span></li>
-    <li><input type="checkbox" checked> <span><strong>Rental car</strong> — Hertz Midsize SUV (Toyota RAV4 or similar) @ YVR, pickup Tue Jul 7 8pm → return Sat Jul 18 noon. Conf# L37329216A3, ~$1,198.</span></li>
+    <li><input type="checkbox" checked> <span><strong>Rental car</strong> — Hertz Midsize SUV (RAV4 or similar) @ YVR, pickup Tue Jul 7 (on arrival) → drop Sat Jul 18. Conf# L37329216A3, ~$1,198. <strong>⚠️ Reservation says noon return — extend to ~4pm</strong> (you're driving back from Whistler that morning, ~2.5h, for the 5:50pm flight).</span></li>
     <li><input type="checkbox" checked> <span><strong>Whistler Via Ferrata (Private)</strong> — Fri Jul 17, 9:00 AM, Orlando + Eli.</span></li>
     <li><input type="checkbox" checked> <span><strong>Vallea Lumina</strong> — Tue Jul 14, 9:15pm · 3 adults + 1 youth · roundtrip shuttle included · booking #353850252.</span></li>
   </ul>
@@ -276,9 +278,9 @@
     <li><input type="checkbox"> <span><strong>Lynn Canyon Park</strong> + free suspension bridge (North Van) — free, walk-up. <a href="https://lynncanyon.ca/">lynncanyon.ca</a>.</span> <span class="who">all</span></li>
     <li><input type="checkbox"> <span><strong>Granville Island Public Market</strong> — free, via the Aquabus. <a href="https://granvilleisland.com/public-market">granvilleisland.com</a>.</span> <span class="who">all</span></li>
     <li><input type="checkbox"> <span><strong>Sea to Sky Gondola</strong> (Squamish, en route Jul 14) — walk-up fine; online saves ~$5. ~$74. <a href="https://www.seatoskygondola.com/hours-and-prices/">seatoskygondola.com</a>.</span> <span class="who">all</span></li>
-    <li><input type="checkbox"> <span><strong>Britannia Mine Museum</strong> (en route Jul 14) — walk-up generally fine. <a href="https://www.britanniaminemuseum.ca/">britanniaminemuseum.ca</a>.</span> <span class="who">Eli · all</span></li>
+    <li><input type="checkbox"> <span><strong>Britannia Mine Museum</strong> (en route Jul 14) — walk-up generally fine. <a href="https://www.britanniaminemuseum.ca/">britanniaminemuseum.ca</a>.</span> <span class="who">all</span></li>
     <li><input type="checkbox"> <span><strong>Whistler Sliding Centre</strong> — free self-guided Olympic tour (Wed–Sun). Public summer bobsleigh is a separate paid, bookable add-on if Eli wants it. <a href="https://www.whistlerslidingcentre.com/">whistlerslidingcentre.com</a>.</span> <span class="who">all / Eli</span></li>
-    <li><input type="checkbox"> <span><strong>Deep Cove Kayak / SUP</strong> — first-come rentals steps from the Vrbo. <a href="https://www.deepcovekayak.com/">deepcovekayak.com</a>. Skip the paddle if an arm's not up for it.</span> <span class="who">OJC · Eli · Kit</span></li>
+    <li><input type="checkbox"> <span><strong>Deep Cove Kayak / SUP</strong> — first-come rentals steps from the Vrbo. <a href="https://www.deepcovekayak.com/">deepcovekayak.com</a>. Sit it out if you'd rather just watch.</span> <span class="who">OJC · Eli · Kit</span></li>
   </ul>
 </div>
 </section>
